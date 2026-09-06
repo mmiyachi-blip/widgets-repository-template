@@ -1,0 +1,9 @@
+{
+  "title": "CLG2026 パーソナライズ診断",
+  "description": "5つの質問に答えると「顧客成長タイプ」とおすすめのCLG2026セッションを診断するウィジェット",
+  "category": "Custom",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  }
+}
