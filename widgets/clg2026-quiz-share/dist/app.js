@@ -78,6 +78,7 @@ export async function init(sdk) {
   let resultTypeInfo = null;
   let resultSession = null;
   let resultTimer = null;
+  let answeredChoices = [];
 
   const screens = {
     intro: sdk.$("#clg2026std-screen-intro"),
@@ -104,6 +105,38 @@ export async function init(sdk) {
     screens[name].classList.add("active");
   }
 
+  function trackClick(questionIndex, questionTitle, choiceLabel) {
+    new window.WidgetServiceSDK().connectors.execute({
+      permalink: "airtable-click-event",
+      method: "POST",
+      payload: {
+        fields: {
+          questionIndex: String(questionIndex),
+          questionTitle,
+          choiceLabel,
+          clickedAt: new Date().toISOString(),
+        },
+      },
+    }).catch(() => {});
+  }
+
+  function submitEmailRecord() {
+    new window.WidgetServiceSDK().connectors.execute({
+      permalink: "airtable-email-submission",
+      method: "POST",
+      payload: {
+        fields: {
+          resultTypeKey,
+          resultTypeName: resultTypeInfo.name,
+          track,
+          recommendedSessionId: resultSession.id,
+          answers: answeredChoices.join(" / "),
+          submittedAt: new Date().toISOString(),
+        },
+      },
+    }).catch(() => {});
+  }
+
   function renderQuestion() {
     const q = QUESTIONS[currentQ];
     qIndexLabel.textContent = "QUESTION " + (currentQ + 1);
@@ -123,6 +156,8 @@ export async function init(sdk) {
   }
 
   function selectChoice(q, choice) {
+    trackClick(currentQ, q.title, choice.label);
+    answeredChoices.push(choice.label);
     if (q.key === "track") {
       track = choice.value;
     } else {
@@ -194,6 +229,7 @@ export async function init(sdk) {
     currentQ = 0;
     track = null;
     scores = { t1: 0, t2: 0, t3: 0, t4: 0, t5: 0 };
+    answeredChoices = [];
     progressRow.classList.add("show");
     renderQuestion();
     showScreen("quiz");
@@ -302,6 +338,7 @@ export async function init(sdk) {
   }
 
   function shareByEmail() {
+    submitEmailRecord();
     const subject = "CLG2026 パーソナライズ診断結果 - " + resultTypeInfo.name;
     const body = shareText() + "\n\n詳細・参加申し込みはこちら:\n" + TICKET_URL;
     window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);

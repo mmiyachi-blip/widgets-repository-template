@@ -118,6 +118,21 @@ export async function init(sdk) {
     screens[name].classList.add("active");
   }
 
+  function trackClick(questionIndex, questionTitle, choiceLabel) {
+    new window.WidgetServiceSDK().connectors.execute({
+      permalink: "airtable-click-event",
+      method: "POST",
+      payload: {
+        fields: {
+          questionIndex: String(questionIndex),
+          questionTitle,
+          choiceLabel,
+          clickedAt: new Date().toISOString(),
+        },
+      },
+    }).catch(() => {});
+  }
+
   function renderQuestion() {
     const q = QUESTIONS[currentQ];
     qIndexLabel.textContent = "QUESTION " + (currentQ + 1);
@@ -137,6 +152,7 @@ export async function init(sdk) {
   }
 
   function selectChoice(q, choice) {
+    trackClick(currentQ, q.title, choice.label);
     if (q.key === "track") {
       track = choice.value;
     } else {
