@@ -1,0 +1,185 @@
+<style>
+  .clg2026std-widget{
+    --bg: #0e1a30;
+    --bg-2: #0a1424;
+    --card: rgba(255,255,255,0.06);
+    --card-border: rgba(255,255,255,0.14);
+    --text: #ffffff;
+    --sub: #a9b4c7;
+    --accent-violet: #8a6bff;
+    --accent-cyan: #38e5d6;
+    --accent-magenta: #ff5fc4;
+    --pill-bg: #0b0b0f;
+
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .clg2026std-widget *{ box-sizing: border-box; }
+  .clg2026std-widget .bg-glow{
+    position: absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+    background: radial-gradient(circle at 20% 100%, #101f38 0%, var(--bg-2) 55%, #060b16 100%);
+  }
+  .clg2026std-widget .bg-glow::before, .clg2026std-widget .bg-glow::after{
+    content:""; position:absolute; border-radius:50%;
+    filter: blur(60px); opacity:0.55; mix-blend-mode: screen;
+    animation: clg2026std-float 18s ease-in-out infinite alternate;
+  }
+  .clg2026std-widget .bg-glow::before{
+    width:60vmax; height:60vmax; left:-15vmax; top:-10vmax;
+    background: conic-gradient(from 90deg, var(--accent-violet), var(--accent-magenta), var(--accent-cyan), var(--accent-violet));
+  }
+  .clg2026std-widget .bg-glow::after{
+    width:50vmax; height:50vmax; right:-20vmax; bottom:-15vmax;
+    background: conic-gradient(from 270deg, var(--accent-cyan), var(--accent-violet), var(--accent-magenta), var(--accent-cyan));
+    animation-delay: -9s;
+  }
+  @keyframes clg2026std-float{ 0%{ transform: translate(0,0) scale(1); } 100%{ transform: translate(4%, -6%) scale(1.08); } }
+  .clg2026std-widget .wrap{ position:relative; z-index:1; max-width: 640px; margin: 0 auto; padding: 28px 20px 60px; display:flex; flex-direction:column; }
+  .clg2026std-widget .brand{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 28px; }
+  .clg2026std-widget .brand .logo{ font-weight:800; font-size:15px; letter-spacing:0.02em; color:#fff; }
+  .clg2026std-widget .progress-row{ display:flex; align-items:center; gap:10px; margin-bottom: 30px; opacity:0; transition: opacity .3s; }
+  .clg2026std-widget .progress-row.show{ opacity:1; }
+  .clg2026std-widget .progress-track{ flex:1; height:6px; background: rgba(255,255,255,0.1); border-radius:999px; overflow:hidden; }
+  .clg2026std-widget .progress-fill{ height:100%; border-radius:999px; background: linear-gradient(90deg, var(--accent-violet), var(--accent-cyan)); transition: width .4s ease; width:0%; }
+  .clg2026std-widget .progress-label{ font-size:12px; color: var(--sub); white-space:nowrap; }
+  .clg2026std-widget .screen{ display:none; flex-direction:column; }
+  .clg2026std-widget .screen.active{ display:flex; animation: clg2026std-fadeUp .45s ease; }
+  @keyframes clg2026std-fadeUp{ from{ opacity:0; transform: translateY(14px); } to{ opacity:1; transform: translateY(0); } }
+  .clg2026std-widget h1.hero{ font-size: 34px; line-height:1.25; font-weight:800; margin: 6px 0 14px; letter-spacing:-0.01em; }
+  .clg2026std-widget .hero-sub{ font-size:15px; color: var(--sub); line-height:1.7; margin-bottom: 26px; }
+  .clg2026std-widget .event-chip{ display:inline-flex; align-items:center; gap:8px; font-size:12px; color: var(--sub); border:1px solid var(--card-border); border-radius:999px; padding:6px 12px; margin-bottom:18px; width:fit-content; }
+  .clg2026std-widget .event-chip b{ color:#fff; font-weight:700; }
+  .clg2026std-widget .card{ background: var(--card); border:1px solid var(--card-border); border-radius: 20px; padding: 22px; backdrop-filter: blur(6px); }
+  .clg2026std-widget .intro-card{ margin-bottom: 8px; }
+  .clg2026std-widget .intro-points{ list-style:none; padding:0; margin: 16px 0 0; display:flex; flex-direction:column; gap:10px; }
+  .clg2026std-widget .intro-points li{ font-size:14px; color:#dfe4ee; display:flex; gap:10px; align-items:flex-start; }
+  .clg2026std-widget .intro-points li .dot{ flex:0 0 auto; width:20px; height:20px; border-radius:50%; background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan)); display:flex; align-items:center; justify-content:center; font-size:11px; margin-top:1px; }
+  .clg2026std-widget .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; background: var(--pill-bg); color:#fff; border:none; border-radius:64px; font-weight:700; font-size:15px; padding: 15px 26px; cursor:pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.35); transition: transform .15s ease, box-shadow .15s ease; width:100%; }
+  .clg2026std-widget .btn:hover{ transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0,0,0,0.4); }
+  .clg2026std-widget .btn .arrow{ transition: transform .15s ease; }
+  .clg2026std-widget .btn:hover .arrow{ transform: translateX(3px); }
+  .clg2026std-widget .btn-cta-start{
+    font-size:19px; font-weight:800; padding:22px 28px;
+    background: linear-gradient(120deg, var(--accent-violet), var(--accent-cyan));
+    color:#0e1a30;
+    box-shadow: 0 12px 36px rgba(138,107,255,0.5);
+    animation: clg2026std-ctaPulse 2.4s ease-in-out infinite;
+  }
+  .clg2026std-widget .btn-cta-start:hover{ box-shadow: 0 16px 44px rgba(56,229,214,0.55); transform: translateY(-3px) scale(1.01); }
+  @keyframes clg2026std-ctaPulse{
+    0%, 100%{ box-shadow: 0 12px 36px rgba(138,107,255,0.5); }
+    50%{ box-shadow: 0 12px 44px rgba(56,229,214,0.65); }
+  }
+  .clg2026std-widget .q-title{ font-size:20px; font-weight:800; line-height:1.5; margin: 4px 0 22px; }
+  .clg2026std-widget .q-index{ font-size:12px; color: var(--accent-cyan); font-weight:700; letter-spacing:0.06em; margin-bottom:8px; }
+  .clg2026std-widget .choices{ display:flex; flex-direction:column; gap:12px; }
+  .clg2026std-widget .choice{ text-align:left; background: rgba(255,255,255,0.04); border:1px solid var(--card-border); color:#fff; border-radius:16px; padding: 20px; font-size:15.5px; line-height:1.6; cursor:pointer; transition: background .15s ease, border-color .15s ease, transform .1s ease; }
+  .clg2026std-widget .choice:hover{ background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.35); transform: translateX(2px); }
+  .clg2026std-widget .choice b{ color: var(--accent-cyan); margin-right:10px; }
+  .clg2026std-widget .result-badge{ display:flex; flex-direction:column; align-items:center; text-align:center; padding: 30px 20px; margin-bottom:18px; border-radius:24px; background: linear-gradient(160deg, rgba(138,107,255,0.25), rgba(56,229,214,0.12)); border:1px solid var(--card-border); }
+  .clg2026std-widget .result-eyebrow{ font-size:12px; color: var(--sub); margin-bottom:10px; letter-spacing:0.02em; }
+  .clg2026std-widget .result-type-icon{ width:64px; height:64px; border-radius:50%; margin-bottom:14px; background: linear-gradient(135deg, var(--accent-violet), var(--accent-magenta), var(--accent-cyan)); display:flex; align-items:center; justify-content:center; font-size:28px; }
+  .clg2026std-widget .result-type-name{ font-size:24px; font-weight:800; margin-bottom:8px; }
+  .clg2026std-widget .result-type-desc{ font-size:14px; color:#dfe4ee; line-height:1.7; max-width:420px; }
+  .clg2026std-widget .session-highlights-label{ font-size:11.5px; color: var(--accent-cyan); font-weight:700; margin:12px 0 6px; letter-spacing:0.02em; }
+  .clg2026std-widget .session-highlights{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  .clg2026std-widget .session-highlights li{ font-size:13px; color:#dfe4ee; line-height:1.6; display:flex; gap:8px; align-items:flex-start; }
+  .clg2026std-widget .session-highlights li::before{ content:"✦"; color: var(--accent-cyan); flex:0 0 auto; margin-top:1px; }
+  .clg2026std-widget .track-chip{ display:inline-block; margin-top:14px; font-size:12px; font-weight:700; padding:6px 14px; border-radius:999px; color:#0e1a30; background: var(--accent-cyan); }
+  .clg2026std-widget .section-label{ font-size:13px; color: var(--sub); font-weight:700; margin: 26px 0 10px; letter-spacing:0.03em; }
+  .clg2026std-widget .session-card{ border:1px solid var(--card-border); border-radius:18px; padding:18px; background: rgba(255,255,255,0.05); margin-bottom:12px; }
+  .clg2026std-widget .session-card.primary{ border-color: var(--accent-cyan); background: rgba(56,229,214,0.08); }
+  .clg2026std-widget .session-time{ font-size:12px; color: var(--accent-cyan); font-weight:700; margin-bottom:6px; }
+  .clg2026std-widget .session-title{ font-size:16.5px; font-weight:800; line-height:1.5; margin-bottom:8px; }
+  .clg2026std-widget .session-speaker{ font-size:13px; color: var(--sub); line-height:1.6; }
+  .clg2026std-widget .pick-tag{ display:inline-block; font-size:11px; font-weight:700; color:#0e1a30; background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan)); padding:3px 10px; border-radius:999px; margin-bottom:10px; }
+  .clg2026std-widget .cta-block{ margin-top: 30px; }
+  .clg2026std-widget .cta-note{ font-size:12px; color: var(--sub); text-align:center; margin-top:10px; line-height:1.6; }
+  .clg2026std-widget .share-block{ margin-top:30px; border-top:1px solid var(--card-border); padding-top:26px; }
+  .clg2026std-widget .share-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:12px; }
+  .clg2026std-widget .share-btn{ display:flex; align-items:center; justify-content:center; gap:8px; padding:14px; border-radius:14px; border:1px solid var(--card-border); background: rgba(255,255,255,0.05); color:#fff; font-size:13.5px; font-weight:700; cursor:pointer; }
+  .clg2026std-widget .share-btn:hover{ background: rgba(255,255,255,0.1); }
+  .clg2026std-widget .share-btn.x{ background:#000; }
+  .clg2026std-widget .share-btn.mail{ grid-column: span 2; background: rgba(255,255,255,0.04); }
+  .clg2026std-widget .restart-link{ display:block; text-align:center; font-size:13px; color: var(--sub); margin-top:18px; text-decoration:underline; cursor:pointer; background:none; border:none; }
+  .clg2026std-widget footer{ text-align:center; font-size:11px; color: var(--sub); opacity:0.6; margin-top:32px; }
+  @media (max-width:480px){ .clg2026std-widget h1.hero{ font-size:27px; } .clg2026std-widget .q-title{ font-size:18px; } .clg2026std-widget .share-grid{ grid-template-columns: 1fr 1fr; } }
+</style>
+
+<div class="clg2026std-widget">
+  <div class="bg-glow"></div>
+  <div class="wrap">
+
+    <div class="brand">
+      <div class="logo">Gainsight</div>
+    </div>
+
+    <div class="progress-row" id="clg2026std-progressRow">
+      <div class="progress-track"><div class="progress-fill" id="clg2026std-progressFill"></div></div>
+      <div class="progress-label" id="clg2026std-progressLabel">Q1 / 5</div>
+    </div>
+
+    <div class="screen active" id="clg2026std-screen-intro">
+      <div class="event-chip">🗓 <b>2026.10.06(火)</b> Customer-Led Growth Leaders Summit 2026</div>
+      <h1 class="hero">あなたにおすすめの<br>CLG2026セッションは？</h1>
+      <p class="hero-sub">5つの質問に答えるだけで、「今のあなたの挑戦テーマ」と、経営トラック／実践トラックの中から今のあなたにいちばん刺さるセッションを診断します。選択肢はぜんぶ3択なので、直感でサクッと選べます。</p>
+      <div class="card intro-card">
+        <ul class="intro-points">
+          <li><span class="dot">1</span> 所要時間は約1分（5問）</li>
+          <li><span class="dot">2</span> 「今のあなたの挑戦テーマ」を5タイプから診断</li>
+          <li><span class="dot">3</span> 経営／実践トラックからおすすめセッションをご紹介</li>
+        </ul>
+      </div>
+      <button class="btn btn-cta-start" style="margin-top:24px;" id="clg2026std-start-btn">診断をはじめる <span class="arrow">→</span></button>
+    </div>
+
+    <div class="screen" id="clg2026std-screen-quiz">
+      <div class="q-index" id="clg2026std-qIndexLabel">QUESTION 1</div>
+      <div class="q-title" id="clg2026std-qTitle"></div>
+      <div class="choices" id="clg2026std-qChoices"></div>
+    </div>
+
+    <div class="screen" id="clg2026std-screen-result">
+      <div class="result-badge">
+        <div class="result-eyebrow">今のあなたの挑戦テーマ</div>
+        <div class="result-type-icon" id="clg2026std-resultIcon">✨</div>
+        <div class="result-type-name" id="clg2026std-resultTypeName">-</div>
+        <div class="result-type-desc" id="clg2026std-resultTypeDesc">-</div>
+        <div class="track-chip" id="clg2026std-resultTrackChip">-</div>
+      </div>
+
+      <div class="section-label">🎯 一番のおすすめセッション</div>
+      <div id="clg2026std-primarySessionSlot"></div>
+
+      <div class="section-label">👀 こちらも気になるかも</div>
+      <div id="clg2026std-otherSessionsSlot"></div>
+
+      <div class="cta-block">
+        <button class="btn" id="clg2026std-ticket-btn">CLG2026 参加申し込みはこちら <span class="arrow">→</span></button>
+        <div class="cta-note">まだお申し込みでない方はこちらから。すでに申込済みの方は、当日このセッションをぜひチェックしてください。</div>
+      </div>
+
+      <div class="share-block">
+        <div class="section-label" style="margin-top:0;">📣 この診断結果をシェアする</div>
+        <canvas id="clg2026std-shareCanvas" width="1080" height="1350" style="display:none;"></canvas>
+        <div class="share-grid">
+          <button class="share-btn" id="clg2026std-download-btn">⬇️ 画像を保存</button>
+          <button class="share-btn x" id="clg2026std-share-x-btn">𝕏 でポスト</button>
+          <button class="share-btn mail" id="clg2026std-share-mail-btn">✉️ メールで送る</button>
+        </div>
+        <div class="cta-note">保存した画像はSNS投稿に添付してご利用ください。</div>
+      </div>
+
+      <button class="restart-link" id="clg2026std-restart-btn">もう一度診断する</button>
+    </div>
+
+    <footer>Gainsight株式会社 &copy; Customer-Led Growth Leaders Summit 2026</footer>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>

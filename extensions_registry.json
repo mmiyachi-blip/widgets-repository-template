@@ -9,6 +9,16 @@
         "entry": "content.html"
       },
       "type": "clg2026-quiz"
+    },
+    {
+      "title": "CLG2026 パーソナライズ診断(シェア機能付き)",
+      "description": "5つの質問に答えると「今のあなたの挑戦テーマ」とおすすめのCLG2026セッションを診断し、結果を画像保存・X投稿・メールでシェアできるウィジェット",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/clg2026-quiz-share/dist",
+        "entry": "content.html"
+      },
+      "type": "clg2026-quiz-share"
     }
   ],
   "stylesheets": [
