@@ -250,10 +250,10 @@ export async function init(sdk) {
 
   function shareText() {
     return "【CLG Leaders Summit 2026｜診断結果】\n"
-      + "私は「" + resultTypeInfo.name + "」\n\n"
-      + "おすすめ👇\n"
+      + "私は「" + resultTypeInfo.name + "」でした！\n\n"
+      + "私へのおすすめセッション👇\n"
       + "「" + resultSession.title + "」\n\n"
-      + "10/6、会場で続きを。\n"
+      + "皆さんは何タイプ？\n"
       + QUIZ_SHARE_URL + "\n\n"
       + "#CLG20261006 #Gainsight";
   }
