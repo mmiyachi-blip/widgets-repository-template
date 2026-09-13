@@ -115,8 +115,9 @@
   .clg2026std-widget .btn-email-submit:disabled{ opacity:0.6; cursor:default; }
   .clg2026std-widget .email-form-error{ margin-top:8px; font-size:12.5px; color:#ff9a9a; }
   .clg2026std-widget .email-success{ margin-top:14px; background: rgba(56,229,214,0.08); border:1px solid var(--accent-cyan); border-radius:16px; padding:18px; text-align:center; }
-  .clg2026std-widget .email-success p{ font-size:13.5px; color:#dfe4ee; line-height:1.7; margin:0 0 14px; }
+  .clg2026std-widget .email-success p{ font-size:13.5px; color:#dfe4ee; line-height:1.7; margin:0; }
   .clg2026std-widget .email-success .highlight{ color: var(--accent-cyan); font-weight:800; }
+  .clg2026std-widget .email-success a{ color: var(--accent-cyan); text-decoration:underline; font-weight:700; }
   .clg2026std-widget .restart-link{ display:block; text-align:center; font-size:13px; color: var(--sub); margin-top:18px; text-decoration:underline; cursor:pointer; background:none; border:none; }
   .clg2026std-widget footer{ text-align:center; font-size:11px; color: var(--sub); opacity:0.6; margin-top:32px; }
   @media (max-width:480px){ .clg2026std-widget h1.hero{ font-size:27px; } .clg2026std-widget .q-title{ font-size:18px; } .clg2026std-widget .share-grid{ grid-template-columns: 1fr 1fr; } }
@@ -195,8 +196,7 @@
         </div>
 
         <div class="email-success" id="clg2026std-emailSuccess" style="display:none;">
-          <p><span class="highlight">イベントの前日までに</span>結果とイベントの詳細をお送りします。<br>参加申し込みがまだの方はこちらから別途申し込んでください。</p>
-          <button class="btn" id="clg2026std-emailTicketBtn">参加申し込みはこちら <span class="arrow">→</span></button>
+          <p><span class="highlight">イベントの前日までに</span>結果とイベントの詳細をお送りします。<br>参加申し込みがまだの方は<a href="https://www.gainsight.co.jp/clg2026#ticket" target="_blank" rel="noopener">こちら</a>から別途申し込んでください。</p>
         </div>
       </div>
 

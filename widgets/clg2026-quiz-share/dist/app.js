@@ -393,7 +393,6 @@ export async function init(sdk) {
   const emailSubmitBtn = sdk.$("#clg2026std-emailSubmitBtn");
   const emailFormError = sdk.$("#clg2026std-emailFormError");
   const emailSuccess = sdk.$("#clg2026std-emailSuccess");
-  const emailTicketBtn = sdk.$("#clg2026std-emailTicketBtn");
 
   startBtn.addEventListener("click", startQuiz);
   ticketBtn.addEventListener("click", goToTicket);
@@ -402,7 +401,6 @@ export async function init(sdk) {
   shareXBtn.addEventListener("click", shareToX);
   shareMailBtn.addEventListener("click", toggleEmailForm);
   emailSubmitBtn.addEventListener("click", submitEmail);
-  emailTicketBtn.addEventListener("click", goToTicket);
 
   sdk.on("destroy", () => {
     clearTimeout(resultTimer);
@@ -413,6 +411,5 @@ export async function init(sdk) {
     shareXBtn.removeEventListener("click", shareToX);
     shareMailBtn.removeEventListener("click", toggleEmailForm);
     emailSubmitBtn.removeEventListener("click", submitEmail);
-    emailTicketBtn.removeEventListener("click", goToTicket);
   });
 }
