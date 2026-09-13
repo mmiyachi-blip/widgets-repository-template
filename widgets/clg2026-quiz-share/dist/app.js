@@ -249,11 +249,18 @@ export async function init(sdk) {
   }
 
   function shareText() {
-    return "＜あなたのCLG Leaders Summit 2026 診断結果＞\n\n"
-      + "私の「今の挑戦テーマ」は「" + resultTypeInfo.name + "」でした！\n"
-      + "おすすめセッションは「" + resultSession.title + "」\n\n"
-      + "あなたの挑戦テーマも、30秒で診断してみませんか？\n"
-      + "#CLG2026 #CustomerLedGrowth";
+    return "【CLG Leaders Summit 2026｜パーソナライズ診断結果 シェア】\n\n"
+      + "今、あなたが向き合う挑戦テーマは\n"
+      + "「" + resultTypeInfo.name + "」\n\n"
+      + "あなたに一番おすすめのセッションはこちら👇\n"
+      + "「" + resultSession.title + "」\n\n"
+      + "10月6日、会場で次の一歩につながるヒントを見つけませんか？\n\n"
+      + "CLGリーダーパーソナライズ診断はこちら\n"
+      + QUIZ_SHARE_URL + "\n\n"
+      + "#CLGLeadersSummit2026 \n"
+      + "#Gainsight\n"
+      + "#AI時代のGTM戦略を学べる1日\n"
+      + "#2026年10月06日（火）";
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
@@ -346,7 +353,7 @@ export async function init(sdk) {
   }
 
   function shareToX() {
-    const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText()) + "&url=" + encodeURIComponent(QUIZ_SHARE_URL);
+    const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText());
     window.open(url, "_blank");
   }
 
