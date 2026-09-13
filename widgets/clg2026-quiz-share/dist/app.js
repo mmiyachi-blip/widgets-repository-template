@@ -66,6 +66,7 @@ const QUESTIONS = [
 ];
 
 const TICKET_URL = "https://www.gainsight.co.jp/clg2026#ticket";
+const QUIZ_SHARE_URL = "https://communities.gainsight.com/p/clgconference2026";
 const EVENT_DATE_LABEL = "2026.10.06(火) JPタワー ホール＆カンファレンス";
 
 export async function init(sdk) {
@@ -120,12 +121,13 @@ export async function init(sdk) {
     }).catch(() => {});
   }
 
-  function submitEmailRecord() {
-    new window.WidgetServiceSDK().connectors.execute({
+  function submitEmailRecord(email) {
+    return new window.WidgetServiceSDK().connectors.execute({
       permalink: "airtable-email-submission",
       method: "POST",
       payload: {
         fields: {
+          email,
           resultTypeKey,
           resultTypeName: resultTypeInfo.name,
           track,
@@ -134,7 +136,11 @@ export async function init(sdk) {
           submittedAt: new Date().toISOString(),
         },
       },
-    }).catch(() => {});
+    });
+  }
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
 
   function renderQuestion() {
@@ -230,6 +236,9 @@ export async function init(sdk) {
     track = null;
     scores = { t1: 0, t2: 0, t3: 0, t4: 0, t5: 0 };
     answeredChoices = [];
+    emailForm.style.display = "none";
+    emailSuccess.style.display = "none";
+    emailInput.value = "";
     progressRow.classList.add("show");
     renderQuestion();
     showScreen("quiz");
@@ -240,7 +249,11 @@ export async function init(sdk) {
   }
 
   function shareText() {
-    return "CLG2026パーソナライズ診断で「" + resultTypeInfo.name + "」でした！おすすめセッションは「" + resultSession.title + "」 #CLG2026 #CustomerLedGrowth";
+    return "＜あなたのCLG Leaders Summit 2026 診断結果＞\n\n"
+      + "私の「今の挑戦テーマ」は「" + resultTypeInfo.name + "」でした！\n"
+      + "おすすめセッションは「" + resultSession.title + "」\n\n"
+      + "あなたの挑戦テーマも、30秒で診断してみませんか？\n"
+      + "#CLG2026 #CustomerLedGrowth";
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
@@ -333,15 +346,38 @@ export async function init(sdk) {
   }
 
   function shareToX() {
-    const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText()) + "&url=" + encodeURIComponent(TICKET_URL);
+    const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText()) + "&url=" + encodeURIComponent(QUIZ_SHARE_URL);
     window.open(url, "_blank");
   }
 
-  function shareByEmail() {
-    submitEmailRecord();
-    const subject = "CLG2026 パーソナライズ診断結果 - " + resultTypeInfo.name;
-    const body = shareText() + "\n\n詳細・参加申し込みはこちら:\n" + TICKET_URL;
-    window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+  function toggleEmailForm() {
+    emailSuccess.style.display = "none";
+    emailForm.style.display = (emailForm.style.display === "none" || !emailForm.style.display) ? "block" : "none";
+  }
+
+  async function submitEmail() {
+    const email = emailInput.value.trim();
+
+    emailFormError.style.display = "none";
+    if (!isValidEmail(email)) {
+      emailFormError.textContent = "正しいメールアドレスを入力してください。";
+      emailFormError.style.display = "block";
+      return;
+    }
+
+    emailSubmitBtn.disabled = true;
+    emailSubmitBtn.textContent = "送信中…";
+    try {
+      await submitEmailRecord(email);
+      emailForm.style.display = "none";
+      emailSuccess.style.display = "block";
+    } catch (e) {
+      emailFormError.textContent = "送信に失敗しました。時間をおいて再度お試しください。";
+      emailFormError.style.display = "block";
+    } finally {
+      emailSubmitBtn.disabled = false;
+      emailSubmitBtn.textContent = "送信";
+    }
   }
 
   const startBtn = sdk.$("#clg2026std-start-btn");
@@ -350,13 +386,21 @@ export async function init(sdk) {
   const downloadBtn = sdk.$("#clg2026std-download-btn");
   const shareXBtn = sdk.$("#clg2026std-share-x-btn");
   const shareMailBtn = sdk.$("#clg2026std-share-mail-btn");
+  const emailForm = sdk.$("#clg2026std-emailForm");
+  const emailInput = sdk.$("#clg2026std-emailInput");
+  const emailSubmitBtn = sdk.$("#clg2026std-emailSubmitBtn");
+  const emailFormError = sdk.$("#clg2026std-emailFormError");
+  const emailSuccess = sdk.$("#clg2026std-emailSuccess");
+  const emailTicketBtn = sdk.$("#clg2026std-emailTicketBtn");
 
   startBtn.addEventListener("click", startQuiz);
   ticketBtn.addEventListener("click", goToTicket);
   restartBtn.addEventListener("click", startQuiz);
   downloadBtn.addEventListener("click", downloadShareImage);
   shareXBtn.addEventListener("click", shareToX);
-  shareMailBtn.addEventListener("click", shareByEmail);
+  shareMailBtn.addEventListener("click", toggleEmailForm);
+  emailSubmitBtn.addEventListener("click", submitEmail);
+  emailTicketBtn.addEventListener("click", goToTicket);
 
   sdk.on("destroy", () => {
     clearTimeout(resultTimer);
@@ -365,6 +409,8 @@ export async function init(sdk) {
     restartBtn.removeEventListener("click", startQuiz);
     downloadBtn.removeEventListener("click", downloadShareImage);
     shareXBtn.removeEventListener("click", shareToX);
-    shareMailBtn.removeEventListener("click", shareByEmail);
+    shareMailBtn.removeEventListener("click", toggleEmailForm);
+    emailSubmitBtn.removeEventListener("click", submitEmail);
+    emailTicketBtn.removeEventListener("click", goToTicket);
   });
 }

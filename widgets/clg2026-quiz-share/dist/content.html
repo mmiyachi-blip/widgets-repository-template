@@ -106,6 +106,16 @@
   .clg2026std-widget .share-btn:hover{ background: rgba(255,255,255,0.1); }
   .clg2026std-widget .share-btn.x{ background:#000; }
   .clg2026std-widget .share-btn.mail{ grid-column: span 2; background: rgba(255,255,255,0.04); }
+  .clg2026std-widget .email-form{ margin-top:14px; background: rgba(255,255,255,0.04); border:1px solid var(--card-border); border-radius:16px; padding:16px; }
+  .clg2026std-widget .email-form-desc{ font-size:13px; color:#dfe4ee; margin:0 0 10px; line-height:1.6; }
+  .clg2026std-widget .email-form-row{ display:flex; gap:8px; }
+  .clg2026std-widget .email-input{ flex:1; min-width:0; padding:12px 14px; border-radius:12px; border:1px solid var(--card-border); background: rgba(255,255,255,0.06); color:#fff; font-size:14px; }
+  .clg2026std-widget .email-input::placeholder{ color: var(--sub); }
+  .clg2026std-widget .btn-email-submit{ padding:12px 18px; border-radius:12px; white-space:nowrap; background: var(--pill-bg); color:#fff; border:none; font-weight:700; font-size:13.5px; cursor:pointer; }
+  .clg2026std-widget .btn-email-submit:disabled{ opacity:0.6; cursor:default; }
+  .clg2026std-widget .email-form-error{ margin-top:8px; font-size:12.5px; color:#ff9a9a; }
+  .clg2026std-widget .email-success{ margin-top:14px; background: rgba(56,229,214,0.08); border:1px solid var(--accent-cyan); border-radius:16px; padding:18px; text-align:center; }
+  .clg2026std-widget .email-success p{ font-size:13.5px; color:#dfe4ee; line-height:1.7; margin:0 0 14px; }
   .clg2026std-widget .restart-link{ display:block; text-align:center; font-size:13px; color: var(--sub); margin-top:18px; text-decoration:underline; cursor:pointer; background:none; border:none; }
   .clg2026std-widget footer{ text-align:center; font-size:11px; color: var(--sub); opacity:0.6; margin-top:32px; }
   @media (max-width:480px){ .clg2026std-widget h1.hero{ font-size:27px; } .clg2026std-widget .q-title{ font-size:18px; } .clg2026std-widget .share-grid{ grid-template-columns: 1fr 1fr; } }
@@ -173,6 +183,20 @@
           <button class="share-btn mail" id="clg2026std-share-mail-btn">✉️ メールで送る</button>
         </div>
         <div class="cta-note">保存した画像はSNS投稿に添付してご利用ください。</div>
+
+        <div class="email-form" id="clg2026std-emailForm" style="display:none;">
+          <p class="email-form-desc">診断結果とイベント詳細をメールでお届けします。メールアドレスを入力してください。</p>
+          <div class="email-form-row">
+            <input type="email" id="clg2026std-emailInput" class="email-input" placeholder="you@example.com" autocomplete="email">
+            <button class="btn-email-submit" id="clg2026std-emailSubmitBtn">送信</button>
+          </div>
+          <div class="email-form-error" id="clg2026std-emailFormError" style="display:none;"></div>
+        </div>
+
+        <div class="email-success" id="clg2026std-emailSuccess" style="display:none;">
+          <p>イベントの前日までに結果とイベントの詳細をお送りします。参加申し込みがまだの方はこちらから別途申し込んでください。</p>
+          <button class="btn" id="clg2026std-emailTicketBtn">参加申し込みはこちら <span class="arrow">→</span></button>
+        </div>
       </div>
 
       <button class="restart-link" id="clg2026std-restart-btn">もう一度診断する</button>
