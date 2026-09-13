@@ -249,18 +249,13 @@ export async function init(sdk) {
   }
 
   function shareText() {
-    return "【CLG Leaders Summit 2026｜パーソナライズ診断結果 シェア】\n\n"
-      + "今、あなたが向き合う挑戦テーマは\n"
-      + "「" + resultTypeInfo.name + "」\n\n"
-      + "あなたに一番おすすめのセッションはこちら👇\n"
+    return "【CLG Leaders Summit 2026｜診断結果】\n"
+      + "私は「" + resultTypeInfo.name + "」\n\n"
+      + "おすすめ👇\n"
       + "「" + resultSession.title + "」\n\n"
-      + "10月6日、会場で次の一歩につながるヒントを見つけませんか？\n\n"
-      + "CLGリーダーパーソナライズ診断はこちら\n"
+      + "10/6、会場で続きを。\n"
       + QUIZ_SHARE_URL + "\n\n"
-      + "#CLGLeadersSummit2026 \n"
-      + "#Gainsight\n"
-      + "#AI時代のGTM戦略を学べる1日\n"
-      + "#2026年10月06日（火）";
+      + "#CLG20261006 #Gainsight";
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
