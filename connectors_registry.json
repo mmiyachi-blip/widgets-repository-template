@@ -282,6 +282,194 @@
           "request_body": "{% set p = request.body_text | from_json %}{% set args = {'mode': 'update_cta', 'gsid': p.cta_gsid, 'update_fields': {'StatusId': p.target_status_id}, 'originating_user_query': 'Closed via Monday CL Dashboard (Gainsight CC widget).'} %}{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"manage_cockpit_actions\",\"arguments\":{{ args | tojson }}}}"
         }
       ]
+    },
+    {
+      "name": "CS MCP Debug Tools List",
+      "permalink": "cs-mcp-debug-tools-list",
+      "steps": [
+        {
+          "name": "init",
+          "url": "https://demo-japanps.us2.gainsightcloud.com/v1/ds-mcp/mcp",
+          "method": "POST",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "Accept",
+              "value": "application/json",
+              "overridable": false
+            }
+          ],
+          "authentication": {
+            "type": "oauth_client_credentials",
+            "config": {
+              "client_id": "{{ get_secret('csmcp_client_id') }}",
+              "client_secret": "{{ get_secret('csmcp_client_secret') }}",
+              "token_url": "https://demo-japanps.us2.gainsightcloud.com/v1/users/m2m/oauth/token"
+            }
+          },
+          "request_body": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{},\"clientInfo\":{\"name\":\"cc-monday-cl-dashboard-debug\",\"version\":\"1.0.0\"}}}"
+        },
+        {
+          "name": "initialized",
+          "url": "https://demo-japanps.us2.gainsightcloud.com/v1/ds-mcp/mcp",
+          "method": "POST",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "Accept",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "mcp-session-id",
+              "value": "{{ steps.init.headers['mcp-session-id'] }}",
+              "overridable": false
+            }
+          ],
+          "authentication": {
+            "type": "oauth_client_credentials",
+            "config": {
+              "client_id": "{{ get_secret('csmcp_client_id') }}",
+              "client_secret": "{{ get_secret('csmcp_client_secret') }}",
+              "token_url": "https://demo-japanps.us2.gainsightcloud.com/v1/users/m2m/oauth/token"
+            }
+          },
+          "request_body": "{\"jsonrpc\":\"2.0\",\"method\":\"notifications/initialized\",\"params\":{}}"
+        },
+        {
+          "name": "list",
+          "url": "https://demo-japanps.us2.gainsightcloud.com/v1/ds-mcp/mcp",
+          "method": "POST",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "Accept",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "mcp-session-id",
+              "value": "{{ steps.init.headers['mcp-session-id'] }}",
+              "overridable": false
+            }
+          ],
+          "authentication": {
+            "type": "oauth_client_credentials",
+            "config": {
+              "client_id": "{{ get_secret('csmcp_client_id') }}",
+              "client_secret": "{{ get_secret('csmcp_client_secret') }}",
+              "token_url": "https://demo-japanps.us2.gainsightcloud.com/v1/users/m2m/oauth/token"
+            }
+          },
+          "request_body": "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/list\",\"params\":{}}"
+        }
+      ]
+    },
+    {
+      "name": "CS MCP Debug Prepare CTA",
+      "permalink": "cs-mcp-debug-prepare-cta",
+      "steps": [
+        {
+          "name": "init",
+          "url": "https://demo-japanps.us2.gainsightcloud.com/v1/ds-mcp/mcp",
+          "method": "POST",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "Accept",
+              "value": "application/json",
+              "overridable": false
+            }
+          ],
+          "authentication": {
+            "type": "oauth_client_credentials",
+            "config": {
+              "client_id": "{{ get_secret('csmcp_client_id') }}",
+              "client_secret": "{{ get_secret('csmcp_client_secret') }}",
+              "token_url": "https://demo-japanps.us2.gainsightcloud.com/v1/users/m2m/oauth/token"
+            }
+          },
+          "request_body": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{},\"clientInfo\":{\"name\":\"cc-monday-cl-dashboard-debug\",\"version\":\"1.0.0\"}}}"
+        },
+        {
+          "name": "initialized",
+          "url": "https://demo-japanps.us2.gainsightcloud.com/v1/ds-mcp/mcp",
+          "method": "POST",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "Accept",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "mcp-session-id",
+              "value": "{{ steps.init.headers['mcp-session-id'] }}",
+              "overridable": false
+            }
+          ],
+          "authentication": {
+            "type": "oauth_client_credentials",
+            "config": {
+              "client_id": "{{ get_secret('csmcp_client_id') }}",
+              "client_secret": "{{ get_secret('csmcp_client_secret') }}",
+              "token_url": "https://demo-japanps.us2.gainsightcloud.com/v1/users/m2m/oauth/token"
+            }
+          },
+          "request_body": "{\"jsonrpc\":\"2.0\",\"method\":\"notifications/initialized\",\"params\":{}}"
+        },
+        {
+          "name": "prepare",
+          "url": "https://demo-japanps.us2.gainsightcloud.com/v1/ds-mcp/mcp",
+          "method": "POST",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "Accept",
+              "value": "application/json",
+              "overridable": false
+            },
+            {
+              "key": "mcp-session-id",
+              "value": "{{ steps.init.headers['mcp-session-id'] }}",
+              "overridable": false
+            }
+          ],
+          "authentication": {
+            "type": "oauth_client_credentials",
+            "config": {
+              "client_id": "{{ get_secret('csmcp_client_id') }}",
+              "client_secret": "{{ get_secret('csmcp_client_secret') }}",
+              "token_url": "https://demo-japanps.us2.gainsightcloud.com/v1/users/m2m/oauth/token"
+            }
+          },
+          "request_body": "{% set p = request.body_text | from_json %}{% set args = {'mode': 'prepare_cta', 'type_id': p.type_id, 'originating_user_query': 'Diagnostic: list valid statuses/priorities/reasons/playbooks for a CTA type.'} %}{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"manage_cockpit_actions\",\"arguments\":{{ args | tojson }}}}"
+        }
+      ]
     }
   ]
 }
