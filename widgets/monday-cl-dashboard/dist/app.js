@@ -1,4 +1,4 @@
-const CLOSED_SUCCESS_STATUS_ID = "1I0017YS8AFRMU8633Q1UQ82Q59GAD98Q83M";
+const CLOSED_SUCCESS_STATUS_ID = "1I0017YS8AFRMU8633LOJEOXFQU6E2ZB1IH1";
 
 function extractJsonRpcMessage(raw) {
   if (raw && typeof raw === "object" && (raw.result || raw.error)) return raw;

@@ -13,7 +13,7 @@
         "type": "text",
         "label": "対象会社のGSID (Company.Gsid)",
         "description": "Gainsight CSのCompanyオブジェクトのGsid",
-        "defaultValue": "1P029WGG7AET4YOGRRZ7MJUT5R55I877SIE5",
+        "defaultValue": "1P02590SW1W5U59W3MAP362TEYO6Z2O9R3ZL",
         "rules": {
           "required": true,
           "minLength": 20,
@@ -24,7 +24,7 @@
         "name": "company_name",
         "type": "text",
         "label": "対象会社の表示名",
-        "defaultValue": "OBIC Business Consultants Co., Ltd.",
+        "defaultValue": "test_miya田中テック株式会社（親）",
         "rules": {
           "required": true,
           "maxLength": 160
@@ -34,7 +34,7 @@
         "name": "csm_name",
         "type": "text",
         "label": "CSM表示名（任意）",
-        "defaultValue": "Masato Koizumi",
+        "defaultValue": "Minori Miyachi",
         "rules": {
           "maxLength": 120
         }
@@ -42,9 +42,9 @@
       {
         "name": "type_id",
         "type": "text",
-        "label": "CTAタイプのGSID（既定: Activity）",
+        "label": "CTAタイプのGSID（既定: 目標）",
         "description": "manage_cockpit_actions(mode=prepare_cta)で取得したTypeのGsid",
-        "defaultValue": "1I00650WACZ7F0X9HRP64NCOYX54PQSAB38M",
+        "defaultValue": "1I00650WACZ7F0X9HRI49M5BV79HFLJ9KRUM",
         "rules": {
           "required": true,
           "minLength": 20,
@@ -55,7 +55,7 @@
         "name": "owner_id",
         "type": "text",
         "label": "CTA作成時の担当者GSID (gsuser.Gsid)",
-        "defaultValue": "1P01F4ZE3KB6YWBG24PJNZ0BJZW23EDVJIAX",
+        "defaultValue": "1P0143F587OQLBLSRMAE2WKOVL4KS625K12T",
         "rules": {
           "required": true,
           "minLength": 20,
@@ -65,10 +65,10 @@
     ]
   },
   "defaultConfig": {
-    "company_id": "1P029WGG7AET4YOGRRZ7MJUT5R55I877SIE5",
-    "company_name": "OBIC Business Consultants Co., Ltd.",
-    "csm_name": "Masato Koizumi",
-    "type_id": "1I00650WACZ7F0X9HRP64NCOYX54PQSAB38M",
-    "owner_id": "1P01F4ZE3KB6YWBG24PJNZ0BJZW23EDVJIAX"
+    "company_id": "1P02590SW1W5U59W3MAP362TEYO6Z2O9R3ZL",
+    "company_name": "test_miya田中テック株式会社（親）",
+    "csm_name": "Minori Miyachi",
+    "type_id": "1I00650WACZ7F0X9HRI49M5BV79HFLJ9KRUM",
+    "owner_id": "1P0143F587OQLBLSRMAE2WKOVL4KS625K12T"
   }
 }
