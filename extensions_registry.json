@@ -19,6 +19,81 @@
         "entry": "content.html"
       },
       "type": "clg2026-quiz-share"
+    },
+    {
+      "title": "Monday CL Dashboard (CS CTA)",
+      "description": "月曜朝会用のCL管理ダッシュボード。会社の状況を見ながらCTAの新規作成・クローズをワンクリックでGainsight CSに反映します。",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/monday-cl-dashboard/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "company_id",
+            "type": "text",
+            "label": "対象会社のGSID (Company.Gsid)",
+            "description": "Gainsight CSのCompanyオブジェクトのGsid",
+            "defaultValue": "1P029WGG7AET4YOGRRZ7MJUT5R55I877SIE5",
+            "rules": {
+              "required": true,
+              "minLength": 20,
+              "maxLength": 60
+            }
+          },
+          {
+            "name": "company_name",
+            "type": "text",
+            "label": "対象会社の表示名",
+            "defaultValue": "OBIC Business Consultants Co., Ltd.",
+            "rules": {
+              "required": true,
+              "maxLength": 160
+            }
+          },
+          {
+            "name": "csm_name",
+            "type": "text",
+            "label": "CSM表示名（任意）",
+            "defaultValue": "Masato Koizumi",
+            "rules": {
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "type_id",
+            "type": "text",
+            "label": "CTAタイプのGSID（既定: Activity）",
+            "description": "manage_cockpit_actions(mode=prepare_cta)で取得したTypeのGsid",
+            "defaultValue": "1I00650WACZ7F0X9HRP64NCOYX54PQSAB38M",
+            "rules": {
+              "required": true,
+              "minLength": 20,
+              "maxLength": 60
+            }
+          },
+          {
+            "name": "owner_id",
+            "type": "text",
+            "label": "CTA作成時の担当者GSID (gsuser.Gsid)",
+            "defaultValue": "1P01F4ZE3KB6YWBG24PJNZ0BJZW23EDVJIAX",
+            "rules": {
+              "required": true,
+              "minLength": 20,
+              "maxLength": 60
+            }
+          }
+        ]
+      },
+      "defaultConfig": {
+        "company_id": "1P029WGG7AET4YOGRRZ7MJUT5R55I877SIE5",
+        "company_name": "OBIC Business Consultants Co., Ltd.",
+        "csm_name": "Masato Koizumi",
+        "type_id": "1I00650WACZ7F0X9HRP64NCOYX54PQSAB38M",
+        "owner_id": "1P01F4ZE3KB6YWBG24PJNZ0BJZW23EDVJIAX"
+      },
+      "type": "monday-cl-dashboard"
     }
   ],
   "stylesheets": [
