@@ -155,7 +155,7 @@ export async function init(sdk) {
       html += `<span class="cal-date">${d}</span>`;
       html += '<div class="cal-badges">';
 
-      dayEvents.slice(0, 3).forEach((ev) => {
+      dayEvents.slice(0, 2).forEach((ev) => {
         const category = resolveCategory(ev.colorId, props);
         const title = escapeHtml(ev.title || '(無題)');
         const timeLabel = ev.time ? `${escapeHtml(ev.time)} ` : '';
@@ -165,8 +165,8 @@ export async function init(sdk) {
         html += `<a class="cal-badge" style="background:${escapeHtml(category.color)}" href="${href}" target="_blank" rel="noopener noreferrer" title="${tooltip}">${iconHtml}<span class="cal-badge-text">${timeLabel}${title}</span></a>`;
       });
 
-      if (dayEvents.length > 3) {
-        html += `<span class="cal-more">+${dayEvents.length - 3}件</span>`;
+      if (dayEvents.length > 2) {
+        html += `<span class="cal-more">+${dayEvents.length - 2}件</span>`;
       }
 
       html += '</div></div>';
