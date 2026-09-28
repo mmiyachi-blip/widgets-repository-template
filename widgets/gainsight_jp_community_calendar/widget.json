@@ -1,0 +1,88 @@
+{
+  "title": "コミュニティカレンダー(イラスト調)",
+  "description": "Googleカレンダー(サービスアカウント連携)を、カテゴリ色分け・アイコン付きのカード/バッジ表示で見せる月間カレンダー",
+  "category": "Custom",
+  "source": {
+    "entry": "index.html"
+  },
+  "containers": ["Full width"],
+  "settings": {
+    "configurable": true,
+    "shared": false
+  },
+  "configuration": {
+    "sections": [
+      { "name": "display", "label": "表示設定", "expanded": true },
+      {
+        "name": "categories",
+        "label": "カテゴリ設定(Googleカレンダーの「イベントの色」1〜11に対応)",
+        "description": "Googleカレンダー側でイベントに設定した色(colorId)ごとに、ラベル・アイコン・バッジ色を指定します。アイコンは絵文字、または画像URL(https://...)のどちらでも入力できます。空欄の場合は色ごとの初期値が使われます。"
+      }
+    ],
+    "properties": [
+      { "name": "calendar_title", "type": "text", "label": "タイトル(左上に表示)", "section": "display", "defaultValue": "Gainsight JAPAN カレンダー", "rules": { "maxLength": 60 } },
+      { "name": "accent_color", "type": "color", "label": "アクセントカラー(デフォルト/色未設定イベント用)", "section": "display", "defaultValue": "#F2789F" },
+      { "name": "max_results", "type": "number", "label": "取得する最大イベント数", "section": "display", "defaultValue": 250, "rules": { "minimum": 1, "maximum": 2500 } },
+
+      { "name": "cat1_label", "type": "text", "label": "① Lavender - ラベル", "section": "categories", "defaultValue": "ラベンダー" },
+      { "name": "cat1_icon",  "type": "text", "label": "① Lavender - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "💜" },
+      { "name": "cat1_color", "type": "color", "label": "① Lavender - バッジ色", "section": "categories", "defaultValue": "#7986CB" },
+
+      { "name": "cat2_label", "type": "text", "label": "② Sage - ラベル", "section": "categories", "defaultValue": "セージ" },
+      { "name": "cat2_icon",  "type": "text", "label": "② Sage - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "🌿" },
+      { "name": "cat2_color", "type": "color", "label": "② Sage - バッジ色", "section": "categories", "defaultValue": "#33B679" },
+
+      { "name": "cat3_label", "type": "text", "label": "③ Grape - ラベル", "section": "categories", "defaultValue": "グレープ" },
+      { "name": "cat3_icon",  "type": "text", "label": "③ Grape - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "🍇" },
+      { "name": "cat3_color", "type": "color", "label": "③ Grape - バッジ色", "section": "categories", "defaultValue": "#8E24AA" },
+
+      { "name": "cat4_label", "type": "text", "label": "④ Flamingo - ラベル", "section": "categories", "defaultValue": "フラミンゴ" },
+      { "name": "cat4_icon",  "type": "text", "label": "④ Flamingo - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "🦩" },
+      { "name": "cat4_color", "type": "color", "label": "④ Flamingo - バッジ色", "section": "categories", "defaultValue": "#E67C73" },
+
+      { "name": "cat5_label", "type": "text", "label": "⑤ Banana - ラベル", "section": "categories", "defaultValue": "トレーニング/ハンズオン" },
+      { "name": "cat5_icon",  "type": "text", "label": "⑤ Banana - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "🎓" },
+      { "name": "cat5_color", "type": "color", "label": "⑤ Banana - バッジ色", "section": "categories", "defaultValue": "#F6BF26" },
+
+      { "name": "cat6_label", "type": "text", "label": "⑥ Tangerine - ラベル", "section": "categories", "defaultValue": "タンジェリン" },
+      { "name": "cat6_icon",  "type": "text", "label": "⑥ Tangerine - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "🍊" },
+      { "name": "cat6_color", "type": "color", "label": "⑥ Tangerine - バッジ色", "section": "categories", "defaultValue": "#F4511E" },
+
+      { "name": "cat7_label", "type": "text", "label": "⑦ Peacock - ラベル", "section": "categories", "defaultValue": "分科会" },
+      { "name": "cat7_icon",  "type": "text", "label": "⑦ Peacock - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "👥" },
+      { "name": "cat7_color", "type": "color", "label": "⑦ Peacock - バッジ色", "section": "categories", "defaultValue": "#039BE5" },
+
+      { "name": "cat8_label", "type": "text", "label": "⑧ Graphite - ラベル", "section": "categories", "defaultValue": "グラファイト" },
+      { "name": "cat8_icon",  "type": "text", "label": "⑧ Graphite - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "⚙️" },
+      { "name": "cat8_color", "type": "color", "label": "⑧ Graphite - バッジ色", "section": "categories", "defaultValue": "#616161" },
+
+      { "name": "cat9_label", "type": "text", "label": "⑨ Blueberry - ラベル", "section": "categories", "defaultValue": "ブルーベリー" },
+      { "name": "cat9_icon",  "type": "text", "label": "⑨ Blueberry - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "🫐" },
+      { "name": "cat9_color", "type": "color", "label": "⑨ Blueberry - バッジ色", "section": "categories", "defaultValue": "#3F51B5" },
+
+      { "name": "cat10_label", "type": "text", "label": "⑩ Basil - ラベル", "section": "categories", "defaultValue": "Office Hour" },
+      { "name": "cat10_icon",  "type": "text", "label": "⑩ Basil - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "🙋" },
+      { "name": "cat10_color", "type": "color", "label": "⑩ Basil - バッジ色", "section": "categories", "defaultValue": "#0B8043" },
+
+      { "name": "cat11_label", "type": "text", "label": "⑪ Tomato - ラベル", "section": "categories", "defaultValue": "リリース情報" },
+      { "name": "cat11_icon",  "type": "text", "label": "⑪ Tomato - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "🚀" },
+      { "name": "cat11_color", "type": "color", "label": "⑪ Tomato - バッジ色", "section": "categories", "defaultValue": "#D50000" }
+    ]
+  },
+  "defaultConfig": {
+    "calendar_title": "Gainsight JAPAN カレンダー",
+    "accent_color": "#F2789F",
+    "max_results": 250,
+    "cat1_label": "ラベンダー", "cat1_icon": "💜", "cat1_color": "#7986CB",
+    "cat2_label": "セージ", "cat2_icon": "🌿", "cat2_color": "#33B679",
+    "cat3_label": "グレープ", "cat3_icon": "🍇", "cat3_color": "#8E24AA",
+    "cat4_label": "フラミンゴ", "cat4_icon": "🦩", "cat4_color": "#E67C73",
+    "cat5_label": "トレーニング/ハンズオン", "cat5_icon": "🎓", "cat5_color": "#F6BF26",
+    "cat6_label": "タンジェリン", "cat6_icon": "🍊", "cat6_color": "#F4511E",
+    "cat7_label": "分科会", "cat7_icon": "👥", "cat7_color": "#039BE5",
+    "cat8_label": "グラファイト", "cat8_icon": "⚙️", "cat8_color": "#616161",
+    "cat9_label": "ブルーベリー", "cat9_icon": "🫐", "cat9_color": "#3F51B5",
+    "cat10_label": "Office Hour", "cat10_icon": "🙋", "cat10_color": "#0B8043",
+    "cat11_label": "リリース情報", "cat11_icon": "🚀", "cat11_color": "#D50000"
+  }
+}

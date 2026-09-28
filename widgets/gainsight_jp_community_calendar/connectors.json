@@ -6,31 +6,11 @@
       "url": "https://www.googleapis.com/calendar/v3/calendars/{{ get_variable('gcal_calendar_id') }}/events",
       "method": "GET",
       "query_parameters": [
-        {
-          "key": "singleEvents",
-          "value": "true",
-          "overridable": false
-        },
-        {
-          "key": "orderBy",
-          "value": "startTime",
-          "overridable": false
-        },
-        {
-          "key": "timeMin",
-          "value": "2020-01-01T00:00:00Z",
-          "overridable": true
-        },
-        {
-          "key": "timeMax",
-          "value": "2030-01-01T00:00:00Z",
-          "overridable": true
-        },
-        {
-          "key": "maxResults",
-          "value": "250",
-          "overridable": true
-        }
+        { "key": "singleEvents", "value": "true", "overridable": false },
+        { "key": "orderBy", "value": "startTime", "overridable": false },
+        { "key": "timeMin", "value": "2020-01-01T00:00:00Z", "overridable": true },
+        { "key": "timeMax", "value": "2030-01-01T00:00:00Z", "overridable": true },
+        { "key": "maxResults", "value": "250", "overridable": true }
       ],
       "authentication": {
         "type": "oauth_jwt_bearer",
