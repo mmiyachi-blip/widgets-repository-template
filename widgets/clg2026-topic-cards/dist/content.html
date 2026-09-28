@@ -38,11 +38,12 @@
     position: relative;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 18px;
+    min-height: 96px;
     background: var(--color-surface-default, #ffffff);
     border: 2px solid var(--card-color, #dedfe2);
-    border-radius: 20px;
-    padding: 16px 40px 16px 16px;
+    border-radius: 26px;
+    padding: 22px 46px 22px 24px;
     text-decoration: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -55,31 +56,31 @@
 
   .card .icon {
     flex: none;
-    width: 64px;
-    height: 54px;
+    width: 84px;
+    height: 72px;
     object-fit: contain;
   }
 
   .card .label {
     font-weight: 700;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.5;
-    color: var(--color-content-default, #2b3346);
+    color: var(--card-text-color, var(--color-content-default, #2b3346));
   }
 
   .card .arrow-badge {
     position: absolute;
     right: -2px;
     bottom: -2px;
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: var(--card-color, #999999);
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1;
     border: 2px solid var(--color-surface-default, #ffffff);
   }
@@ -91,7 +92,20 @@
       max-width: none;
     }
   }
+
+  /* Not rendered — used only so the platform's publish-time asset-path
+     rewrite (which only rewrites paths written in static HTML) resolves
+     these to hosted URLs; app.js reads back the resolved .href. */
+  link[rel="preload"] {
+    display: none;
+  }
 </style>
+
+<link rel="preload" as="image" href="icons/product_learning.png" id="icon-src-1">
+<link rel="preload" as="image" href="icons/best_practices_tips.png" id="icon-src-2">
+<link rel="preload" as="image" href="icons/community_consultation.png" id="icon-src-3">
+<link rel="preload" as="image" href="icons/subcommittees.png" id="icon-src-4">
+<link rel="preload" as="image" href="icons/events_webinars.png" id="icon-src-5">
 
 <div class="topic-nav">
   <div class="row row-top"></div>

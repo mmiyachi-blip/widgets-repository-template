@@ -78,7 +78,15 @@
           {
             "name": "card_1_color",
             "type": "color",
-            "label": "アクセントカラー",
+            "label": "背景色(枠線・矢印バッジ)",
+            "section": "card1",
+            "defaultValue": "#F5A623"
+          },
+          {
+            "name": "card_1_text_color",
+            "type": "color",
+            "label": "文字色",
+            "description": "初期値は背景色と同じです",
             "section": "card1",
             "defaultValue": "#F5A623"
           },
@@ -104,7 +112,15 @@
           {
             "name": "card_2_color",
             "type": "color",
-            "label": "アクセントカラー",
+            "label": "背景色(枠線・矢印バッジ)",
+            "section": "card2",
+            "defaultValue": "#29ABE2"
+          },
+          {
+            "name": "card_2_text_color",
+            "type": "color",
+            "label": "文字色",
+            "description": "初期値は背景色と同じです",
             "section": "card2",
             "defaultValue": "#29ABE2"
           },
@@ -130,7 +146,15 @@
           {
             "name": "card_3_color",
             "type": "color",
-            "label": "アクセントカラー",
+            "label": "背景色(枠線・矢印バッジ)",
+            "section": "card3",
+            "defaultValue": "#EE4266"
+          },
+          {
+            "name": "card_3_text_color",
+            "type": "color",
+            "label": "文字色",
+            "description": "初期値は背景色と同じです",
             "section": "card3",
             "defaultValue": "#EE4266"
           },
@@ -156,7 +180,15 @@
           {
             "name": "card_4_color",
             "type": "color",
-            "label": "アクセントカラー",
+            "label": "背景色(枠線・矢印バッジ)",
+            "section": "card4",
+            "defaultValue": "#7C5CFC"
+          },
+          {
+            "name": "card_4_text_color",
+            "type": "color",
+            "label": "文字色",
+            "description": "初期値は背景色と同じです",
             "section": "card4",
             "defaultValue": "#7C5CFC"
           },
@@ -182,7 +214,15 @@
           {
             "name": "card_5_color",
             "type": "color",
-            "label": "アクセントカラー",
+            "label": "背景色(枠線・矢印バッジ)",
+            "section": "card5",
+            "defaultValue": "#F2994A"
+          },
+          {
+            "name": "card_5_text_color",
+            "type": "color",
+            "label": "文字色",
+            "description": "初期値は背景色と同じです",
             "section": "card5",
             "defaultValue": "#F2994A"
           }
@@ -192,18 +232,23 @@
         "card_1_title": "製品を学びたい",
         "card_1_link": "#",
         "card_1_color": "#F5A623",
+        "card_1_text_color": "#F5A623",
         "card_2_title": "運用のベスプラ・Tips を知りたい",
         "card_2_link": "#",
         "card_2_color": "#29ABE2",
+        "card_2_text_color": "#29ABE2",
         "card_3_title": "コミュニティで相談",
         "card_3_link": "#",
         "card_3_color": "#EE4266",
+        "card_3_text_color": "#EE4266",
         "card_4_title": "興味のある分科会をのぞく",
         "card_4_link": "#",
         "card_4_color": "#7C5CFC",
+        "card_4_text_color": "#7C5CFC",
         "card_5_title": "イベント・ウェビナーをチェック",
         "card_5_link": "#",
-        "card_5_color": "#F2994A"
+        "card_5_color": "#F2994A",
+        "card_5_text_color": "#F2994A"
       },
       "type": "clg2026-topic-cards"
     },
