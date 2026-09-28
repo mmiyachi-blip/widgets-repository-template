@@ -14,6 +14,17 @@
     box-sizing: border-box;
   }
 
+  .cal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-content-default, #1F3B57);
+    margin: 0 0 16px;
+  }
+
+  .cal-title:empty {
+    display: none;
+  }
+
   .cal-header {
     display: flex;
     align-items: center;
@@ -310,6 +321,7 @@
 </style>
 
 <div class="cal-wrap">
+  <div class="cal-title"></div>
   <div class="cal-header">
     <div class="cal-month-label"></div>
     <div class="cal-nav">

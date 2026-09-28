@@ -44,6 +44,7 @@
           }
         ],
         "properties": [
+          { "name": "calendar_title", "type": "text", "label": "タイトル(左上に表示)", "section": "display", "defaultValue": "Gainsight JAPAN カレンダー", "rules": { "maxLength": 60 } },
           { "name": "accent_color", "type": "color", "label": "アクセントカラー(デフォルト/色未設定イベント用)", "section": "display", "defaultValue": "#F2789F" },
           { "name": "max_results", "type": "number", "label": "取得する最大イベント数", "section": "display", "defaultValue": 250, "rules": { "minimum": 1, "maximum": 2500 } },
 
@@ -93,6 +94,7 @@
         ]
       },
       "defaultConfig": {
+        "calendar_title": "Gainsight JAPAN カレンダー",
         "accent_color": "#F2789F",
         "max_results": 250,
         "cat1_label": "ラベンダー", "cat1_icon": "💜", "cat1_color": "#7986CB",

@@ -223,6 +223,7 @@ export async function init(sdk) {
   };
 
   const els = {
+    title: sdk.$('.cal-title'),
     label: sdk.$('.cal-month-label'),
     grid: sdk.$('.cal-grid'),
     prev: sdk.$('.cal-prev'),
@@ -297,6 +298,7 @@ export async function init(sdk) {
     const host = sdk.getContainer().host;
     const accent = props.accent_color || '#F2789F';
     host.style.setProperty('--w-accent', accent);
+    els.title.textContent = props.calendar_title || 'Gainsight JAPAN カレンダー';
   }
 
   function showStatus(message) {
