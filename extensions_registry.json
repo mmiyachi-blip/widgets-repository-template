@@ -68,6 +68,17 @@
             }
           },
           {
+            "name": "card_1_subtitle",
+            "type": "text",
+            "label": "サブタイトル",
+            "description": "任意。タイトルの下に灰色で表示されます",
+            "section": "card1",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 80
+            }
+          },
+          {
             "name": "card_1_link",
             "type": "text",
             "label": "リンク先URL",
@@ -99,6 +110,17 @@
             "rules": {
               "required": true,
               "maxLength": 60
+            }
+          },
+          {
+            "name": "card_2_subtitle",
+            "type": "text",
+            "label": "サブタイトル",
+            "description": "任意。タイトルの下に灰色で表示されます",
+            "section": "card2",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 80
             }
           },
           {
@@ -136,6 +158,17 @@
             }
           },
           {
+            "name": "card_3_subtitle",
+            "type": "text",
+            "label": "サブタイトル",
+            "description": "任意。タイトルの下に灰色で表示されます",
+            "section": "card3",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 80
+            }
+          },
+          {
             "name": "card_3_link",
             "type": "text",
             "label": "リンク先URL",
@@ -167,6 +200,17 @@
             "rules": {
               "required": true,
               "maxLength": 60
+            }
+          },
+          {
+            "name": "card_4_subtitle",
+            "type": "text",
+            "label": "サブタイトル",
+            "description": "任意。タイトルの下に灰色で表示されます",
+            "section": "card4",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 80
             }
           },
           {
@@ -204,6 +248,17 @@
             }
           },
           {
+            "name": "card_5_subtitle",
+            "type": "text",
+            "label": "サブタイトル",
+            "description": "任意。タイトルの下に灰色で表示されます",
+            "section": "card5",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 80
+            }
+          },
+          {
             "name": "card_5_link",
             "type": "text",
             "label": "リンク先URL",
@@ -230,22 +285,27 @@
       },
       "defaultConfig": {
         "card_1_title": "製品を学びたい",
+        "card_1_subtitle": "",
         "card_1_link": "#",
         "card_1_color": "#F5A623",
         "card_1_text_color": "#F5A623",
         "card_2_title": "運用のベスプラ・Tips を知りたい",
+        "card_2_subtitle": "",
         "card_2_link": "#",
         "card_2_color": "#29ABE2",
         "card_2_text_color": "#29ABE2",
         "card_3_title": "コミュニティで相談",
+        "card_3_subtitle": "",
         "card_3_link": "#",
         "card_3_color": "#EE4266",
         "card_3_text_color": "#EE4266",
         "card_4_title": "興味のある分科会をのぞく",
+        "card_4_subtitle": "",
         "card_4_link": "#",
         "card_4_color": "#7C5CFC",
         "card_4_text_color": "#7C5CFC",
         "card_5_title": "イベント・ウェビナーをチェック",
+        "card_5_subtitle": "",
         "card_5_link": "#",
         "card_5_color": "#F2994A",
         "card_5_text_color": "#F2994A"

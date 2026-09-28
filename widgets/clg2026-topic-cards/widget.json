@@ -19,26 +19,31 @@
     ],
     "properties": [
       { "name": "card_1_title", "type": "text", "label": "タイトル", "section": "card1", "defaultValue": "製品を学びたい", "rules": { "required": true, "maxLength": 60 } },
+      { "name": "card_1_subtitle", "type": "text", "label": "サブタイトル", "description": "任意。タイトルの下に灰色で表示されます", "section": "card1", "defaultValue": "", "rules": { "maxLength": 80 } },
       { "name": "card_1_link", "type": "text", "label": "リンク先URL", "description": "カードをクリックした際の遷移先URL", "section": "card1", "defaultValue": "#" },
       { "name": "card_1_color", "type": "color", "label": "背景色(枠線・矢印バッジ)", "section": "card1", "defaultValue": "#F5A623" },
       { "name": "card_1_text_color", "type": "color", "label": "文字色", "description": "初期値は背景色と同じです", "section": "card1", "defaultValue": "#F5A623" },
 
       { "name": "card_2_title", "type": "text", "label": "タイトル", "section": "card2", "defaultValue": "運用のベスプラ・Tips を知りたい", "rules": { "required": true, "maxLength": 60 } },
+      { "name": "card_2_subtitle", "type": "text", "label": "サブタイトル", "description": "任意。タイトルの下に灰色で表示されます", "section": "card2", "defaultValue": "", "rules": { "maxLength": 80 } },
       { "name": "card_2_link", "type": "text", "label": "リンク先URL", "description": "カードをクリックした際の遷移先URL", "section": "card2", "defaultValue": "#" },
       { "name": "card_2_color", "type": "color", "label": "背景色(枠線・矢印バッジ)", "section": "card2", "defaultValue": "#29ABE2" },
       { "name": "card_2_text_color", "type": "color", "label": "文字色", "description": "初期値は背景色と同じです", "section": "card2", "defaultValue": "#29ABE2" },
 
       { "name": "card_3_title", "type": "text", "label": "タイトル", "section": "card3", "defaultValue": "コミュニティで相談", "rules": { "required": true, "maxLength": 60 } },
+      { "name": "card_3_subtitle", "type": "text", "label": "サブタイトル", "description": "任意。タイトルの下に灰色で表示されます", "section": "card3", "defaultValue": "", "rules": { "maxLength": 80 } },
       { "name": "card_3_link", "type": "text", "label": "リンク先URL", "description": "カードをクリックした際の遷移先URL", "section": "card3", "defaultValue": "#" },
       { "name": "card_3_color", "type": "color", "label": "背景色(枠線・矢印バッジ)", "section": "card3", "defaultValue": "#EE4266" },
       { "name": "card_3_text_color", "type": "color", "label": "文字色", "description": "初期値は背景色と同じです", "section": "card3", "defaultValue": "#EE4266" },
 
       { "name": "card_4_title", "type": "text", "label": "タイトル", "section": "card4", "defaultValue": "興味のある分科会をのぞく", "rules": { "required": true, "maxLength": 60 } },
+      { "name": "card_4_subtitle", "type": "text", "label": "サブタイトル", "description": "任意。タイトルの下に灰色で表示されます", "section": "card4", "defaultValue": "", "rules": { "maxLength": 80 } },
       { "name": "card_4_link", "type": "text", "label": "リンク先URL", "description": "カードをクリックした際の遷移先URL", "section": "card4", "defaultValue": "#" },
       { "name": "card_4_color", "type": "color", "label": "背景色(枠線・矢印バッジ)", "section": "card4", "defaultValue": "#7C5CFC" },
       { "name": "card_4_text_color", "type": "color", "label": "文字色", "description": "初期値は背景色と同じです", "section": "card4", "defaultValue": "#7C5CFC" },
 
       { "name": "card_5_title", "type": "text", "label": "タイトル", "section": "card5", "defaultValue": "イベント・ウェビナーをチェック", "rules": { "required": true, "maxLength": 60 } },
+      { "name": "card_5_subtitle", "type": "text", "label": "サブタイトル", "description": "任意。タイトルの下に灰色で表示されます", "section": "card5", "defaultValue": "", "rules": { "maxLength": 80 } },
       { "name": "card_5_link", "type": "text", "label": "リンク先URL", "description": "カードをクリックした際の遷移先URL", "section": "card5", "defaultValue": "#" },
       { "name": "card_5_color", "type": "color", "label": "背景色(枠線・矢印バッジ)", "section": "card5", "defaultValue": "#F2994A" },
       { "name": "card_5_text_color", "type": "color", "label": "文字色", "description": "初期値は背景色と同じです", "section": "card5", "defaultValue": "#F2994A" }
@@ -46,26 +51,31 @@
   },
   "defaultConfig": {
     "card_1_title": "製品を学びたい",
+    "card_1_subtitle": "",
     "card_1_link": "#",
     "card_1_color": "#F5A623",
     "card_1_text_color": "#F5A623",
 
     "card_2_title": "運用のベスプラ・Tips を知りたい",
+    "card_2_subtitle": "",
     "card_2_link": "#",
     "card_2_color": "#29ABE2",
     "card_2_text_color": "#29ABE2",
 
     "card_3_title": "コミュニティで相談",
+    "card_3_subtitle": "",
     "card_3_link": "#",
     "card_3_color": "#EE4266",
     "card_3_text_color": "#EE4266",
 
     "card_4_title": "興味のある分科会をのぞく",
+    "card_4_subtitle": "",
     "card_4_link": "#",
     "card_4_color": "#7C5CFC",
     "card_4_text_color": "#7C5CFC",
 
     "card_5_title": "イベント・ウェビナーをチェック",
+    "card_5_subtitle": "",
     "card_5_link": "#",
     "card_5_color": "#F2994A",
     "card_5_text_color": "#F2994A"

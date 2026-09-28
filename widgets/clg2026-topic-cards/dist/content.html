@@ -50,7 +50,7 @@
   }
 
   .card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.04);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   }
 
@@ -61,11 +61,24 @@
     object-fit: contain;
   }
 
+  .card .text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
   .card .label {
     font-weight: 700;
     font-size: 16px;
     line-height: 1.5;
     color: var(--card-text-color, var(--color-content-default, #2b3346));
+  }
+
+  .card .subtitle {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color-content-secondary, #8a94a6);
   }
 
   .card .arrow-badge {

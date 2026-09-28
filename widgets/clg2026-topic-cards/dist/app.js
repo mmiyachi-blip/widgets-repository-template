@@ -10,6 +10,7 @@ function escapeHtml(value) {
 
 function cardHtml(index, props, iconUrl) {
   const title = props[`card_${index}_title`] || ''
+  const subtitle = props[`card_${index}_subtitle`] || ''
   const link = props[`card_${index}_link`] || '#'
   const color = props[`card_${index}_color`] || '#999999'
   const textColor = props[`card_${index}_text_color`] || color
@@ -17,7 +18,10 @@ function cardHtml(index, props, iconUrl) {
   return `
     <a class="card" style="--card-color: ${escapeHtml(color)}; --card-text-color: ${escapeHtml(textColor)}" href="${escapeHtml(link)}">
       <img class="icon" src="${escapeHtml(iconUrl || '')}" alt="" />
-      <span class="label">${escapeHtml(title)}</span>
+      <span class="text">
+        <span class="label">${escapeHtml(title)}</span>
+        ${subtitle ? `<span class="subtitle">${escapeHtml(subtitle)}</span>` : ''}
+      </span>
       <span class="arrow-badge">&#8250;</span>
     </a>
   `
