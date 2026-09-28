@@ -1,3 +1,34 @@
 {
-  "connectors": []
+  "connectors": [
+    {
+      "name": "Google Calendar Events",
+      "permalink": "gcal-events",
+      "url": "https://www.googleapis.com/calendar/v3/calendars/{{ get_variable('gcal_calendar_id') }}/events",
+      "method": "GET",
+      "query_parameters": [
+        { "key": "singleEvents", "value": "true", "overridable": false },
+        { "key": "orderBy", "value": "startTime", "overridable": false },
+        { "key": "timeMin", "value": "2020-01-01T00:00:00Z", "overridable": true },
+        { "key": "timeMax", "value": "2030-01-01T00:00:00Z", "overridable": true },
+        { "key": "maxResults", "value": "250", "overridable": true }
+      ],
+      "authentication": {
+        "type": "oauth_jwt_bearer",
+        "config": {
+          "client_id": "{{ get_secret('gcal_service_account_email') }}",
+          "private_key": "{{ get_secret('gcal_service_account_private_key') }}",
+          "token_url": "https://oauth2.googleapis.com/token",
+          "subject": "{{ get_secret('gcal_service_account_email') }}",
+          "audience": "https://oauth2.googleapis.com/token",
+          "algorithm": "RS256",
+          "token_ttl": 3600,
+          "additional_claims": {
+            "scope": "https://www.googleapis.com/auth/calendar.readonly"
+          }
+        }
+      },
+      "response_body": "{% set data = response.body | from_json %}\n{% set ns = namespace(out=[]) %}\n{% for item in data['items'] %}\n{% set is_all_day = 'date' in item['start'] %}\n{% set start_date = item['start']['date'] if is_all_day else item['start']['dateTime'][:10] %}\n{% set start_time = '' if is_all_day else item['start']['dateTime'][11:16] %}\n{% set ns.out = ns.out + [{\"id\": item['id'], \"title\": item['summary'] | default('(無題)'), \"date\": start_date, \"time\": start_time, \"url\": item['htmlLink'] | default(''), \"colorId\": item['colorId'] | default('')}] %}\n{% endfor %}\n{{ ns.out | json_encode }}",
+      "response_content_type": "application/json"
+    }
+  ]
 }
