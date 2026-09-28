@@ -21,6 +21,193 @@
       "type": "clg2026-quiz-share"
     },
     {
+      "title": "CLG2026 注目トピック カード",
+      "description": "5枚のイラスト付きカードでコミュニティ内の主要コンテンツ（製品情報・ベスプラ・コミュニティ・分科会・イベント）へ誘導するナビゲーションウィジェット",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/clg2026-topic-cards/dist",
+        "entry": "content.html"
+      },
+      "settings": {
+        "configurable": true
+      },
+      "configuration": {
+        "sections": [
+          {
+            "name": "card1",
+            "label": "カード1: 製品を学びたい",
+            "expanded": true
+          },
+          {
+            "name": "card2",
+            "label": "カード2: 運用のベスプラ・Tips"
+          },
+          {
+            "name": "card3",
+            "label": "カード3: コミュニティで相談"
+          },
+          {
+            "name": "card4",
+            "label": "カード4: 分科会"
+          },
+          {
+            "name": "card5",
+            "label": "カード5: イベント・ウェビナー"
+          }
+        ],
+        "properties": [
+          {
+            "name": "card_1_title",
+            "type": "text",
+            "label": "タイトル",
+            "section": "card1",
+            "defaultValue": "製品を学びたい",
+            "rules": {
+              "required": true,
+              "maxLength": 60
+            }
+          },
+          {
+            "name": "card_1_link",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カードをクリックした際の遷移先URL",
+            "section": "card1",
+            "defaultValue": "#"
+          },
+          {
+            "name": "card_1_color",
+            "type": "color",
+            "label": "アクセントカラー",
+            "section": "card1",
+            "defaultValue": "#F5A623"
+          },
+          {
+            "name": "card_2_title",
+            "type": "text",
+            "label": "タイトル",
+            "section": "card2",
+            "defaultValue": "運用のベスプラ・Tips を知りたい",
+            "rules": {
+              "required": true,
+              "maxLength": 60
+            }
+          },
+          {
+            "name": "card_2_link",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カードをクリックした際の遷移先URL",
+            "section": "card2",
+            "defaultValue": "#"
+          },
+          {
+            "name": "card_2_color",
+            "type": "color",
+            "label": "アクセントカラー",
+            "section": "card2",
+            "defaultValue": "#29ABE2"
+          },
+          {
+            "name": "card_3_title",
+            "type": "text",
+            "label": "タイトル",
+            "section": "card3",
+            "defaultValue": "コミュニティで相談",
+            "rules": {
+              "required": true,
+              "maxLength": 60
+            }
+          },
+          {
+            "name": "card_3_link",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カードをクリックした際の遷移先URL",
+            "section": "card3",
+            "defaultValue": "#"
+          },
+          {
+            "name": "card_3_color",
+            "type": "color",
+            "label": "アクセントカラー",
+            "section": "card3",
+            "defaultValue": "#EE4266"
+          },
+          {
+            "name": "card_4_title",
+            "type": "text",
+            "label": "タイトル",
+            "section": "card4",
+            "defaultValue": "興味のある分科会をのぞく",
+            "rules": {
+              "required": true,
+              "maxLength": 60
+            }
+          },
+          {
+            "name": "card_4_link",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カードをクリックした際の遷移先URL",
+            "section": "card4",
+            "defaultValue": "#"
+          },
+          {
+            "name": "card_4_color",
+            "type": "color",
+            "label": "アクセントカラー",
+            "section": "card4",
+            "defaultValue": "#7C5CFC"
+          },
+          {
+            "name": "card_5_title",
+            "type": "text",
+            "label": "タイトル",
+            "section": "card5",
+            "defaultValue": "イベント・ウェビナーをチェック",
+            "rules": {
+              "required": true,
+              "maxLength": 60
+            }
+          },
+          {
+            "name": "card_5_link",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カードをクリックした際の遷移先URL",
+            "section": "card5",
+            "defaultValue": "#"
+          },
+          {
+            "name": "card_5_color",
+            "type": "color",
+            "label": "アクセントカラー",
+            "section": "card5",
+            "defaultValue": "#F2994A"
+          }
+        ]
+      },
+      "defaultConfig": {
+        "card_1_title": "製品を学びたい",
+        "card_1_link": "#",
+        "card_1_color": "#F5A623",
+        "card_2_title": "運用のベスプラ・Tips を知りたい",
+        "card_2_link": "#",
+        "card_2_color": "#29ABE2",
+        "card_3_title": "コミュニティで相談",
+        "card_3_link": "#",
+        "card_3_color": "#EE4266",
+        "card_4_title": "興味のある分科会をのぞく",
+        "card_4_link": "#",
+        "card_4_color": "#7C5CFC",
+        "card_5_title": "イベント・ウェビナーをチェック",
+        "card_5_link": "#",
+        "card_5_color": "#F2994A"
+      },
+      "type": "clg2026-topic-cards"
+    },
+    {
       "title": "コミュニティカレンダー(イラスト調)",
       "description": "Googleカレンダー(サービスアカウント連携)を、カテゴリ色分け・アイコン付きのカード/バッジ表示で見せる月間カレンダー",
       "category": "Custom",

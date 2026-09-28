@@ -1,0 +1,101 @@
+<style>
+  :host {
+    display: block;
+    font-family: var(--font-family-sans, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif);
+  }
+
+  .topic-nav {
+    max-width: 960px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .topic-nav * {
+    box-sizing: border-box;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .row-top {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .row-top .card {
+    flex: 1 1 300px;
+    max-width: 380px;
+  }
+
+  .row-bottom .card {
+    flex: 1 1 260px;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--color-surface-default, #ffffff);
+    border: 2px solid var(--card-color, #dedfe2);
+    border-radius: 20px;
+    padding: 16px 40px 16px 16px;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .card .icon {
+    flex: none;
+    width: 64px;
+    height: 54px;
+    object-fit: contain;
+  }
+
+  .card .label {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-content-default, #2b3346);
+  }
+
+  .card .arrow-badge {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--card-color, #999999);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    border: 2px solid var(--color-surface-default, #ffffff);
+  }
+
+  @media (max-width: 720px) {
+    .row-top .card,
+    .row-bottom .card {
+      flex: 1 1 100%;
+      max-width: none;
+    }
+  }
+</style>
+
+<div class="topic-nav">
+  <div class="row row-top"></div>
+  <div class="row row-bottom"></div>
+</div>
+
+<script type="module" src="app.js"></script>
