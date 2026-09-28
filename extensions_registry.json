@@ -1,6 +1,36 @@
 {
   "widgets": [
     {
+      "title": "挨拶バナー(マスコット・一言メッセージ)",
+      "description": "マスコットの吹き出しに、時間帯とランダムで切り替わる一言メッセージを表示するヘッダーバナー",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/clg2026-greeting-banner/dist",
+        "entry": "content.html"
+      },
+      "containers": [
+        "Full width",
+        "Left container"
+      ],
+      "settings": {
+        "configurable": true
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "accent_color",
+            "type": "color",
+            "label": "アクセントカラー(マスコット・吹き出し枠)",
+            "defaultValue": "#7B3BC4"
+          }
+        ]
+      },
+      "defaultConfig": {
+        "accent_color": "#7B3BC4"
+      },
+      "type": "clg2026-greeting-banner"
+    },
+    {
       "title": "CLG2026 パーソナライズ診断",
       "description": "5つの質問に答えると「顧客成長タイプ」とおすすめのCLG2026セッションを診断するウィジェット",
       "category": "Custom",

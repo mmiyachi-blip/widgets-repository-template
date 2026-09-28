@@ -1,0 +1,165 @@
+<style>
+  :host {
+    display: block;
+    font-family: var(--font-family-sans, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif);
+  }
+
+  .greeting-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-200, 16px);
+    max-width: 720px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .greeting-banner * {
+    box-sizing: border-box;
+  }
+
+  .mascot {
+    flex: none;
+    width: 76px;
+    height: 76px;
+    animation: mascot-in 0.5s ease;
+  }
+
+  .mascot-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .grad-a {
+    stop-color: var(--accent-a, #4F8EF7);
+  }
+
+  .grad-b {
+    stop-color: var(--accent-b, #7B3BC4);
+  }
+
+  .mascot-face {
+    fill: var(--color-content-heading-default, #2B3346);
+  }
+
+  .mascot-eye {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+  }
+
+  .mascot-antenna-line {
+    stroke: var(--accent-a, #4F8EF7);
+    stroke-width: 2;
+  }
+
+  .mascot-antenna-dot {
+    fill: var(--accent-a, #4F8EF7);
+  }
+
+  .mascot-node {
+    fill: var(--accent-b, #7B3BC4);
+  }
+
+  .mascot-spark {
+    fill: var(--accent-b, #7B3BC4);
+    animation: spark-pulse 2.4s ease-in-out infinite;
+  }
+
+  .bubble {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    background: var(--color-surface-default, #ffffff);
+    border: 1px solid color-mix(in srgb, var(--accent-b, #7B3BC4) 30%, var(--color-line-default, #dedfe2));
+    border-radius: var(--radius-200, 16px);
+    padding: 14px 20px;
+    box-shadow: var(--shadow-100, 0px 2px 4px -2px rgba(0, 0, 0, 0.1));
+    animation: bubble-in 0.5s ease;
+  }
+
+  .bubble::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 14px;
+    height: 14px;
+    background: var(--color-surface-default, #ffffff);
+    border-left: 1px solid color-mix(in srgb, var(--accent-b, #7B3BC4) 30%, var(--color-line-default, #dedfe2));
+    border-bottom: 1px solid color-mix(in srgb, var(--accent-b, #7B3BC4) 30%, var(--color-line-default, #dedfe2));
+  }
+
+  .bubble-text {
+    margin: 0;
+    font-weight: var(--font-weight-medium, 500);
+    font-size: var(--text-body-medium-font-size, 1rem);
+    line-height: var(--text-body-medium-line-height, 1.5);
+    color: var(--color-content-default, #2b3346);
+  }
+
+  @keyframes bubble-in {
+    from { opacity: 0; transform: translateX(-6px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes mascot-in {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes spark-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mascot, .bubble, .mascot-spark {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .greeting-banner {
+      gap: var(--space-150, 12px);
+    }
+
+    .mascot {
+      width: 56px;
+      height: 56px;
+    }
+
+    .bubble {
+      padding: 10px 16px;
+    }
+  }
+</style>
+
+<div class="greeting-banner">
+  <div class="mascot" aria-hidden="true">
+    <svg class="mascot-svg" viewBox="0 0 100 100">
+      <defs>
+        <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop class="grad-a" offset="0%" />
+          <stop class="grad-b" offset="100%" />
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="54" r="33" fill="none" stroke="url(#ringGrad)" stroke-width="4" />
+      <circle class="mascot-face" cx="50" cy="54" r="25" />
+      <path class="mascot-eye" d="M39 52 q4 -7 8 0" />
+      <path class="mascot-eye" d="M53 52 q4 -7 8 0" />
+      <line class="mascot-antenna-line" x1="50" y1="18" x2="50" y2="27" />
+      <circle class="mascot-antenna-dot" cx="50" cy="15" r="3.5" />
+      <circle class="mascot-node" cx="19" cy="54" r="3" />
+      <circle class="mascot-node" cx="81" cy="54" r="3" />
+      <path class="mascot-spark" d="M79 16 l2.6 6.4 6.4 2.6 -6.4 2.6 -2.6 6.4 -2.6 -6.4 -6.4 -2.6 6.4 -2.6 z" />
+    </svg>
+  </div>
+  <div class="bubble">
+    <p class="bubble-text" role="status"></p>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
