@@ -30,6 +30,45 @@ function isImageUrl(value) {
   return typeof value === 'string' && /^https:\/\//.test(value);
 }
 
+const WEEKDAY_LABELS = ['日', '月', '火', '水', '木', '金', '土'];
+
+// Escapes first, then wraps URL-looking substrings in <a> tags. Safe because
+// escapeHtml only touches & < > " — none of which appear inside a bare URL,
+// so the browser's HTML parser decodes &amp; back to & for both the href
+// attribute and the link text.
+function linkifyEscaped(escapedText) {
+  return escapedText.replace(/(https?:\/\/[^\s<>"']+)/g, (url) => (
+    `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+  ));
+}
+
+function to12hParts(hhmm) {
+  const [hStr, mStr] = hhmm.split(':');
+  const h = parseInt(hStr, 10);
+  const period = h < 12 ? '午前' : '午後';
+  let h12 = h % 12;
+  if (h12 === 0) h12 = 12;
+  return { period, h: String(h12), m: mStr };
+}
+
+function formatTimeRange(startHHMM, endHHMM) {
+  if (!startHHMM) return '';
+  const start = to12hParts(startHHMM);
+  if (!endHHMM) return `${start.period}${start.h}:${start.m}`;
+  const end = to12hParts(endHHMM);
+  if (end.period === start.period) {
+    return `${start.period}${start.h}:${start.m}〜${end.h}:${end.m}`;
+  }
+  return `${start.period}${start.h}:${start.m}〜${end.period}${end.h}:${end.m}`;
+}
+
+function formatEventDateTime(ev) {
+  const d = new Date(`${ev.date}T00:00:00`);
+  const dateLabel = `${d.getMonth() + 1}月${d.getDate()}日(${WEEKDAY_LABELS[d.getDay()]}曜日)`;
+  if (!ev.time) return dateLabel;
+  return `${dateLabel} ・ ${formatTimeRange(ev.time, ev.endTime)}`;
+}
+
 function renderIcon(iconValue, className) {
   if (isImageUrl(iconValue)) {
     return `<span class="${className}"><img src="${escapeHtml(iconValue)}" alt="" loading="lazy" /></span>`;
@@ -78,7 +117,59 @@ export async function init(sdk) {
     todayBtn: sdk.$('.cal-today'),
     status: sdk.$('.cal-status'),
     legend: sdk.$('.cal-legend'),
+    modalOverlay: sdk.$('.cal-modal-overlay'),
+    modalClose: sdk.$('.cal-modal-close'),
+    modalDot: sdk.$('.cal-modal-dot'),
+    modalTitle: sdk.$('.cal-modal-title'),
+    modalDatetime: sdk.$('.cal-modal-datetime'),
+    modalDescription: sdk.$('.cal-modal-description'),
+    modalLink: sdk.$('.cal-modal-link'),
   };
+
+  function openModal(ev) {
+    const category = resolveCategory(ev.colorId, props);
+    els.modalDot.style.background = category.color;
+    els.modalTitle.textContent = ev.title || '(無題)';
+    els.modalDatetime.textContent = formatEventDateTime(ev);
+
+    const description = (ev.description || '').trim();
+    els.modalDescription.innerHTML = description ? linkifyEscaped(escapeHtml(description)) : '';
+    els.modalDescription.style.display = description ? 'block' : 'none';
+
+    const href = safeHref(ev.url);
+    if (href === '#') {
+      els.modalLink.style.display = 'none';
+    } else {
+      els.modalLink.style.display = 'inline-block';
+      els.modalLink.setAttribute('href', href);
+    }
+
+    els.modalOverlay.hidden = false;
+  }
+
+  function closeModal() {
+    els.modalOverlay.hidden = true;
+  }
+
+  els.modalClose.addEventListener('click', closeModal);
+  els.modalOverlay.addEventListener('click', (e) => {
+    if (e.target === els.modalOverlay) closeModal();
+  });
+
+  const onKeydown = (e) => {
+    if (e.key === 'Escape' && !els.modalOverlay.hidden) closeModal();
+  };
+  document.addEventListener('keydown', onKeydown);
+  sdk.on('destroy', () => document.removeEventListener('keydown', onKeydown));
+
+  els.grid.addEventListener('click', (e) => {
+    const badge = e.target.closest('.cal-badge');
+    if (!badge) return;
+    e.preventDefault();
+    const id = badge.getAttribute('data-event-id');
+    const ev = state.events.find((item) => item.id === id);
+    if (ev) openModal(ev);
+  });
 
   function applyStyleVars() {
     const host = sdk.getContainer().host;
@@ -159,10 +250,9 @@ export async function init(sdk) {
         const category = resolveCategory(ev.colorId, props);
         const title = escapeHtml(ev.title || '(無題)');
         const timeLabel = ev.time ? `${escapeHtml(ev.time)} ` : '';
-        const href = safeHref(ev.url);
         const iconHtml = renderIcon(category.icon, 'cal-badge-icon');
         const tooltip = category.label ? `${escapeHtml(category.label)}: ${title}` : title;
-        html += `<a class="cal-badge" style="background:${escapeHtml(category.color)}" href="${href}" target="_blank" rel="noopener noreferrer" title="${tooltip}">${iconHtml}<span class="cal-badge-text">${timeLabel}${title}</span></a>`;
+        html += `<a class="cal-badge" style="background:${escapeHtml(category.color)}" href="#" data-event-id="${escapeHtml(ev.id)}" title="${tooltip}">${iconHtml}<span class="cal-badge-text">${timeLabel}${title}</span></a>`;
       });
 
       if (dayEvents.length > 3) {

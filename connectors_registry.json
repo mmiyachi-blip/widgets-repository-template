@@ -27,7 +27,7 @@
           }
         }
       },
-      "response_body": "{% if response.status_code >= 400 %}\n{{ response.body }}\n{% else %}\n{% set data = response.body | from_json %}\n{% set ns = namespace(out=[]) %}\n{% for item in data['items'] %}\n{% set is_all_day = 'date' in item['start'] %}\n{% set start_date = item['start']['date'] if is_all_day else item['start']['dateTime'][:10] %}\n{% set start_time = '' if is_all_day else item['start']['dateTime'][11:16] %}\n{% set ns.out = ns.out + [{\"id\": item['id'], \"title\": item['summary'] | default('(無題)'), \"date\": start_date, \"time\": start_time, \"url\": item['htmlLink'] | default(''), \"colorId\": item['colorId'] | default('')}] %}\n{% endfor %}\n{{ ns.out | json_encode }}\n{% endif %}",
+      "response_body": "{% if response.status_code >= 400 %}\n{{ response.body }}\n{% else %}\n{% set data = response.body | from_json %}\n{% set ns = namespace(out=[]) %}\n{% for item in data['items'] %}\n{% set is_all_day = 'date' in item['start'] %}\n{% set start_date = item['start']['date'] if is_all_day else item['start']['dateTime'][:10] %}\n{% set start_time = '' if is_all_day else item['start']['dateTime'][11:16] %}\n{% set end_time = '' if is_all_day else item['end']['dateTime'][11:16] %}\n{% set ns.out = ns.out + [{\"id\": item['id'], \"title\": item['summary'] | default('(無題)'), \"date\": start_date, \"time\": start_time, \"endTime\": end_time, \"description\": item['description'] | default(''), \"url\": item['htmlLink'] | default(''), \"colorId\": item['colorId'] | default('')}] %}\n{% endfor %}\n{{ ns.out | json_encode }}\n{% endif %}",
       "response_content_type": "application/json"
     }
   ]
