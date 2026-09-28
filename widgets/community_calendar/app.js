@@ -32,14 +32,89 @@ function isImageUrl(value) {
 
 const WEEKDAY_LABELS = ['日', '月', '火', '水', '木', '金', '土'];
 
-// Escapes first, then wraps URL-looking substrings in <a> tags. Safe because
-// escapeHtml only touches & < > " — none of which appear inside a bare URL,
-// so the browser's HTML parser decodes &amp; back to & for both the href
-// attribute and the link text.
-function linkifyEscaped(escapedText) {
-  return escapedText.replace(/(https?:\/\/[^\s<>"']+)/g, (url) => (
-    `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
-  ));
+const URL_PATTERN = /(https?:\/\/[^\s<>"']+)/g;
+
+function isSafeHref(href) {
+  return typeof href === 'string' && /^https?:\/\//i.test(href);
+}
+
+// Splits a plain-text node's content on bare URLs, turning each into its own
+// clickable <a>. Used only on text that isn't already inside an <a>.
+function linkifyTextNode(text) {
+  const nodes = [];
+  let lastIndex = 0;
+  let match;
+  URL_PATTERN.lastIndex = 0;
+  while ((match = URL_PATTERN.exec(text))) {
+    if (match.index > lastIndex) nodes.push(document.createTextNode(text.slice(lastIndex, match.index)));
+    const a = document.createElement('a');
+    a.setAttribute('href', match[0]);
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener noreferrer');
+    a.textContent = match[0];
+    nodes.push(a);
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) nodes.push(document.createTextNode(text.slice(lastIndex)));
+  if (nodes.length === 0) nodes.push(document.createTextNode(text));
+  return nodes;
+}
+
+// Google Calendar event descriptions are rich-text HTML (real <br>/<a>/<u> tags),
+// not plain text. Parses it and rebuilds only an allowlisted subset in the
+// widget's own document, dropping everything else (scripts, styles, unknown
+// tags/attributes) so the community-managed calendar can't inject anything
+// unsafe. Bare URLs in text nodes not already inside an <a> are auto-linked.
+const DESCRIPTION_ALLOWED_TAGS = new Set(['A', 'B', 'STRONG', 'I', 'EM', 'U', 'BR', 'P', 'DIV', 'SPAN', 'UL', 'OL', 'LI', 'BLOCKQUOTE']);
+const DESCRIPTION_STRIPPED_TAGS = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED']);
+
+function sanitizeNode(node, insideAnchor) {
+  if (node.nodeType === Node.TEXT_NODE) {
+    return insideAnchor ? [document.createTextNode(node.textContent)] : linkifyTextNode(node.textContent);
+  }
+  if (node.nodeType !== Node.ELEMENT_NODE) return [];
+
+  const tag = node.tagName;
+  if (DESCRIPTION_STRIPPED_TAGS.has(tag)) return [];
+
+  const childInsideAnchor = insideAnchor || tag === 'A';
+  const children = [];
+  node.childNodes.forEach((child) => {
+    children.push(...sanitizeNode(child, childInsideAnchor));
+  });
+
+  if (!DESCRIPTION_ALLOWED_TAGS.has(tag)) return children; // unwrap unknown tags, keep their content
+
+  if (tag === 'A') {
+    const href = node.getAttribute('href') || '';
+    if (!isSafeHref(href)) return children; // unwrap unsafe/relative links
+    const a = document.createElement('a');
+    a.setAttribute('href', href);
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener noreferrer');
+    children.forEach((c) => a.appendChild(c));
+    return [a];
+  }
+
+  const clean = document.createElement(tag.toLowerCase());
+  children.forEach((c) => clean.appendChild(c));
+  return [clean];
+}
+
+function sanitizeDescriptionHtml(rawHtml) {
+  if (!rawHtml) return '';
+  const parsed = new DOMParser().parseFromString(rawHtml, 'text/html');
+  const wrapper = document.createElement('div');
+  Array.from(parsed.body.childNodes).forEach((child) => {
+    sanitizeNode(child, false).forEach((n) => wrapper.appendChild(n));
+  });
+  return wrapper.innerHTML;
+}
+
+function descriptionToPlainText(rawHtml) {
+  if (!rawHtml) return '';
+  const withBreaks = rawHtml.replace(/<br\s*\/?>/gi, '\n').replace(/<\/p>/gi, '\n');
+  return new DOMParser().parseFromString(withBreaks, 'text/html').body.textContent || '';
 }
 
 function to12hParts(hhmm) {
@@ -67,6 +142,44 @@ function formatEventDateTime(ev) {
   const dateLabel = `${d.getMonth() + 1}月${d.getDate()}日(${WEEKDAY_LABELS[d.getDay()]}曜日)`;
   if (!ev.time) return dateLabel;
   return `${dateLabel} ・ ${formatTimeRange(ev.time, ev.endTime)}`;
+}
+
+function pad2(n) {
+  return String(n).padStart(2, '0');
+}
+
+function toGoogleUtcStamp(isoString) {
+  const d = new Date(isoString);
+  if (Number.isNaN(d.getTime())) return '';
+  return `${d.getUTCFullYear()}${pad2(d.getUTCMonth() + 1)}${pad2(d.getUTCDate())}T${pad2(d.getUTCHours())}${pad2(d.getUTCMinutes())}${pad2(d.getUTCSeconds())}Z`;
+}
+
+// Builds Google Calendar's public "quick add" URL (no OAuth needed) so a
+// viewer can add the event to their own Google Calendar — the closest
+// equivalent to Google's native "add to my calendar" for a third-party site.
+function buildAddToCalendarUrl(ev) {
+  let datesParam;
+  if (ev.isAllDay) {
+    const startStamp = (ev.date || '').replace(/-/g, '');
+    const endStamp = (ev.endDate || ev.date || '').replace(/-/g, '');
+    if (!startStamp || !endStamp) return '';
+    datesParam = `${startStamp}/${endStamp}`;
+  } else if (ev.startDateTime && ev.endDateTime) {
+    const start = toGoogleUtcStamp(ev.startDateTime);
+    const end = toGoogleUtcStamp(ev.endDateTime);
+    if (!start || !end) return '';
+    datesParam = `${start}/${end}`;
+  } else {
+    return '';
+  }
+
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: ev.title || '',
+    dates: datesParam,
+    details: descriptionToPlainText(ev.description || ''),
+  });
+  return `https://www.google.com/calendar/render?${params.toString()}`;
 }
 
 function renderIcon(iconValue, className) {
@@ -124,6 +237,7 @@ export async function init(sdk) {
     modalDatetime: sdk.$('.cal-modal-datetime'),
     modalDescription: sdk.$('.cal-modal-description'),
     modalLink: sdk.$('.cal-modal-link'),
+    modalAddLink: sdk.$('.cal-modal-add-link'),
   };
 
   function openModal(ev) {
@@ -133,7 +247,7 @@ export async function init(sdk) {
     els.modalDatetime.textContent = formatEventDateTime(ev);
 
     const description = (ev.description || '').trim();
-    els.modalDescription.innerHTML = description ? linkifyEscaped(escapeHtml(description)) : '';
+    els.modalDescription.innerHTML = description ? sanitizeDescriptionHtml(description) : '';
     els.modalDescription.style.display = description ? 'block' : 'none';
 
     const href = safeHref(ev.url);
@@ -142,6 +256,14 @@ export async function init(sdk) {
     } else {
       els.modalLink.style.display = 'inline-block';
       els.modalLink.setAttribute('href', href);
+    }
+
+    const addUrl = buildAddToCalendarUrl(ev);
+    if (addUrl) {
+      els.modalAddLink.style.display = 'inline-block';
+      els.modalAddLink.setAttribute('href', addUrl);
+    } else {
+      els.modalAddLink.style.display = 'none';
     }
 
     els.modalOverlay.hidden = false;
