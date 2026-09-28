@@ -49,6 +49,31 @@
     stroke-linecap: round;
   }
 
+  .mascot-eye-dot {
+    fill: #ffffff;
+  }
+
+  .mascot-eye-ring {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2.4;
+  }
+
+  .mascot-pupil {
+    fill: var(--color-content-heading-default, #2B3346);
+  }
+
+  .mascot-mouth {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+  }
+
+  .mascot-mouth-o {
+    fill: #ffffff;
+  }
+
   .mascot-antenna-line {
     stroke: var(--accent-a, #4F8EF7);
     stroke-width: 2;
@@ -148,8 +173,7 @@
       </defs>
       <circle cx="50" cy="54" r="33" fill="none" stroke="url(#ringGrad)" stroke-width="4" />
       <circle class="mascot-face" cx="50" cy="54" r="25" />
-      <path class="mascot-eye" d="M39 52 q4 -7 8 0" />
-      <path class="mascot-eye" d="M53 52 q4 -7 8 0" />
+      <g class="mascot-face-parts"></g>
       <line class="mascot-antenna-line" x1="50" y1="18" x2="50" y2="27" />
       <circle class="mascot-antenna-dot" cx="50" cy="15" r="3.5" />
       <circle class="mascot-node" cx="19" cy="54" r="3" />

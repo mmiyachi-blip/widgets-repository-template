@@ -43,13 +43,33 @@ function pickMessage() {
   return pool[Math.floor(Math.random() * pool.length)]
 }
 
+// Facial expressions swapped into the mascot's <g class="mascot-face-parts">.
+// Picked independently of the message so the mascot isn't always smiling.
+// Intentionally no angry/frowning face.
+const FACES = [
+  // smile (closed happy eyes)
+  '<path class="mascot-eye" d="M39 52 q4 -7 8 0" /><path class="mascot-eye" d="M53 52 q4 -7 8 0" />',
+  // neutral (flat gaze, flat mouth)
+  '<circle class="mascot-eye-dot" cx="43" cy="52" r="2.4" /><circle class="mascot-eye-dot" cx="57" cy="52" r="2.4" /><line class="mascot-mouth" x1="43" y1="63" x2="57" y2="63" />',
+  // surprised (wide open eyes, small "o" mouth)
+  '<circle class="mascot-eye-ring" cx="43" cy="51" r="4" /><circle class="mascot-pupil" cx="43" cy="51" r="1.6" /><circle class="mascot-eye-ring" cx="57" cy="51" r="4" /><circle class="mascot-pupil" cx="57" cy="51" r="1.6" /><circle class="mascot-mouth-o" cx="50" cy="64" r="3" />',
+  // wink (one closed eye, one open, gentle smile)
+  '<path class="mascot-eye" d="M39 52 q4 -7 8 0" /><circle class="mascot-eye-ring" cx="57" cy="51" r="4" /><circle class="mascot-pupil" cx="57" cy="51" r="1.6" /><path class="mascot-mouth" d="M44 61 q6 5 12 0" />',
+]
+
+function pickFace() {
+  return FACES[Math.floor(Math.random() * FACES.length)]
+}
+
 export async function init(sdk) {
   await sdk.whenReady()
 
   const banner = sdk.$('.greeting-banner')
   const bubbleText = sdk.$('.bubble-text')
+  const faceParts = sdk.$('.mascot-face-parts')
 
   bubbleText.textContent = pickMessage()
+  faceParts.innerHTML = pickFace()
 
   function applyProps(props) {
     const accent = props.accent_color || '#7B3BC4'
