@@ -900,6 +900,114 @@
       "type": "gainsight_jp_community_subcommittees"
     },
     {
+      "title": "次回の分科会開催予定",
+      "description": "分科会カテゴリ内で特定タグ(既定: 次回開催)が付いた投稿から、本日以降でいちばん近い開催予定を1件抽出して表示するカード。投稿タイトルを「【M/D(曜) 開始-終了】タイトル」の形式にすると日付・時間帯を自動抽出します。分科会ごとに対象カテゴリIDを変えて、各分科会ページに設置してください。",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/gainsight_jp_subcommittee_next_meeting",
+        "entry": "index.html"
+      },
+      "containers": [
+        "Full width"
+      ],
+      "settings": {
+        "configurable": true,
+        "shared": false
+      },
+      "configuration": {
+        "sections": [
+          {
+            "name": "target",
+            "label": "対象分科会",
+            "expanded": true
+          },
+          {
+            "name": "display",
+            "label": "表示設定"
+          }
+        ],
+        "properties": [
+          {
+            "name": "category_id",
+            "type": "text",
+            "label": "対象カテゴリID",
+            "description": "この分科会に対応するコミュニティのカテゴリID(数値)",
+            "section": "target",
+            "defaultValue": "",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "tag",
+            "type": "text",
+            "label": "絞り込みタグ",
+            "description": "このタグが付いた投稿だけを候補にします",
+            "section": "target",
+            "defaultValue": "次回開催"
+          },
+          {
+            "name": "lookback_count",
+            "type": "number",
+            "label": "遡って取得する投稿数",
+            "description": "直近の該当タグ付き投稿をこの件数まで取得し、その中から本日以降でいちばん近い日付のものを表示します",
+            "section": "target",
+            "defaultValue": 25,
+            "rules": {
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "heading",
+            "type": "text",
+            "label": "見出し",
+            "section": "display",
+            "defaultValue": "次回の注目イベント"
+          },
+          {
+            "name": "accent_color",
+            "type": "color",
+            "label": "アクセントカラー",
+            "section": "display",
+            "defaultValue": "#F2A33C"
+          },
+          {
+            "name": "location_label",
+            "type": "text",
+            "label": "開催形式バッジ(任意・空欄で非表示)",
+            "section": "display",
+            "defaultValue": "オンライン"
+          },
+          {
+            "name": "link_label",
+            "type": "text",
+            "label": "リンクボタンの文言",
+            "section": "display",
+            "defaultValue": "投稿を見る"
+          },
+          {
+            "name": "empty_message",
+            "type": "text",
+            "label": "該当なし時のメッセージ",
+            "section": "display",
+            "defaultValue": "現在、次回開催予定の投稿はありません。"
+          }
+        ]
+      },
+      "defaultConfig": {
+        "category_id": "",
+        "tag": "次回開催",
+        "lookback_count": 25,
+        "heading": "次回の注目イベント",
+        "accent_color": "#F2A33C",
+        "location_label": "オンライン",
+        "link_label": "投稿を見る",
+        "empty_message": "現在、次回開催予定の投稿はありません。"
+      },
+      "type": "gainsight_jp_subcommittee_next_meeting"
+    },
+    {
       "title": "挨拶バナー(マスコット・一言メッセージ)",
       "description": "マスコットの吹き出しに、時間帯とランダムで切り替わる一言メッセージを表示するヘッダーバナー",
       "category": "Custom",

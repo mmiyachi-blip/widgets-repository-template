@@ -1,0 +1,29 @@
+{
+  "connectors": [
+    {
+      "name": "CC Category Topics by Tag",
+      "permalink": "cc-category-topics",
+      "url": "https://{{ get_variable('cc_api_host') }}/categories/{{ pathParams.category_id }}/topics",
+      "method": "GET",
+      "path_parameters": [
+        { "key": "category_id" }
+      ],
+      "query_parameters": [
+        { "key": "tags", "overridable": true },
+        { "key": "sort", "value": "createdAt", "overridable": false },
+        { "key": "pageSize", "overridable": true },
+        { "key": "page", "value": "1", "overridable": true }
+      ],
+      "authentication": {
+        "type": "oauth_client_credentials",
+        "config": {
+          "client_id": "{{ get_secret('cc_api_client_id') }}",
+          "client_secret": "{{ get_secret('cc_api_client_secret') }}",
+          "token_url": "https://{{ get_variable('cc_api_host') }}/oauth2/token",
+          "scope": "read"
+        }
+      },
+      "response_content_type": "application/json"
+    }
+  ]
+}
