@@ -1,0 +1,80 @@
+{
+  "title": "分科会ナビゲーション(パズルサークル)",
+  "description": "5つの分科会をパズルピース状の円グラフで紹介し、クリックで各分科会ページへ誘導するナビゲーションウィジェット",
+  "category": "Custom",
+  "source": {
+    "entry": "index.html"
+  },
+  "containers": ["Full width"],
+  "settings": {
+    "configurable": true
+  },
+  "configuration": {
+    "sections": [
+      { "name": "piece1", "label": "① AI分科会", "expanded": true },
+      { "name": "piece2", "label": "② CS Ops分科会" },
+      { "name": "piece3", "label": "③ デジタルCS分科会" },
+      { "name": "piece4", "label": "④ CS戦略／マネジメント分科会" },
+      { "name": "piece5", "label": "⑤ コミュニティ運営分科会" },
+      { "name": "center", "label": "中央テキスト・共通設定" }
+    ],
+    "properties": [
+      { "name": "piece_1_title", "type": "text", "label": "タイトル", "section": "piece1", "defaultValue": "AI分科会", "rules": { "required": true, "maxLength": 40 } },
+      { "name": "piece_1_desc", "type": "text", "label": "説明(短め推奨)", "description": "円グラフ内に収まる短い説明文を推奨します", "section": "piece1", "defaultValue": "AIで進化・実践知を共有", "rules": { "maxLength": 30 } },
+      { "name": "piece_1_link", "type": "text", "label": "リンク先URL", "description": "クリック時の遷移先URL", "section": "piece1", "defaultValue": "#" },
+      { "name": "piece_1_color", "type": "color", "label": "テーマカラー(枠線・アイコン・カテゴリ文字)", "section": "piece1", "defaultValue": "#4E86D6" },
+
+      { "name": "piece_2_title", "type": "text", "label": "タイトル", "section": "piece2", "defaultValue": "CS Ops分科会", "rules": { "required": true, "maxLength": 40 } },
+      { "name": "piece_2_desc", "type": "text", "label": "説明(短め推奨)", "description": "円グラフ内に収まる短い説明文を推奨します", "section": "piece2", "defaultValue": "データ・仕組みで運用を最適化", "rules": { "maxLength": 30 } },
+      { "name": "piece_2_link", "type": "text", "label": "リンク先URL", "description": "クリック時の遷移先URL", "section": "piece2", "defaultValue": "#" },
+      { "name": "piece_2_color", "type": "color", "label": "テーマカラー(枠線・アイコン・カテゴリ文字)", "section": "piece2", "defaultValue": "#3FA772" },
+
+      { "name": "piece_3_title", "type": "text", "label": "タイトル", "section": "piece3", "defaultValue": "デジタルCS分科会", "rules": { "required": true, "maxLength": 40 } },
+      { "name": "piece_3_desc", "type": "text", "label": "説明(短め推奨)", "description": "円グラフ内に収まる短い説明文を推奨します", "section": "piece3", "defaultValue": "デジタルで顧客体験を向上", "rules": { "maxLength": 30 } },
+      { "name": "piece_3_link", "type": "text", "label": "リンク先URL", "description": "クリック時の遷移先URL", "section": "piece3", "defaultValue": "#" },
+      { "name": "piece_3_color", "type": "color", "label": "テーマカラー(枠線・アイコン・カテゴリ文字)", "section": "piece3", "defaultValue": "#E08A3C" },
+
+      { "name": "piece_4_title", "type": "text", "label": "タイトル", "section": "piece4", "defaultValue": "CS戦略／マネジメント分科会", "rules": { "required": true, "maxLength": 40 } },
+      { "name": "piece_4_desc", "type": "text", "label": "説明(短め推奨)", "description": "円グラフ内に収まる短い説明文を推奨します", "section": "piece4", "defaultValue": "組織・人材でCSの価値を最大化", "rules": { "maxLength": 30 } },
+      { "name": "piece_4_link", "type": "text", "label": "リンク先URL", "description": "クリック時の遷移先URL", "section": "piece4", "defaultValue": "#" },
+      { "name": "piece_4_color", "type": "color", "label": "テーマカラー(枠線・アイコン・カテゴリ文字)", "section": "piece4", "defaultValue": "#D9A62B" },
+
+      { "name": "piece_5_title", "type": "text", "label": "タイトル", "section": "piece5", "defaultValue": "コミュニティ運営分科会", "rules": { "required": true, "maxLength": 40 } },
+      { "name": "piece_5_desc", "type": "text", "label": "説明(短め推奨)", "description": "円グラフ内に収まる短い説明文を推奨します", "section": "piece5", "defaultValue": "企画・運営を学び合う", "rules": { "maxLength": 30 } },
+      { "name": "piece_5_link", "type": "text", "label": "リンク先URL", "description": "クリック時の遷移先URL", "section": "piece5", "defaultValue": "#" },
+      { "name": "piece_5_color", "type": "color", "label": "テーマカラー(枠線・アイコン・カテゴリ文字)", "section": "piece5", "defaultValue": "#D45C9C" },
+
+      { "name": "center_text", "type": "text", "label": "中央テキスト", "section": "center", "defaultValue": "あなたのミッションに近い分科会をクリック！", "rules": { "maxLength": 60 } },
+      { "name": "open_in_new_tab", "type": "boolean", "label": "リンクを新しいタブで開く", "section": "center", "defaultValue": false }
+    ]
+  },
+  "defaultConfig": {
+    "piece_1_title": "AI分科会",
+    "piece_1_desc": "AIで進化・実践知を共有",
+    "piece_1_link": "#",
+    "piece_1_color": "#4E86D6",
+
+    "piece_2_title": "CS Ops分科会",
+    "piece_2_desc": "データ・仕組みで運用を最適化",
+    "piece_2_link": "#",
+    "piece_2_color": "#3FA772",
+
+    "piece_3_title": "デジタルCS分科会",
+    "piece_3_desc": "デジタルで顧客体験を向上",
+    "piece_3_link": "#",
+    "piece_3_color": "#E08A3C",
+
+    "piece_4_title": "CS戦略／マネジメント分科会",
+    "piece_4_desc": "組織・人材でCSの価値を最大化",
+    "piece_4_link": "#",
+    "piece_4_color": "#D9A62B",
+
+    "piece_5_title": "コミュニティ運営分科会",
+    "piece_5_desc": "企画・運営を学び合う",
+    "piece_5_link": "#",
+    "piece_5_color": "#D45C9C",
+
+    "center_text": "あなたのミッションに近い分科会をクリック！",
+    "open_in_new_tab": false
+  }
+}
