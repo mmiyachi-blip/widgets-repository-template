@@ -21,7 +21,8 @@
       { "name": "tag", "type": "text", "label": "絞り込みタグ", "description": "このタグが付いた投稿だけを候補にします", "section": "target", "defaultValue": "次回開催" },
       { "name": "lookback_count", "type": "number", "label": "遡って取得する投稿数", "description": "直近の該当タグ付き投稿をこの件数まで取得し、その中から本日以降でいちばん近い日付のものを表示します", "section": "target", "defaultValue": 25, "rules": { "minimum": 1, "maximum": 100 } },
 
-      { "name": "subcommittee_name", "type": "text", "label": "分科会名(見出しに「次回の◯◯」として表示)", "section": "display", "defaultValue": "AI分科会", "rules": { "required": true, "maxLength": 30 } },
+      { "name": "heading_text", "type": "text", "label": "見出し文言", "section": "display", "defaultValue": "次回の注目イベント", "rules": { "maxLength": 40 } },
+      { "name": "subcommittee_name", "type": "text", "label": "分科会名(マスコット画像のalt属性に使用)", "section": "display", "defaultValue": "AI分科会", "rules": { "required": true, "maxLength": 30 } },
       {
         "name": "theme", "type": "select", "label": "テーマ(マスコットイラスト・配色)", "section": "display", "defaultValue": "ai",
         "options": [
@@ -46,6 +47,7 @@
     "category_id": "",
     "tag": "次回開催",
     "lookback_count": 25,
+    "heading_text": "次回の注目イベント",
     "subcommittee_name": "AI分科会",
     "theme": "ai",
     "location_label": "オンライン開催",

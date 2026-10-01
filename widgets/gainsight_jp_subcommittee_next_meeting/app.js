@@ -100,7 +100,7 @@ export async function init(sdk) {
   const els = {
     status: sdk.$('.nm-status'),
     card: sdk.$('.nm-card'),
-    subcommitteeName: sdk.$('.nm-subcommittee-name'),
+    headingText: sdk.$('.nm-heading-text'),
     foundState: sdk.$('.nm-found-state'),
     emptyState: sdk.$('.nm-empty-state'),
     dateText: sdk.$('.nm-date-text'),
@@ -119,7 +119,7 @@ export async function init(sdk) {
     const host = sdk.getContainer().host;
     const theme = resolveTheme(props.theme);
     host.style.setProperty('--nm-accent', THEME_COLORS[theme]);
-    els.subcommitteeName.textContent = props.subcommittee_name || '';
+    els.headingText.textContent = props.heading_text || '次回の注目イベント';
 
     const mascotUrl = mascotUrls[theme];
     if (mascotUrl) {
