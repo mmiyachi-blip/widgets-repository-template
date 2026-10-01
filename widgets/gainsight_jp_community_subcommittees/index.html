@@ -35,24 +35,25 @@
   }
 
   .icon-blob {
-    width: 128px;
-    height: 104px;
-    border-radius: 42% 58% 61% 39% / 55% 45% 55% 45%;
-    background: color-mix(in srgb, var(--card-color, #999) 16%, white);
+    width: 140px;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     transition: transform 0.15s ease;
   }
   .card-icon {
-    width: 60px;
-    height: 60px;
-    fill: none;
-    stroke: var(--card-color, #999);
-    stroke-width: 4.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Not rendered — used only so the platform's publish-time asset-path
+     rewrite (which only rewrites paths written in static HTML) resolves
+     these to hosted URLs; app.js reads back the resolved .href. */
+  link[rel="preload"] {
+    display: none;
   }
 
   .card-category {
@@ -97,6 +98,12 @@
     .card { flex: 1 1 100%; max-width: 360px; }
   }
 </style>
+
+<link rel="preload" as="image" href="icons/icon-ai.png" id="icon-src-ai">
+<link rel="preload" as="image" href="icons/icon-ops.png" id="icon-src-ops">
+<link rel="preload" as="image" href="icons/icon-digital.png" id="icon-src-digital">
+<link rel="preload" as="image" href="icons/icon-strategy.png" id="icon-src-strategy">
+<link rel="preload" as="image" href="icons/icon-community.png" id="icon-src-community">
 
 <div class="cards-row"></div>
 
