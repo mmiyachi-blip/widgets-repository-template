@@ -47,7 +47,7 @@
 
   .cal-nav button {
     border: none;
-    background: var(--w-accent, #F2789F);
+    background: var(--w-nav, var(--w-accent, #F2789F));
     color: #ffffff;
     border-radius: 999px;
     padding: 7px 16px;
@@ -200,6 +200,55 @@
     height: 100%;
     object-fit: contain;
     border-radius: 50%;
+  }
+
+  /* Compact ("petit") mode: date numbers + tiny color marks only, no
+     illustrated badges/legend, for sitting in a narrow sidebar column. */
+  .cal-wrap.cal-compact {
+    max-width: 360px;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .cal-compact .cal-title { font-size: 13px; margin-bottom: 8px; }
+  .cal-compact .cal-month-label { font-size: 14px; }
+  .cal-compact .cal-nav button { padding: 4px 10px; font-size: 11px; }
+  .cal-compact .cal-weekdays { font-size: 10px; margin-bottom: 3px; }
+  .cal-compact .cal-grid { gap: 3px; }
+
+  .cal-compact .cal-cell {
+    min-height: 32px;
+    padding: 3px;
+    border-radius: 6px;
+    gap: 2px;
+  }
+
+  .cal-compact .cal-date { font-size: 10px; }
+
+  .cal-compact .cal-badges {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .cal-compact .cal-badge {
+    width: 6px;
+    height: 6px;
+    min-width: 0;
+    padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .cal-compact .cal-badge-icon,
+  .cal-compact .cal-badge-text {
+    display: none;
+  }
+
+  .cal-compact .cal-more,
+  .cal-compact .cal-legend {
+    display: none;
   }
 
   @media (max-width: 720px) {

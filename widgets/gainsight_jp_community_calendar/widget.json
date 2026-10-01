@@ -22,7 +22,16 @@
     "properties": [
       { "name": "calendar_title", "type": "text", "label": "タイトル(左上に表示)", "section": "display", "defaultValue": "Gainsight JAPAN カレンダー", "rules": { "maxLength": 60 } },
       { "name": "accent_color", "type": "color", "label": "アクセントカラー(デフォルト/色未設定イベント用)", "section": "display", "defaultValue": "#F2789F" },
+      { "name": "nav_color", "type": "color", "label": "前月・今日・次月ボタンの色(各分科会の色に合わせる)", "section": "display", "defaultValue": "#F2789F" },
       { "name": "max_results", "type": "number", "label": "取得する最大イベント数", "section": "display", "defaultValue": 250, "rules": { "minimum": 1, "maximum": 2500 } },
+      {
+        "name": "display_size", "type": "select", "label": "表示サイズ", "section": "display", "defaultValue": "full",
+        "options": [
+          { "value": "full", "label": "通常(イラスト・バッジ付き)" },
+          { "value": "compact", "label": "プチサイズ(日付+色マークのみ)" }
+        ]
+      },
+      { "name": "title_filters", "type": "text", "label": "表示するタイトル(カンマ区切り、複数指定可)", "description": "入力したいずれかの文字列をタイトルに含む予定だけを表示します。空欄なら全件表示します", "section": "display", "defaultValue": "" },
 
       { "name": "cat1_label", "type": "text", "label": "① Lavender - ラベル", "section": "categories", "defaultValue": "ラベンダー" },
       { "name": "cat1_icon",  "type": "text", "label": "① Lavender - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "💜" },
@@ -72,7 +81,10 @@
   "defaultConfig": {
     "calendar_title": "Gainsight JAPAN カレンダー",
     "accent_color": "#F2789F",
+    "nav_color": "#F2789F",
     "max_results": 250,
+    "display_size": "full",
+    "title_filters": "",
     "cat1_label": "ラベンダー", "cat1_icon": "💜", "cat1_color": "#7986CB",
     "cat2_label": "セージ", "cat2_icon": "🌿", "cat2_color": "#33B679",
     "cat3_label": "グレープ", "cat3_icon": "🍇", "cat3_color": "#8E24AA",

@@ -223,6 +223,7 @@ export async function init(sdk) {
   };
 
   const els = {
+    wrap: sdk.$('.cal-wrap'),
     title: sdk.$('.cal-title'),
     label: sdk.$('.cal-month-label'),
     grid: sdk.$('.cal-grid'),
@@ -298,7 +299,27 @@ export async function init(sdk) {
     const host = sdk.getContainer().host;
     const accent = props.accent_color || '#F2789F';
     host.style.setProperty('--w-accent', accent);
+    host.style.setProperty('--w-nav', props.nav_color || accent);
     els.title.textContent = props.calendar_title || 'Gainsight JAPAN カレンダー';
+    els.wrap.classList.toggle('cal-compact', props.display_size === 'compact');
+  }
+
+  // Comma-separated list of title keywords from config. Empty/absent means
+  // no filtering — keep every event, same as before this feature existed.
+  function parseTitleFilters(raw) {
+    return String(raw || '')
+      .split(',')
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean);
+  }
+
+  function filterEventsByTitle(events, raw) {
+    const filters = parseTitleFilters(raw);
+    if (filters.length === 0) return events;
+    return events.filter((ev) => {
+      const title = String((ev && ev.title) || '').toLowerCase();
+      return filters.some((f) => title.includes(f));
+    });
   }
 
   function showStatus(message) {
@@ -328,7 +349,7 @@ export async function init(sdk) {
           maxResults: String(props.max_results || 250),
         },
       });
-      state.events = Array.isArray(data) ? data : [];
+      state.events = filterEventsByTitle(Array.isArray(data) ? data : [], props.title_filters);
       showStatus('');
     } catch (err) {
       console.error('[community-calendar] connector error', err);
