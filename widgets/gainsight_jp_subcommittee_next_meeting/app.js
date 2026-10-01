@@ -103,7 +103,9 @@ export async function init(sdk) {
     headingText: sdk.$('.nm-heading-text'),
     foundState: sdk.$('.nm-found-state'),
     emptyState: sdk.$('.nm-empty-state'),
-    dateText: sdk.$('.nm-date-text'),
+    year: sdk.$('.nm-year'),
+    date: sdk.$('.nm-date'),
+    weekday: sdk.$('.nm-weekday'),
     timeText: sdk.$('.nm-time-text'),
     locationText: sdk.$('.nm-location-text'),
     emptyHeadline: sdk.$('.nm-empty-headline'),
@@ -145,7 +147,9 @@ export async function init(sdk) {
     els.emptyState.style.display = 'none';
 
     const { parsed, topic } = next;
-    els.dateText.textContent = `${parsed.month}月${parsed.day}日（${WEEKDAY_LABELS[parsed.date.getDay()]}）`;
+    els.year.textContent = String(parsed.year);
+    els.date.textContent = `${parsed.month}.${parsed.day}`;
+    els.weekday.textContent = `${WEEKDAY_LABELS[parsed.date.getDay()]}曜`;
     els.timeText.textContent = `${parsed.startTime} - ${parsed.endTime}`;
     els.locationText.textContent = props.location_label || 'オンライン開催';
 

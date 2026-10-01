@@ -6,18 +6,16 @@
 
   .nm-card {
     position: relative;
-    max-width: 440px;
+    max-width: 900px;
     margin: 0 auto;
     overflow: hidden;
     background: var(--color-surface-default, #ffffff);
     border: 1px solid var(--color-line-default, #ECEDF0);
     box-shadow: 0 2px 16px rgba(31, 42, 68, 0.06);
-    border-radius: 32px;
-    padding: 36px;
+    border-radius: 24px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 18px;
   }
 
   .nm-status {
@@ -28,95 +26,121 @@
     font-size: 14px;
   }
 
-  .nm-top {
+  .nm-topbar {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 8px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--nm-accent, #2F6FED) 24%, white),
+      color-mix(in srgb, var(--nm-accent, #2F6FED) 10%, white)
+    );
+    padding: 12px 24px;
   }
 
-  .nm-main {
-    width: 100%;
+  .nm-heading-icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .nm-heading-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: color-mix(in srgb, var(--nm-accent, #2F6FED) 70%, #1F2A44);
+  }
+
+  .nm-body {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 28px;
+    flex-wrap: wrap;
+  }
+
+  /* Found state */
+  .nm-found-state {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1 1 260px;
     min-width: 0;
-    position: relative;
-    z-index: 1;
+  }
+
+  .nm-datebox {
+    flex: 0 0 auto;
+    min-width: 88px;
+    background: var(--color-surface-subtle, #F7F7F9);
+    border-radius: 14px;
+    padding: 12px 14px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .nm-heading-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 14px;
+  .nm-year {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-content-subtle, #6B7280);
   }
 
-  .nm-heading-icon {
-    flex: 0 0 auto;
-    font-size: 22px;
-    line-height: 1;
-  }
-
-  .nm-heading {
-    font-size: 19px;
+  .nm-date {
+    font-size: 26px;
     font-weight: 800;
-    color: #1F2A44;
-    margin: 0;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    color: var(--nm-accent, #2F6FED);
+    line-height: 1.2;
   }
 
-  /* Found state */
-  .nm-rows {
+  .nm-weekday {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-content-subtle, #6B7280);
+  }
+
+  .nm-meta {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
+    min-width: 0;
   }
 
-  .nm-row {
+  .nm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--nm-accent, #2F6FED);
+    background: color-mix(in srgb, var(--nm-accent, #2F6FED) 14%, white);
+    border-radius: 999px;
+    padding: 4px 12px;
+  }
+
+  .nm-time-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1F2A44;
   }
 
-  .nm-row-icon {
+  .nm-time-row svg {
     flex: 0 0 auto;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nm-row-icon svg {
-    width: 16px;
-    height: 16px;
-    stroke: #ffffff;
+    width: 18px;
+    height: 18px;
+    stroke: var(--color-content-subtle, #6B7280);
     fill: none;
   }
 
-  .nm-row-date .nm-row-icon { background: var(--nm-accent, #2F6FED); }
-  .nm-row-time .nm-row-icon { background: #8B7CF0; }
-  .nm-row-location .nm-row-icon { background: #2BC2C2; }
-
-  .nm-row-text {
-    font-size: 15px;
-    font-weight: 700;
-    color: #1F2A44;
-    background: var(--color-surface-subtle, #F7F7F9);
-    border-radius: 999px;
-    padding: 6px 16px;
+  /* Empty state */
+  .nm-empty-state {
+    flex: 1 1 260px;
+    min-width: 0;
+    text-align: left;
   }
 
-  /* Empty state */
   .nm-empty-headline {
     font-size: 17px;
     font-weight: 800;
@@ -138,18 +162,17 @@
 
   .nm-subscribe-notice {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
+    align-items: flex-start;
+    gap: 10px;
     background: var(--color-surface-subtle, #F7F7F9);
     border-radius: 14px;
-    padding: 10px 16px;
+    padding: 10px 14px;
   }
 
   .nm-subscribe-icon {
     flex: 0 0 auto;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: var(--nm-accent, #2F6FED);
     display: flex;
@@ -171,12 +194,24 @@
     line-height: 1.5;
   }
 
+  .nm-illustration {
+    flex: 0 0 auto;
+    width: 180px;
+    max-width: 40%;
+  }
+
+  .nm-illustration img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
   .nm-link {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    width: 100%;
+    margin: 0 28px 24px;
     background: var(--nm-accent, #2F6FED);
     color: #ffffff;
     border: none;
@@ -192,24 +227,6 @@
     filter: brightness(0.94);
   }
 
-  .nm-illustration {
-    flex: 0 0 auto;
-    width: 150px;
-    max-width: 50%;
-    order: -1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .nm-illustration img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
   /* Not rendered — used only so the platform's publish-time asset-path
      rewrite (which only rewrites paths written in static HTML) resolves
      these to hosted URLs; app.js reads back the resolved .href. */
@@ -217,8 +234,10 @@
     display: none;
   }
 
-  @media (max-width: 360px) {
-    .nm-card { padding: 24px; }
+  @media (max-width: 560px) {
+    .nm-body { flex-direction: column; align-items: stretch; }
+    .nm-found-state { flex-wrap: wrap; }
+    .nm-illustration { width: 140px; max-width: 50%; margin: 0 auto; }
   }
 </style>
 
@@ -231,59 +250,41 @@
 <div class="nm-card">
   <div class="nm-status"></div>
 
-  <div class="nm-top">
-    <div class="nm-main">
-      <div class="nm-heading-row">
-        <span class="nm-heading-icon">👑</span>
-        <h3 class="nm-heading"><span class="nm-heading-text"></span></h3>
-      </div>
+  <div class="nm-topbar">
+    <span class="nm-heading-icon">👑</span>
+    <span class="nm-heading-text"></span>
+  </div>
 
-      <div class="nm-found-state">
-        <div class="nm-rows">
-          <div class="nm-row nm-row-date">
-            <span class="nm-row-icon">
-              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-            </span>
-            <span class="nm-row-text nm-date-text"></span>
-          </div>
-          <div class="nm-row nm-row-time">
-            <span class="nm-row-icon">
-              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"></circle>
-                <polyline points="12 7 12 12 16 14"></polyline>
-              </svg>
-            </span>
-            <span class="nm-row-text nm-time-text"></span>
-          </div>
-          <div class="nm-row nm-row-location">
-            <span class="nm-row-icon">
-              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 21s-7-7.1-7-12a7 7 0 0 1 14 0c0 4.9-7 12-7 12z"></path>
-                <circle cx="12" cy="9" r="2.5"></circle>
-              </svg>
-            </span>
-            <span class="nm-row-text nm-location-text"></span>
-          </div>
+  <div class="nm-body">
+    <div class="nm-found-state">
+      <div class="nm-datebox">
+        <span class="nm-year"></span>
+        <span class="nm-date"></span>
+        <span class="nm-weekday"></span>
+      </div>
+      <div class="nm-meta">
+        <span class="nm-badge nm-location-text"></span>
+        <div class="nm-time-row">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle>
+            <polyline points="12 7 12 12 16 14"></polyline>
+          </svg>
+          <span class="nm-time-text"></span>
         </div>
       </div>
+    </div>
 
-      <div class="nm-empty-state">
-        <p class="nm-empty-headline"></p>
-        <p class="nm-empty-submessage"></p>
-        <div class="nm-subscribe-notice">
-          <span class="nm-subscribe-icon">
-            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
-          </span>
-          <span class="nm-subscribe-text"></span>
-        </div>
+    <div class="nm-empty-state">
+      <p class="nm-empty-headline"></p>
+      <p class="nm-empty-submessage"></p>
+      <div class="nm-subscribe-notice">
+        <span class="nm-subscribe-icon">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </span>
+        <span class="nm-subscribe-text"></span>
       </div>
     </div>
 

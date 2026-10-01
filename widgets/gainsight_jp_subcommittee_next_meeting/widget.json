@@ -5,7 +5,7 @@
   "source": {
     "entry": "index.html"
   },
-  "containers": ["Full width"],
+  "containers": ["Full width", "Left container", "Sidebar"],
   "settings": {
     "configurable": true,
     "shared": false

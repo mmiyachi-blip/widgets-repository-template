@@ -321,7 +321,9 @@
         "entry": "index.html"
       },
       "containers": [
-        "Full width"
+        "Full width",
+        "Left container",
+        "Sidebar"
       ],
       "settings": {
         "configurable": true,
@@ -908,7 +910,9 @@
         "entry": "index.html"
       },
       "containers": [
-        "Full width"
+        "Full width",
+        "Left container",
+        "Sidebar"
       ],
       "settings": {
         "configurable": true,
@@ -963,9 +967,19 @@
             }
           },
           {
+            "name": "heading_text",
+            "type": "text",
+            "label": "見出し文言",
+            "section": "display",
+            "defaultValue": "次回の注目イベント",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
             "name": "subcommittee_name",
             "type": "text",
-            "label": "分科会名(見出しに「次回の◯◯」として表示)",
+            "label": "分科会名(マスコット画像のalt属性に使用)",
             "section": "display",
             "defaultValue": "AI分科会",
             "rules": {
@@ -1058,6 +1072,7 @@
         "category_id": "",
         "tag": "次回開催",
         "lookback_count": 25,
+        "heading_text": "次回の注目イベント",
         "subcommittee_name": "AI分科会",
         "theme": "ai",
         "location_label": "オンライン開催",
