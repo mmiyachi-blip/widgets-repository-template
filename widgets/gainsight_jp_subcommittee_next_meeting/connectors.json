@@ -9,10 +9,10 @@
         { "key": "Accept", "value": "application/json", "overridable": false }
       ],
       "query_parameters": [
-        { "key": "categoryId", "overridable": true },
-        { "key": "tags", "overridable": true },
+        { "key": "categoryId", "value": "427", "overridable": true },
+        { "key": "tags", "value": "次回開催", "overridable": true },
         { "key": "sort", "value": "createdAt", "overridable": false },
-        { "key": "pageSize", "overridable": true },
+        { "key": "pageSize", "value": "25", "overridable": true },
         { "key": "page", "value": "1", "overridable": true }
       ],
       "authentication": {

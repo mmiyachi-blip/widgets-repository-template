@@ -65,10 +65,12 @@
       "query_parameters": [
         {
           "key": "categoryId",
+          "value": "427",
           "overridable": true
         },
         {
           "key": "tags",
+          "value": "次回開催",
           "overridable": true
         },
         {
@@ -78,6 +80,7 @@
         },
         {
           "key": "pageSize",
+          "value": "25",
           "overridable": true
         },
         {
