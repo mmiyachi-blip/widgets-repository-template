@@ -53,8 +53,15 @@
     {
       "name": "CC Topics by Category and Tag",
       "permalink": "cc-category-topics",
-      "url": "https://api2-us-west-2.insided.com/topics",
+      "url": "https://api2-us-west-2.insided.com/v2/topics",
       "method": "GET",
+      "headers": [
+        {
+          "key": "Accept",
+          "value": "application/json",
+          "overridable": false
+        }
+      ],
       "query_parameters": [
         {
           "key": "categoryId",
@@ -82,8 +89,8 @@
       "authentication": {
         "type": "oauth_client_credentials",
         "config": {
-          "client_id": "{{ get_secret('cc_api_client_id_jp') }}",
-          "client_secret": "{{ get_secret('cc_api_client_secret_jp') }}",
+          "client_id": "{{ get_secret('cc_api_client_id') }}",
+          "client_secret": "{{ get_secret('cc_api_client_secret') }}",
           "token_url": "https://api2-us-west-2.insided.com/oauth2/token",
           "scope": "read"
         }
