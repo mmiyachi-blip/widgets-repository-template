@@ -1,6 +1,6 @@
 {
   "title": "次回の分科会開催予定",
-  "description": "分科会カテゴリ内で特定タグ(既定: 次回開催)が付いた投稿から、本日以降でいちばん近い開催予定を1件抽出して表示するカード。投稿タイトルを「【M/D(曜) 開始-終了】タイトル」の形式にすると日付・時間帯を自動抽出します。分科会ごとに対象カテゴリIDを変えて、各分科会ページに設置してください。",
+  "description": "分科会カテゴリ内で特定タグ(既定: 次回開催)が付いた投稿から、本日以降でいちばん近い開催予定を1件抽出して表示するマスコット付きカード。投稿タイトルを「【M/D(曜) 開始-終了】タイトル」の形式にすると日付・時間帯を自動抽出します。分科会ごとに対象カテゴリIDとテーマを変えて、各分科会ページに設置してください。",
   "category": "Custom",
   "source": {
     "entry": "index.html"
@@ -13,28 +13,47 @@
   "configuration": {
     "sections": [
       { "name": "target", "label": "対象分科会", "expanded": true },
-      { "name": "display", "label": "表示設定" }
+      { "name": "display", "label": "表示設定" },
+      { "name": "empty_state", "label": "次回未定時の表示" }
     ],
     "properties": [
       { "name": "category_id", "type": "text", "label": "対象カテゴリID", "description": "この分科会に対応するコミュニティのカテゴリID(数値)", "section": "target", "defaultValue": "", "rules": { "required": true } },
       { "name": "tag", "type": "text", "label": "絞り込みタグ", "description": "このタグが付いた投稿だけを候補にします", "section": "target", "defaultValue": "次回開催" },
       { "name": "lookback_count", "type": "number", "label": "遡って取得する投稿数", "description": "直近の該当タグ付き投稿をこの件数まで取得し、その中から本日以降でいちばん近い日付のものを表示します", "section": "target", "defaultValue": 25, "rules": { "minimum": 1, "maximum": 100 } },
 
-      { "name": "heading", "type": "text", "label": "見出し", "section": "display", "defaultValue": "次回の注目イベント" },
-      { "name": "accent_color", "type": "color", "label": "アクセントカラー", "section": "display", "defaultValue": "#F2A33C" },
-      { "name": "location_label", "type": "text", "label": "開催形式バッジ(任意・空欄で非表示)", "section": "display", "defaultValue": "オンライン" },
-      { "name": "link_label", "type": "text", "label": "リンクボタンの文言", "section": "display", "defaultValue": "投稿を見る" },
-      { "name": "empty_message", "type": "text", "label": "該当なし時のメッセージ", "section": "display", "defaultValue": "現在、次回開催予定の投稿はありません。" }
+      { "name": "subcommittee_name", "type": "text", "label": "分科会名(見出しに「次回の◯◯」として表示)", "section": "display", "defaultValue": "AI分科会", "rules": { "required": true, "maxLength": 30 } },
+      {
+        "name": "theme", "type": "select", "label": "テーマ(マスコットイラスト・配色)", "section": "display", "defaultValue": "ai",
+        "options": [
+          { "value": "ai", "label": "AI分科会" },
+          { "value": "ops", "label": "CS Ops分科会" },
+          { "value": "digital", "label": "デジタルCS分科会" },
+          { "value": "strategy", "label": "CS戦略/マネジメント分科会" },
+          { "value": "community", "label": "コミュニティ運営分科会" }
+        ]
+      },
+      { "name": "location_label", "type": "text", "label": "開催形式", "section": "display", "defaultValue": "オンライン開催" },
+      { "name": "link_label", "type": "text", "label": "ボタンの文言", "section": "display", "defaultValue": "詳細を見る" },
+      { "name": "category_url", "type": "text", "label": "分科会ページURL(任意)", "description": "投稿へのリンクが取得できない場合や、次回未定時のボタンのリンク先として使います", "section": "display", "defaultValue": "" },
+
+      { "name": "empty_message", "type": "text", "label": "次回未定時の見出し", "section": "empty_state", "defaultValue": "現在、次回開催予定を調整中です。" },
+      { "name": "empty_submessage", "type": "text", "label": "次回未定時の補足", "section": "empty_state", "defaultValue": "もう少々お待ちください。" },
+      { "name": "show_subscribe_notice", "type": "boolean", "label": "「サブスクライブ案内」を表示", "section": "empty_state", "defaultValue": true },
+      { "name": "subscribe_notice_text", "type": "text", "label": "サブスクライブ案内の文言", "section": "empty_state", "defaultValue": "通知登録がまだの方は、画面の「サブスクライブ」から通知登録をお願いします!" }
     ]
   },
   "defaultConfig": {
     "category_id": "",
     "tag": "次回開催",
     "lookback_count": 25,
-    "heading": "次回の注目イベント",
-    "accent_color": "#F2A33C",
-    "location_label": "オンライン",
-    "link_label": "投稿を見る",
-    "empty_message": "現在、次回開催予定の投稿はありません。"
+    "subcommittee_name": "AI分科会",
+    "theme": "ai",
+    "location_label": "オンライン開催",
+    "link_label": "詳細を見る",
+    "category_url": "",
+    "empty_message": "現在、次回開催予定を調整中です。",
+    "empty_submessage": "もう少々お待ちください。",
+    "show_subscribe_notice": true,
+    "subscribe_notice_text": "通知登録がまだの方は、画面の「サブスクライブ」から通知登録をお願いします!"
   }
 }

@@ -5,16 +5,17 @@ const WEEKDAY_LABELS = ['日', '月', '火', '水', '木', '金', '土'];
 // skipped: without a parsed date we can't tell whether it's still upcoming.
 const TITLE_PATTERN = /^【\s*(\d{1,2})\/(\d{1,2})\([^)]*\)\s*(\d{1,2}):(\d{2})\s*[-〜~]\s*(\d{1,2}):(\d{2})\s*】\s*(.*)$/;
 
-function stripHtml(html) {
-  const withBreaks = String(html || '').replace(/<br\s*\/?>/gi, '\n').replace(/<\/p>/gi, '\n');
-  const doc = new DOMParser().parseFromString(withBreaks, 'text/html');
-  return (doc.body.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
-}
+// Matches the palette already used for these 5 categories in the
+// subcommittee navigation widget, so colors stay consistent across pages.
+const THEME_COLORS = {
+  ai: '#4E86D6',
+  ops: '#3FA772',
+  digital: '#E08A3C',
+  strategy: '#D9A62B',
+  community: '#D45C9C',
+};
 
-function truncate(text, max) {
-  if (text.length <= max) return text;
-  return `${text.slice(0, max).trimEnd()}…`;
-}
+const KNOWN_THEMES = Object.keys(THEME_COLORS);
 
 function startOfDay(d) {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -77,36 +78,42 @@ function extractTopics(data) {
   return [];
 }
 
+function resolveTheme(theme) {
+  return KNOWN_THEMES.includes(theme) ? theme : 'ai';
+}
+
 export async function init(sdk) {
   await sdk.whenReady();
 
   let props = sdk.getProps();
 
   const els = {
-    heading: sdk.$('.nm-heading'),
     status: sdk.$('.nm-status'),
     card: sdk.$('.nm-card'),
-    year: sdk.$('.nm-year'),
-    date: sdk.$('.nm-date'),
-    weekday: sdk.$('.nm-weekday'),
-    badge: sdk.$('.nm-badge'),
-    title: sdk.$('.nm-title'),
-    time: sdk.$('.nm-time'),
-    excerpt: sdk.$('.nm-excerpt'),
+    subcommitteeName: sdk.$('.nm-subcommittee-name'),
+    foundState: sdk.$('.nm-found-state'),
+    emptyState: sdk.$('.nm-empty-state'),
+    dateText: sdk.$('.nm-date-text'),
+    timeText: sdk.$('.nm-time-text'),
+    locationText: sdk.$('.nm-location-text'),
+    emptyHeadline: sdk.$('.nm-empty-headline'),
+    emptySubmessage: sdk.$('.nm-empty-submessage'),
+    subscribeNotice: sdk.$('.nm-subscribe-notice'),
+    subscribeText: sdk.$('.nm-subscribe-text'),
     link: sdk.$('.nm-link'),
+    linkText: sdk.$('.nm-link-text'),
+    mascot: sdk.$('.nm-mascot'),
   };
 
   function applyStaticProps() {
     const host = sdk.getContainer().host;
-    host.style.setProperty('--nm-accent', props.accent_color || '#F2A33C');
-    els.heading.textContent = props.heading || '次回の注目イベント';
+    const theme = resolveTheme(props.theme);
+    host.style.setProperty('--nm-accent', THEME_COLORS[theme]);
+    els.subcommitteeName.textContent = props.subcommittee_name || '';
 
-    if (props.location_label) {
-      els.badge.textContent = props.location_label;
-      els.badge.style.display = '';
-    } else {
-      els.badge.style.display = 'none';
-    }
+    els.mascot.setAttribute('src', `assets/mascot-${theme}.png`);
+    els.mascot.setAttribute('alt', props.subcommittee_name || '');
+    els.mascot.onerror = () => { els.mascot.style.display = 'none'; };
   }
 
   function showStatus(message) {
@@ -115,22 +122,47 @@ export async function init(sdk) {
     els.status.style.display = 'block';
   }
 
-  function showCard(next) {
+  function showFoundState(next) {
     els.status.style.display = 'none';
     els.card.style.display = '';
+    els.foundState.style.display = '';
+    els.emptyState.style.display = 'none';
 
     const { parsed, topic } = next;
-    els.year.textContent = String(parsed.year);
-    els.date.textContent = `${parsed.month}.${parsed.day}`;
-    els.weekday.textContent = `${WEEKDAY_LABELS[parsed.date.getDay()]}曜`;
-    els.title.textContent = parsed.title || topic.title || '';
-    els.time.textContent = `${parsed.startTime} 〜 ${parsed.endTime}`;
-    els.excerpt.textContent = truncate(stripHtml(topic.content), 140);
+    els.dateText.textContent = `${parsed.month}月${parsed.day}日（${WEEKDAY_LABELS[parsed.date.getDay()]}）`;
+    els.timeText.textContent = `${parsed.startTime} - ${parsed.endTime}`;
+    els.locationText.textContent = props.location_label || 'オンライン開催';
 
-    const url = resolveTopicUrl(topic);
+    const url = resolveTopicUrl(topic) || props.category_url || '';
+    setLink(url);
+  }
+
+  function showEmptyState() {
+    els.status.style.display = 'none';
+    els.card.style.display = '';
+    els.foundState.style.display = 'none';
+    els.emptyState.style.display = '';
+
+    els.emptyHeadline.innerHTML = '';
+    const mark = document.createElement('mark');
+    mark.textContent = props.empty_message || '現在、次回開催予定を調整中です。';
+    els.emptyHeadline.appendChild(mark);
+    els.emptySubmessage.textContent = props.empty_submessage || 'もう少々お待ちください。';
+
+    if (props.show_subscribe_notice === false) {
+      els.subscribeNotice.style.display = 'none';
+    } else {
+      els.subscribeNotice.style.display = '';
+      els.subscribeText.textContent = props.subscribe_notice_text || '';
+    }
+
+    setLink(props.category_url || '');
+  }
+
+  function setLink(url) {
+    els.linkText.textContent = props.link_label || '詳細を見る';
     if (url) {
       els.link.style.display = '';
-      els.link.textContent = props.link_label || '投稿を見る';
       els.link.setAttribute('href', url);
     } else {
       els.link.style.display = 'none';
@@ -162,10 +194,10 @@ export async function init(sdk) {
       const topics = extractTopics(data);
       const next = pickNextMeeting(topics, new Date());
       if (!next) {
-        showStatus(props.empty_message || '現在、次回開催予定の投稿はありません。');
+        showEmptyState();
         return;
       }
-      showCard(next);
+      showFoundState(next);
     } catch (err) {
       console.error('[subcommittee-next-meeting] connector error', err);
       showStatus('情報を読み込めませんでした。');
