@@ -3,7 +3,7 @@
     {
       "name": "CC Category Topics by Tag",
       "permalink": "cc-category-topics",
-      "url": "https://{{ get_variable('cc_api_host') }}/categories/{{ pathParams.category_id }}/topics",
+      "url": "https://api2-us-west-2.insided.com/categories/{{ pathParams.category_id }}/topics",
       "method": "GET",
       "path_parameters": [
         { "key": "category_id" }
@@ -17,9 +17,9 @@
       "authentication": {
         "type": "oauth_client_credentials",
         "config": {
-          "client_id": "{{ get_secret('cc_api_client_id') }}",
-          "client_secret": "{{ get_secret('cc_api_client_secret') }}",
-          "token_url": "https://{{ get_variable('cc_api_host') }}/oauth2/token",
+          "client_id": "{{ get_secret('cc_api_client_id_jp') }}",
+          "client_secret": "{{ get_secret('cc_api_client_secret_jp') }}",
+          "token_url": "https://api2-us-west-2.insided.com/oauth2/token",
           "scope": "read"
         }
       },
