@@ -152,8 +152,8 @@ export async function init(sdk) {
       const data = await wsdk.connectors.execute({
         permalink: 'cc-category-topics',
         method: 'GET',
-        pathParams: { category_id: categoryId },
         queryParams: {
+          categoryId,
           tags: props.tag || '次回開催',
           pageSize: String(props.lookback_count || 25),
         },

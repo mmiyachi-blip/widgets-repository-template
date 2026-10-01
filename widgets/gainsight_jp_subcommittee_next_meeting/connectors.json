@@ -1,14 +1,12 @@
 {
   "connectors": [
     {
-      "name": "CC Category Topics by Tag",
+      "name": "CC Topics by Category and Tag",
       "permalink": "cc-category-topics",
-      "url": "https://api2-us-west-2.insided.com/categories/{{ pathParams.category_id }}/topics",
+      "url": "https://api2-us-west-2.insided.com/topics",
       "method": "GET",
-      "path_parameters": [
-        { "key": "category_id" }
-      ],
       "query_parameters": [
+        { "key": "categoryId", "overridable": true },
         { "key": "tags", "overridable": true },
         { "key": "sort", "value": "createdAt", "overridable": false },
         { "key": "pageSize", "overridable": true },
