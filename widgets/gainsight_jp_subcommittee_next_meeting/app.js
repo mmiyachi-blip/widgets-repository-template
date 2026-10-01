@@ -87,6 +87,16 @@ export async function init(sdk) {
 
   let props = sdk.getProps();
 
+  // Resolved by the platform's publish-time rewrite of the <link> hrefs
+  // declared statically in index.html — see the comment there.
+  const mascotUrls = {
+    ai: sdk.$('#mascot-src-ai')?.href || '',
+    ops: sdk.$('#mascot-src-ops')?.href || '',
+    digital: sdk.$('#mascot-src-digital')?.href || '',
+    strategy: sdk.$('#mascot-src-strategy')?.href || '',
+    community: sdk.$('#mascot-src-community')?.href || '',
+  };
+
   const els = {
     status: sdk.$('.nm-status'),
     card: sdk.$('.nm-card'),
@@ -111,9 +121,15 @@ export async function init(sdk) {
     host.style.setProperty('--nm-accent', THEME_COLORS[theme]);
     els.subcommitteeName.textContent = props.subcommittee_name || '';
 
-    els.mascot.setAttribute('src', `assets/mascot-${theme}.png`);
-    els.mascot.setAttribute('alt', props.subcommittee_name || '');
-    els.mascot.onerror = () => { els.mascot.style.display = 'none'; };
+    const mascotUrl = mascotUrls[theme];
+    if (mascotUrl) {
+      els.mascot.style.display = '';
+      els.mascot.setAttribute('src', mascotUrl);
+      els.mascot.setAttribute('alt', props.subcommittee_name || '');
+      els.mascot.onerror = () => { els.mascot.style.display = 'none'; };
+    } else {
+      els.mascot.style.display = 'none';
+    }
   }
 
   function showStatus(message) {

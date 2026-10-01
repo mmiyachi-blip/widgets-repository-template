@@ -217,6 +217,13 @@
     display: block;
   }
 
+  /* Not rendered — used only so the platform's publish-time asset-path
+     rewrite (which only rewrites paths written in static HTML) resolves
+     these to hosted URLs; app.js reads back the resolved .href. */
+  link[rel="preload"] {
+    display: none;
+  }
+
   @media (max-width: 680px) {
     .nm-card {
       border-radius: 32px;
@@ -232,6 +239,12 @@
     .nm-row-text { font-size: 16px; }
   }
 </style>
+
+<link rel="preload" as="image" href="assets/mascot-ai.png" id="mascot-src-ai">
+<link rel="preload" as="image" href="assets/mascot-ops.png" id="mascot-src-ops">
+<link rel="preload" as="image" href="assets/mascot-digital.png" id="mascot-src-digital">
+<link rel="preload" as="image" href="assets/mascot-strategy.png" id="mascot-src-strategy">
+<link rel="preload" as="image" href="assets/mascot-community.png" id="mascot-src-community">
 
 <div class="nm-card">
   <div class="nm-status"></div>
