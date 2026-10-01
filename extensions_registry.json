@@ -1099,6 +1099,220 @@
         "accent_color": "#7B3BC4"
       },
       "type": "greeting-banner"
+    },
+    {
+      "title": "Section Title Banner (見出し＋ボタン＋左右の飾り)",
+      "description": "2行の見出し、リンク付きの小さなボタン、左右の飾り模様（複数から選択可）を表示するセクションタイトルバナー",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/section-title-banner/dist",
+        "entry": "content.html"
+      },
+      "containers": [
+        "Full width",
+        "Left container"
+      ],
+      "settings": {
+        "configurable": true
+      },
+      "configuration": {
+        "sections": [
+          {
+            "name": "title",
+            "label": "見出し",
+            "expanded": true
+          },
+          {
+            "name": "button",
+            "label": "ボタン"
+          },
+          {
+            "name": "deco",
+            "label": "左右の飾り・配色"
+          }
+        ],
+        "properties": [
+          {
+            "name": "title_line1",
+            "type": "text",
+            "label": "見出し 1行目",
+            "description": "*と*で囲んだ部分が強調色になります",
+            "section": "title",
+            "defaultValue": "あなたのミッションや",
+            "rules": {
+              "maxLength": 80
+            }
+          },
+          {
+            "name": "title_line2",
+            "type": "text",
+            "label": "見出し 2行目",
+            "description": "*と*で囲んだ部分が強調色になります。例: *興味のあるテーマ*を選んでください！",
+            "section": "title",
+            "defaultValue": "*興味のあるテーマ*を選んでください！",
+            "rules": {
+              "maxLength": 80
+            }
+          },
+          {
+            "name": "title_color",
+            "type": "color",
+            "label": "見出しの文字色",
+            "section": "title",
+            "defaultValue": "#1F2A44"
+          },
+          {
+            "name": "highlight_color",
+            "type": "color",
+            "label": "強調部分の色",
+            "section": "title",
+            "defaultValue": "#2F8CF0"
+          },
+          {
+            "name": "title_size",
+            "type": "select",
+            "label": "見出しの大きさ",
+            "section": "title",
+            "defaultValue": "m",
+            "options": [
+              {
+                "value": "s",
+                "label": "小"
+              },
+              {
+                "value": "m",
+                "label": "中"
+              },
+              {
+                "value": "l",
+                "label": "大"
+              }
+            ]
+          },
+          {
+            "name": "show_button",
+            "type": "boolean",
+            "label": "ボタンを表示する",
+            "section": "button",
+            "defaultValue": true
+          },
+          {
+            "name": "button_icon",
+            "type": "text",
+            "label": "ボタンのアイコン(絵文字)",
+            "description": "空欄にするとアイコンなし",
+            "section": "button",
+            "defaultValue": "🔰",
+            "rules": {
+              "maxLength": 4
+            }
+          },
+          {
+            "name": "button_text",
+            "type": "text",
+            "label": "ボタンの文言",
+            "section": "button",
+            "defaultValue": "はじめての方へ：Gainsightのユーザー分科会とは？",
+            "rules": {
+              "maxLength": 80
+            }
+          },
+          {
+            "name": "button_link",
+            "type": "text",
+            "label": "ボタンのリンク先URL",
+            "section": "button",
+            "defaultValue": "#"
+          },
+          {
+            "name": "button_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "button",
+            "defaultValue": false
+          },
+          {
+            "name": "button_color",
+            "type": "color",
+            "label": "ボタンの枠線・矢印の色",
+            "section": "button",
+            "defaultValue": "#2F8CF0"
+          },
+          {
+            "name": "deco_style",
+            "type": "select",
+            "label": "左右の模様",
+            "section": "deco",
+            "defaultValue": "wave_star",
+            "options": [
+              {
+                "value": "wave_star",
+                "label": "ウェーブ＋星"
+              },
+              {
+                "value": "wave_dots",
+                "label": "ウェーブ＋ドット"
+              },
+              {
+                "value": "sparkles",
+                "label": "キラキラ"
+              },
+              {
+                "value": "confetti",
+                "label": "コンフェッティ"
+              },
+              {
+                "value": "leaf",
+                "label": "リーフ"
+              },
+              {
+                "value": "none",
+                "label": "なし"
+              }
+            ]
+          },
+          {
+            "name": "deco_color",
+            "type": "color",
+            "label": "模様の色",
+            "section": "deco",
+            "defaultValue": "#3D9BF5"
+          },
+          {
+            "name": "show_burst",
+            "type": "boolean",
+            "label": "見出し上部のきらめき線を表示",
+            "section": "deco",
+            "defaultValue": true
+          },
+          {
+            "name": "background_color",
+            "type": "color",
+            "label": "背景色",
+            "description": "白(#FFFFFF)のままなら実質無地です",
+            "section": "deco",
+            "defaultValue": "#FFFFFF"
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title_line1": "あなたのミッションや",
+        "title_line2": "*興味のあるテーマ*を選んでください！",
+        "title_color": "#1F2A44",
+        "highlight_color": "#2F8CF0",
+        "title_size": "m",
+        "show_button": true,
+        "button_icon": "🔰",
+        "button_text": "はじめての方へ：Gainsightのユーザー分科会とは？",
+        "button_link": "#",
+        "button_new_tab": false,
+        "button_color": "#2F8CF0",
+        "deco_style": "wave_star",
+        "deco_color": "#3D9BF5",
+        "show_burst": true,
+        "background_color": "#FFFFFF"
+      },
+      "type": "section-title-banner"
     }
   ],
   "stylesheets": [
