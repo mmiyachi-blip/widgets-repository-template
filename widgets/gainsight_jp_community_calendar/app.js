@@ -288,9 +288,12 @@ export async function init(sdk) {
 
   els.grid.addEventListener('click', (e) => {
     const badge = e.target.closest('.cal-badge');
-    if (!badge) return;
+    // In compact mode the whole date cell is the click target, not just the dot.
+    const compactCell = props.display_size === 'compact' ? e.target.closest('.cal-cell--has-event') : null;
+    const source = badge || compactCell;
+    if (!source) return;
     e.preventDefault();
-    const id = badge.getAttribute('data-event-id');
+    const id = source.getAttribute('data-event-id');
     const ev = state.events.find((item) => item.id === id);
     if (ev) openModal(ev);
   });
@@ -391,7 +394,8 @@ export async function init(sdk) {
       const eventColor = hasEvent ? resolveCategory(dayEvents[0].colorId, props).color : '';
       const classes = `cal-cell${isToday ? ' cal-cell--today' : ''}${hasEvent ? ' cal-cell--has-event' : ''}`;
       const styleAttr = hasEvent ? ` style="--ev-color:${escapeHtml(eventColor)}"` : '';
-      html += `<div class="${classes}"${styleAttr}>`;
+      const idAttr = hasEvent ? ` data-event-id="${escapeHtml(dayEvents[0].id)}"` : '';
+      html += `<div class="${classes}"${styleAttr}${idAttr}>`;
       html += `<span class="cal-date">${d}</span>`;
       html += '<div class="cal-badges">';
 
