@@ -227,6 +227,17 @@
     filter: brightness(0.94);
   }
 
+  /* 投稿がまだ無いときの「詳細をお待ちください」: 押せない見た目にする */
+  .nm-link--pending {
+    background: color-mix(in srgb, var(--nm-accent, #2F6FED) 35%, #ffffff);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .nm-link--pending:hover {
+    filter: none;
+  }
+
   /* Not rendered — used only so the platform's publish-time asset-path
      rewrite (which only rewrites paths written in static HTML) resolves
      these to hosted URLs; app.js reads back the resolved .href. */

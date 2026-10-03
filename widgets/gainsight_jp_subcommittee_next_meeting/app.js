@@ -52,20 +52,60 @@ function parseMeetingFromTitle(title, today) {
   };
 }
 
-function pickNextMeeting(topics, today) {
-  const todayMid = startOfDay(today);
-  const candidates = [];
+// 「次回開催」投稿のうち、タイトルの日付がカレンダー予定の日付と一致するものを探す。
+// 投稿はカレンダーより後に作られるので、見つからなければ null(=詳細待ち)。
+function findTopicForDate(topics, eventDate, today) {
+  const target = startOfDay(eventDate).getTime();
+  const matches = [];
   for (const topic of topics || []) {
     const parsed = parseMeetingFromTitle(topic && topic.title, today);
-    if (!parsed || parsed.date < todayMid) continue;
-    candidates.push({ topic, parsed });
+    if (parsed && startOfDay(parsed.date).getTime() === target) matches.push(topic);
   }
-  candidates.sort((a, b) => {
-    const byDate = a.parsed.date - b.parsed.date;
-    if (byDate !== 0) return byDate;
-    return new Date(a.topic.createdAt || 0) - new Date(b.topic.createdAt || 0);
+  matches.sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
+  return matches[0] || null;
+}
+
+function parseTitleFilters(raw) {
+  return String(raw || '')
+    .split(/[,、，]/)
+    .map((f) => f.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+function localDateString(d) {
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${mm}-${dd}`;
+}
+
+// カレンダー予定(コネクター gcal-events のレスポンス)から、タイトルに
+// いずれかのキーワードを含み、日付が今日以降でいちばん近い1件を選ぶ。
+function pickNextCalendarEvent(events, filters, today) {
+  const todayStr = localDateString(today);
+  const candidates = (Array.isArray(events) ? events : []).filter((ev) => {
+    if (!ev || !/^\d{4}-\d{2}-\d{2}$/.test(ev.date || '') || ev.date < todayStr) return false;
+    const title = String(ev.title || '').toLowerCase();
+    return filters.some((f) => title.includes(f));
   });
-  return candidates[0] || null;
+  candidates.sort((a, b) => {
+    const byDate = a.date.localeCompare(b.date);
+    if (byDate !== 0) return byDate;
+    return String(a.time || '').localeCompare(String(b.time || ''));
+  });
+  const ev = candidates[0];
+  if (!ev) return null;
+
+  const [year, month, day] = ev.date.split('-').map(Number);
+  return {
+    date: new Date(year, month - 1, day),
+    year,
+    month,
+    day,
+    startTime: ev.time || '',
+    endTime: ev.endTime || '',
+    isAllDay: Boolean(ev.isAllDay),
+    title: ev.title || '',
+  };
 }
 
 function resolveTopicUrl(topic) {
@@ -140,21 +180,28 @@ export async function init(sdk) {
     els.status.style.display = 'block';
   }
 
-  function showFoundState(next) {
+  function showFoundState(parsed, topic) {
     els.status.style.display = 'none';
     els.card.style.display = '';
     els.foundState.style.display = '';
     els.emptyState.style.display = 'none';
 
-    const { parsed, topic } = next;
     els.year.textContent = String(parsed.year);
     els.date.textContent = `${parsed.month}.${parsed.day}`;
     els.weekday.textContent = `${WEEKDAY_LABELS[parsed.date.getDay()]}曜`;
-    els.timeText.textContent = `${parsed.startTime} - ${parsed.endTime}`;
+    els.timeText.textContent = parsed.isAllDay || !parsed.startTime
+      ? '終日'
+      : `${parsed.startTime} - ${parsed.endTime}`;
     els.locationText.textContent = props.location_label || 'オンライン開催';
 
-    const url = resolveTopicUrl(topic) || props.category_url || '';
-    setLink(url);
+    // 日程はカレンダーで先に決まり、告知投稿は後から出る。投稿があればそのURL、
+    // なければ押せない「詳細をお待ちください」を出す。
+    const url = resolveTopicUrl(topic);
+    if (url) {
+      setLink(url);
+    } else {
+      setPendingLink();
+    }
   }
 
   function showEmptyState() {
@@ -179,8 +226,18 @@ export async function init(sdk) {
     setLink(props.category_url || '');
   }
 
+  function setPendingLink() {
+    els.linkText.textContent = props.pending_label || '詳細をお待ちください';
+    els.link.style.display = '';
+    els.link.removeAttribute('href');
+    els.link.classList.add('nm-link--pending');
+    els.link.setAttribute('aria-disabled', 'true');
+  }
+
   function setLink(url) {
-    els.linkText.textContent = props.link_label || '詳細を見る';
+    els.link.classList.remove('nm-link--pending');
+    els.link.removeAttribute('aria-disabled');
+    els.linkText.textContent = props.link_label || '詳細はこちら';
     if (url) {
       els.link.style.display = '';
       els.link.setAttribute('href', url);
@@ -199,25 +256,49 @@ export async function init(sdk) {
       return;
     }
 
+    const filters = parseTitleFilters(props.calendar_title_filter);
+    if (filters.length === 0) {
+      showStatus('ウィジェット設定で「カレンダーのタイトルキーワード」を指定してください。');
+      return;
+    }
+
     try {
       const wsdk = new window.WidgetServiceSDK();
-      const data = await wsdk.connectors.execute({
-        permalink: 'cc-category-topics',
-        method: 'GET',
-        queryParams: {
-          categoryId,
-          tags: props.tag || '次回開催',
-          pageSize: String(props.lookback_count || 25),
-        },
-      });
+      const now = new Date();
+      const rangeEnd = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
 
-      const topics = extractTopics(data);
-      const next = pickNextMeeting(topics, new Date());
-      if (!next) {
+      // カレンダーが日程の正。投稿の取得に失敗しても日程は出したいので別扱い。
+      const [calendarData, topicsData] = await Promise.all([
+        wsdk.connectors.execute({
+          permalink: 'gcal-events',
+          method: 'GET',
+          queryParams: {
+            timeMin: startOfDay(now).toISOString(),
+            timeMax: rangeEnd.toISOString(),
+            maxResults: '250',
+          },
+        }),
+        wsdk.connectors.execute({
+          permalink: 'cc-category-topics',
+          method: 'GET',
+          queryParams: {
+            categoryId,
+            tags: props.tag || '次回開催',
+            pageSize: String(props.lookback_count || 25),
+          },
+        }).catch((err) => {
+          console.error('[subcommittee-next-meeting] topics connector error', err);
+          return null;
+        }),
+      ]);
+
+      const topics = extractTopics(topicsData);
+      const event = pickNextCalendarEvent(calendarData, filters, now);
+      if (!event) {
         showEmptyState();
         return;
       }
-      showFoundState(next);
+      showFoundState(event, findTopicForDate(topics, event.date, now));
     } catch (err) {
       console.error('[subcommittee-next-meeting] connector error', err);
       showStatus('情報を読み込めませんでした。');

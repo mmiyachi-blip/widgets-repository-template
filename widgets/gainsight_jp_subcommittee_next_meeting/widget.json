@@ -1,6 +1,6 @@
 {
   "title": "次回の分科会開催予定",
-  "description": "分科会カテゴリ内で特定タグ(既定: 次回開催)が付いた投稿から、本日以降でいちばん近い開催予定を1件抽出して表示するマスコット付きカード。投稿タイトルを「【M/D(曜) 開始-終了】タイトル」の形式にすると日付・時間帯を自動抽出します。分科会ごとに対象カテゴリIDとテーマを変えて、各分科会ページに設置してください。",
+  "description": "Googleカレンダーの予定のうち、タイトルに指定キーワードを含み本日以降でいちばん近い1件を「次回開催予定」として表示するマスコット付きカード。ボタンは、同じ日付(タイトルを「【M/D(曜) 開始-終了】タイトル」の形式にする)の「次回開催」タグ付き投稿がカテゴリにあればその投稿へのリンク、まだ無ければ「詳細をお待ちください」になります。分科会ごとに対象カテゴリIDとテーマを変えて、各分科会ページに設置してください。",
   "category": "Custom",
   "source": {
     "entry": "index.html"
@@ -17,9 +17,10 @@
       { "name": "empty_state", "label": "次回未定時の表示" }
     ],
     "properties": [
-      { "name": "category_id", "type": "text", "label": "対象カテゴリID", "description": "この分科会に対応するコミュニティのカテゴリID(数値)", "section": "target", "defaultValue": "", "rules": { "required": true } },
-      { "name": "tag", "type": "text", "label": "絞り込みタグ", "description": "このタグが付いた投稿だけを候補にします", "section": "target", "defaultValue": "次回開催" },
-      { "name": "lookback_count", "type": "number", "label": "遡って取得する投稿数", "description": "直近の該当タグ付き投稿をこの件数まで取得し、その中から本日以降でいちばん近い日付のものを表示します", "section": "target", "defaultValue": 25, "rules": { "minimum": 1, "maximum": 100 } },
+      { "name": "calendar_title_filter", "type": "text", "label": "カレンダーのタイトルキーワード(カンマ区切り、複数指定可)", "description": "いずれかの文字列をタイトルに含むカレンダー予定のうち、本日以降でいちばん近い1件を表示します(例: AI分科会)", "section": "target", "defaultValue": "", "rules": { "required": true } },
+      { "name": "category_id", "type": "text", "label": "対象カテゴリID", "description": "告知投稿(次回開催タグ付き)を探すカテゴリのID(数値)", "section": "target", "defaultValue": "", "rules": { "required": true } },
+      { "name": "tag", "type": "text", "label": "絞り込みタグ", "description": "このタグが付いた投稿を、カレンダー予定と同じ日付のものとして照合します", "section": "target", "defaultValue": "次回開催" },
+      { "name": "lookback_count", "type": "number", "label": "遡って取得する投稿数", "description": "直近の該当タグ付き投稿をこの件数まで取得し、その中からカレンダー予定と同じ日付のものを探します", "section": "target", "defaultValue": 25, "rules": { "minimum": 1, "maximum": 100 } },
 
       { "name": "heading_text", "type": "text", "label": "見出し文言", "section": "display", "defaultValue": "次回の注目イベント", "rules": { "maxLength": 40 } },
       { "name": "subcommittee_name", "type": "text", "label": "分科会名(マスコット画像のalt属性に使用)", "section": "display", "defaultValue": "AI分科会", "rules": { "required": true, "maxLength": 30 } },
@@ -34,8 +35,9 @@
         ]
       },
       { "name": "location_label", "type": "text", "label": "開催形式", "section": "display", "defaultValue": "オンライン開催" },
-      { "name": "link_label", "type": "text", "label": "ボタンの文言", "section": "display", "defaultValue": "詳細を見る" },
-      { "name": "category_url", "type": "text", "label": "分科会ページURL(任意)", "description": "投稿へのリンクが取得できない場合や、次回未定時のボタンのリンク先として使います", "section": "display", "defaultValue": "" },
+      { "name": "link_label", "type": "text", "label": "ボタンの文言(投稿あり)", "section": "display", "defaultValue": "詳細はこちら" },
+      { "name": "pending_label", "type": "text", "label": "ボタンの文言(投稿まだ無し)", "description": "カレンダーに予定はあるが告知投稿がまだ無いときの、押せないボタンの文言", "section": "display", "defaultValue": "詳細をお待ちください" },
+      { "name": "category_url", "type": "text", "label": "分科会ページURL(任意)", "description": "次回未定時のボタンのリンク先として使います", "section": "display", "defaultValue": "" },
 
       { "name": "empty_message", "type": "text", "label": "次回未定時の見出し", "section": "empty_state", "defaultValue": "現在、次回開催予定を調整中です。" },
       { "name": "empty_submessage", "type": "text", "label": "次回未定時の補足", "section": "empty_state", "defaultValue": "もう少々お待ちください。" },
@@ -44,6 +46,7 @@
     ]
   },
   "defaultConfig": {
+    "calendar_title_filter": "",
     "category_id": "",
     "tag": "次回開催",
     "lookback_count": 25,
@@ -51,7 +54,8 @@
     "subcommittee_name": "AI分科会",
     "theme": "ai",
     "location_label": "オンライン開催",
-    "link_label": "詳細を見る",
+    "link_label": "詳細はこちら",
+    "pending_label": "詳細をお待ちください",
     "category_url": "",
     "empty_message": "現在、次回開催予定を調整中です。",
     "empty_submessage": "もう少々お待ちください。",
