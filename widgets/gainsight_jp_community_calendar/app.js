@@ -387,7 +387,11 @@ export async function init(sdk) {
       const dayEvents = eventsByDate[dateStr] || [];
       const isToday = dateStr === todayStr;
 
-      html += `<div class="cal-cell${isToday ? ' cal-cell--today' : ''}">`;
+      const hasEvent = dayEvents.length > 0;
+      const eventColor = hasEvent ? resolveCategory(dayEvents[0].colorId, props).color : '';
+      const classes = `cal-cell${isToday ? ' cal-cell--today' : ''}${hasEvent ? ' cal-cell--has-event' : ''}`;
+      const styleAttr = hasEvent ? ` style="--ev-color:${escapeHtml(eventColor)}"` : '';
+      html += `<div class="${classes}"${styleAttr}>`;
       html += `<span class="cal-date">${d}</span>`;
       html += '<div class="cal-badges">';
 
