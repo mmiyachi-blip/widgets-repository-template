@@ -240,7 +240,57 @@ export async function init(sdk) {
     modalDescription: sdk.$('.cal-modal-description'),
     modalLink: sdk.$('.cal-modal-link'),
     modalAddLink: sdk.$('.cal-modal-add-link'),
+    modalPostLink: sdk.$('.cal-modal-post-link'),
   };
+
+  // Subcommittee "次回開催" posts are titled "【M/D(曜) HH:MM-HH:MM】…". The
+  // post whose M/D equals the calendar event's date is that event's detail page.
+  const POST_TITLE_DATE = /^【\s*(\d{1,2})\/(\d{1,2})\(/;
+  let detailTopicsPromise = null;
+
+  function loadDetailTopics() {
+    if (!detailTopicsPromise) {
+      detailTopicsPromise = (async () => {
+        const wsdk = new window.WidgetServiceSDK();
+        const data = await wsdk.connectors.execute({
+          permalink: 'cc-category-topics',
+          method: 'GET',
+          queryParams: {
+            categoryId: String(props.detail_category_id).trim(),
+            tags: props.detail_tag || '次回開催',
+            pageSize: '100',
+          },
+        });
+        if (Array.isArray(data)) return data;
+        return data && Array.isArray(data.result) ? data.result : [];
+      })().catch((err) => {
+        console.error('[community-calendar] detail topics error', err);
+        detailTopicsPromise = null;
+        return [];
+      });
+    }
+    return detailTopicsPromise;
+  }
+
+  async function showPostLink(ev) {
+    els.modalPostLink.style.display = 'none';
+    const hasFilter = parseTitleFilters(props.title_filters).length > 0;
+    if (!hasFilter || !String(props.detail_category_id || '').trim() || !ev.date) return;
+
+    const [, evMonth, evDay] = ev.date.split('-').map(Number);
+    const topics = await loadDetailTopics();
+    const match = topics.find((t) => {
+      const m = POST_TITLE_DATE.exec(String((t && t.title) || '').trim());
+      return m && Number(m[1]) === evMonth && Number(m[2]) === evDay;
+    });
+    if (!match || !match.publicId || els.modalOverlay.hidden || els.modalTitle.textContent !== (ev.title || '(無題)')) return;
+
+    const base = String(props.community_base_url || 'https://communities.gainsight.com').replace(/\/+$/, '');
+    const fid = encodeURIComponent(match.categoryId || props.detail_category_id);
+    els.modalPostLink.setAttribute('href', `${base}/topic/show?tid=${encodeURIComponent(match.publicId)}&fid=${fid}`);
+    els.modalPostLink.textContent = props.detail_link_label || '分科会の詳細はこちら ↗';
+    els.modalPostLink.style.display = 'inline-block';
+  }
 
   function openModal(ev) {
     const category = resolveCategory(ev.colorId, props);
@@ -269,6 +319,7 @@ export async function init(sdk) {
     }
 
     els.modalOverlay.hidden = false;
+    showPostLink(ev);
   }
 
   function closeModal() {

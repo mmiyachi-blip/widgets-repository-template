@@ -32,6 +32,10 @@
         ]
       },
       { "name": "title_filters", "type": "text", "label": "表示するタイトル(カンマ区切り、複数指定可)", "description": "入力したいずれかの文字列をタイトルに含む予定だけを表示します。空欄なら全件表示します", "section": "display", "defaultValue": "" },
+      { "name": "detail_category_id", "type": "text", "label": "詳細リンク用: 分科会カテゴリID", "description": "「表示するタイトル」で絞り込んでいる場合のみ有効。このカテゴリの「次回開催」タグ付き投稿のうち、予定と同じ日付の投稿へのリンクを詳細画面に表示します。空欄ならリンクなし", "section": "display", "defaultValue": "" },
+      { "name": "detail_tag", "type": "text", "label": "詳細リンク用: 投稿のタグ", "section": "display", "defaultValue": "次回開催" },
+      { "name": "detail_link_label", "type": "text", "label": "詳細リンクの文言", "section": "display", "defaultValue": "分科会の詳細はこちら ↗" },
+      { "name": "community_base_url", "type": "text", "label": "コミュニティのURL(投稿リンクの生成用)", "section": "display", "defaultValue": "https://communities.gainsight.com" },
 
       { "name": "cat1_label", "type": "text", "label": "① Lavender - ラベル", "section": "categories", "defaultValue": "ラベンダー" },
       { "name": "cat1_icon",  "type": "text", "label": "① Lavender - アイコン(絵文字/画像URL)", "section": "categories", "defaultValue": "💜" },
@@ -85,6 +89,10 @@
     "max_results": 250,
     "display_size": "full",
     "title_filters": "",
+    "detail_category_id": "",
+    "detail_tag": "次回開催",
+    "detail_link_label": "分科会の詳細はこちら ↗",
+    "community_base_url": "https://communities.gainsight.com",
     "cat1_label": "ラベンダー", "cat1_icon": "💜", "cat1_color": "#7986CB",
     "cat2_label": "セージ", "cat2_icon": "🌿", "cat2_color": "#33B679",
     "cat3_label": "グレープ", "cat3_icon": "🍇", "cat3_color": "#8E24AA",
