@@ -5,6 +5,7 @@
   }
 
   .topic-nav {
+    width: 100%;
     max-width: 960px;
     margin: 0 auto;
     box-sizing: border-box;
@@ -17,21 +18,19 @@
   .row {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
     gap: 20px;
   }
 
   .row-top {
-    justify-content: center;
     margin-bottom: 20px;
   }
 
-  .row-top .card {
+  .row-top .card,
+  .row-bottom .card {
     flex: 1 1 300px;
     max-width: 380px;
-  }
-
-  .row-bottom .card {
-    flex: 1 1 260px;
   }
 
   .card {
