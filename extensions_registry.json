@@ -2541,6 +2541,427 @@
         "background_color": "#FFFFFF"
       },
       "type": "section-title-banner"
+    },
+    {
+      "title": "Title Pill Links (タイトル＋アイコン付きボタン一覧)",
+      "description": "タイトルの下に、アイコン＋一言文言のピル型リンクボタン（最大6個）を並べるバナー。文言・アイコン・色・リンク先を設定フォームから入力",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/title-pill-links/dist",
+        "entry": "content.html"
+      },
+      "containers": [
+        "Full width",
+        "Left container"
+      ],
+      "settings": {
+        "configurable": true
+      },
+      "configuration": {
+        "sections": [
+          {
+            "name": "head",
+            "label": "タイトル",
+            "expanded": true
+          },
+          {
+            "name": "item1",
+            "label": "ボタン1"
+          },
+          {
+            "name": "item2",
+            "label": "ボタン2"
+          },
+          {
+            "name": "item3",
+            "label": "ボタン3"
+          },
+          {
+            "name": "item4",
+            "label": "ボタン4"
+          },
+          {
+            "name": "item5",
+            "label": "ボタン5"
+          },
+          {
+            "name": "item6",
+            "label": "ボタン6"
+          },
+          {
+            "name": "style",
+            "label": "配色・配置"
+          }
+        ],
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "タイトル",
+            "section": "head",
+            "rules": {
+              "maxLength": 80
+            },
+            "defaultValue": "Gainsightのコミュニティ - まずはここから！"
+          },
+          {
+            "name": "title_color",
+            "type": "color",
+            "label": "タイトルの文字色",
+            "section": "head",
+            "defaultValue": "#14407A"
+          },
+          {
+            "name": "title_size",
+            "type": "select",
+            "label": "タイトルの大きさ",
+            "section": "head",
+            "options": [
+              {
+                "value": "s",
+                "label": "小"
+              },
+              {
+                "value": "m",
+                "label": "中"
+              },
+              {
+                "value": "l",
+                "label": "大"
+              }
+            ],
+            "defaultValue": "m"
+          },
+          {
+            "name": "item1_title",
+            "type": "text",
+            "label": "一言文言",
+            "description": "空欄にするとこのボタンは表示されません",
+            "section": "item1",
+            "rules": {
+              "maxLength": 40
+            },
+            "defaultValue": "AI分科会"
+          },
+          {
+            "name": "item1_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item1",
+            "defaultValue": "#"
+          },
+          {
+            "name": "item1_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "description": "空欄にするとアイコンなし",
+            "section": "item1",
+            "rules": {
+              "maxLength": 4
+            },
+            "defaultValue": "🧠"
+          },
+          {
+            "name": "item1_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item1",
+            "defaultValue": "#E8557A"
+          },
+          {
+            "name": "item1_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item1",
+            "defaultValue": false
+          },
+          {
+            "name": "item2_title",
+            "type": "text",
+            "label": "一言文言",
+            "description": "空欄にするとこのボタンは表示されません",
+            "section": "item2",
+            "rules": {
+              "maxLength": 40
+            },
+            "defaultValue": "デジタルタッチ分科会"
+          },
+          {
+            "name": "item2_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item2",
+            "defaultValue": "#"
+          },
+          {
+            "name": "item2_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "description": "空欄にするとアイコンなし",
+            "section": "item2",
+            "rules": {
+              "maxLength": 4
+            },
+            "defaultValue": "📊"
+          },
+          {
+            "name": "item2_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item2",
+            "defaultValue": "#2F8CF0"
+          },
+          {
+            "name": "item2_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item2",
+            "defaultValue": false
+          },
+          {
+            "name": "item3_title",
+            "type": "text",
+            "label": "一言文言",
+            "description": "空欄にするとこのボタンは表示されません",
+            "section": "item3",
+            "rules": {
+              "maxLength": 40
+            },
+            "defaultValue": "Ops文化会"
+          },
+          {
+            "name": "item3_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item3",
+            "defaultValue": "#"
+          },
+          {
+            "name": "item3_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "description": "空欄にするとアイコンなし",
+            "section": "item3",
+            "rules": {
+              "maxLength": 4
+            },
+            "defaultValue": "👤"
+          },
+          {
+            "name": "item3_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item3",
+            "defaultValue": "#4A7BE0"
+          },
+          {
+            "name": "item3_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item3",
+            "defaultValue": false
+          },
+          {
+            "name": "item4_title",
+            "type": "text",
+            "label": "一言文言",
+            "description": "空欄にするとこのボタンは表示されません",
+            "section": "item4",
+            "rules": {
+              "maxLength": 40
+            },
+            "defaultValue": "コミュニティ分科会"
+          },
+          {
+            "name": "item4_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item4",
+            "defaultValue": "#"
+          },
+          {
+            "name": "item4_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "description": "空欄にするとアイコンなし",
+            "section": "item4",
+            "rules": {
+              "maxLength": 4
+            },
+            "defaultValue": "👥"
+          },
+          {
+            "name": "item4_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item4",
+            "defaultValue": "#34A56F"
+          },
+          {
+            "name": "item4_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item4",
+            "defaultValue": false
+          },
+          {
+            "name": "item5_title",
+            "type": "text",
+            "label": "一言文言",
+            "description": "空欄にするとこのボタンは表示されません",
+            "section": "item5",
+            "rules": {
+              "maxLength": 40
+            },
+            "defaultValue": ""
+          },
+          {
+            "name": "item5_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item5",
+            "defaultValue": ""
+          },
+          {
+            "name": "item5_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "description": "空欄にするとアイコンなし",
+            "section": "item5",
+            "rules": {
+              "maxLength": 4
+            },
+            "defaultValue": ""
+          },
+          {
+            "name": "item5_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item5",
+            "defaultValue": "#8A5CD6"
+          },
+          {
+            "name": "item5_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item5",
+            "defaultValue": false
+          },
+          {
+            "name": "item6_title",
+            "type": "text",
+            "label": "一言文言",
+            "description": "空欄にするとこのボタンは表示されません",
+            "section": "item6",
+            "rules": {
+              "maxLength": 40
+            },
+            "defaultValue": ""
+          },
+          {
+            "name": "item6_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item6",
+            "defaultValue": ""
+          },
+          {
+            "name": "item6_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "description": "空欄にするとアイコンなし",
+            "section": "item6",
+            "rules": {
+              "maxLength": 4
+            },
+            "defaultValue": ""
+          },
+          {
+            "name": "item6_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item6",
+            "defaultValue": "#F28C38"
+          },
+          {
+            "name": "item6_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item6",
+            "defaultValue": false
+          },
+          {
+            "name": "align",
+            "type": "select",
+            "label": "ボタンの配置",
+            "section": "style",
+            "options": [
+              {
+                "value": "left",
+                "label": "左寄せ"
+              },
+              {
+                "value": "center",
+                "label": "中央"
+              }
+            ],
+            "defaultValue": "left"
+          },
+          {
+            "name": "background_color",
+            "type": "color",
+            "label": "バナーの背景色",
+            "section": "style",
+            "defaultValue": "#F0F2F7"
+          },
+          {
+            "name": "card_color",
+            "type": "color",
+            "label": "ボタン列の背景色",
+            "section": "style",
+            "defaultValue": "#FFFFFF"
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Gainsightのコミュニティ - まずはここから！",
+        "title_color": "#14407A",
+        "title_size": "m",
+        "item1_title": "AI分科会",
+        "item1_url": "#",
+        "item1_icon": "🧠",
+        "item1_color": "#E8557A",
+        "item1_new_tab": false,
+        "item2_title": "デジタルタッチ分科会",
+        "item2_url": "#",
+        "item2_icon": "📊",
+        "item2_color": "#2F8CF0",
+        "item2_new_tab": false,
+        "item3_title": "Ops文化会",
+        "item3_url": "#",
+        "item3_icon": "👤",
+        "item3_color": "#4A7BE0",
+        "item3_new_tab": false,
+        "item4_title": "コミュニティ分科会",
+        "item4_url": "#",
+        "item4_icon": "👥",
+        "item4_color": "#34A56F",
+        "item4_new_tab": false,
+        "item5_title": "",
+        "item5_url": "",
+        "item5_icon": "",
+        "item5_color": "#8A5CD6",
+        "item5_new_tab": false,
+        "item6_title": "",
+        "item6_url": "",
+        "item6_icon": "",
+        "item6_color": "#F28C38",
+        "item6_new_tab": false,
+        "align": "left",
+        "background_color": "#F0F2F7",
+        "card_color": "#FFFFFF"
+      },
+      "type": "title-pill-links"
     }
   ],
   "stylesheets": [

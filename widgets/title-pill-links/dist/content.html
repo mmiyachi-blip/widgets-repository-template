@@ -1,0 +1,121 @@
+<style>
+  :host {
+    display: block;
+    font-family: var(--font-family-sans, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif);
+  }
+
+  .tpl {
+    --bg: #F0F2F7;
+    --card: #ffffff;
+    --title: #14407A;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px 32px 24px;
+    background: var(--bg);
+    color: #1F2A44;
+  }
+
+  .tpl * {
+    box-sizing: border-box;
+  }
+
+  .tpl-title {
+    margin: 0 0 14px;
+    color: var(--title);
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  .tpl[data-size="s"] .tpl-title { font-size: 20px; }
+  .tpl[data-size="l"] .tpl-title { font-size: 30px; }
+
+  .tpl-title[hidden] {
+    display: none;
+  }
+
+  .tpl-wrap {
+    display: flex;
+  }
+
+  .tpl[data-align="center"] .tpl-wrap {
+    justify-content: center;
+  }
+
+  .tpl-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 14px 16px;
+    background: var(--card);
+    list-style: none;
+  }
+
+  .tpl-btn {
+    --c: #2F8CF0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 22px 6px 6px;
+    border: 1px solid #E3E6EE;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #1F2A44;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  .tpl-btn:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--c) 45%, #ffffff);
+    box-shadow: 0 4px 12px rgba(40, 80, 140, 0.14);
+  }
+
+  .tpl-btn:focus-visible {
+    outline: 2px solid var(--c);
+    outline-offset: 2px;
+  }
+
+  .tpl-icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--c) 18%, #ffffff);
+    color: var(--c);
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .tpl-btn.no-icon {
+    padding-left: 22px;
+  }
+
+  @media (max-width: 600px) {
+    .tpl { padding: 16px; }
+    .tpl-title { font-size: 20px; }
+    .tpl-list { padding: 10px; gap: 8px; }
+    .tpl-btn { font-size: 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tpl-btn { transition: none; }
+  }
+</style>
+
+<div class="tpl" data-size="m" data-align="left">
+  <h2 class="tpl-title"></h2>
+  <div class="tpl-wrap">
+    <ul class="tpl-list"></ul>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
