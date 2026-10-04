@@ -1,7 +1,7 @@
 const PRODUCT_COUNT = 5;
 const PHASE_COUNT = 4;
 const GOAL_COUNT = 8;
-const FALLBACK_LABEL = ['CS', 'CC', 'CE', 'ST', 'AI'];
+const FALLBACK_LABEL = ['CS', 'CC', 'SJ', 'ST', 'AI'];
 const PHASE_COLORS = [
   ['#e6f4fa', '#1a8fb8'],
   ['#e5f6ee', '#1e9a6b'],

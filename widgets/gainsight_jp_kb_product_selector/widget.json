@@ -28,7 +28,7 @@
       },
       {
         "name": "p3",
-        "label": "製品3: Customer Education / Skilljar"
+        "label": "製品3: Skilljar"
       },
       {
         "name": "p4",
@@ -227,7 +227,7 @@
         "type": "text",
         "label": "製品名",
         "section": "p3",
-        "defaultValue": "Customer Education / Skilljar",
+        "defaultValue": "Skilljar",
         "rules": {
           "required": true,
           "maxLength": 40
@@ -248,7 +248,7 @@
         "type": "text",
         "label": "説明文",
         "section": "p3",
-        "defaultValue": "顧客・パートナー向けの学習体験をつくる、Customer Education / Skilljarの活用方法をご案内します。",
+        "defaultValue": "顧客・パートナー向けの学習体験をつくる、Skilljarの活用方法をご案内します。",
         "rules": {
           "maxLength": 120
         }
@@ -771,9 +771,9 @@
     "p2_phase2_link": "#",
     "p2_phase3_link": "#",
     "p2_phase4_link": "#",
-    "p3_name": "Customer Education / Skilljar",
+    "p3_name": "Skilljar",
     "p3_sub": "教育・ラーニング製品",
-    "p3_desc": "顧客・パートナー向けの学習体験をつくる、Customer Education / Skilljarの活用方法をご案内します。",
+    "p3_desc": "顧客・パートナー向けの学習体験をつくる、Skilljarの活用方法をご案内します。",
     "p3_cat_link": "#",
     "p3_phase1_link": "#",
     "p3_phase2_link": "#",
