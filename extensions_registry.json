@@ -1,6 +1,297 @@
 {
   "widgets": [
     {
+      "title": "Category Side Nav (カテゴリ絞り込みナビ)",
+      "description": "Sectionページのサイドバーに置く縦型カテゴリナビ。表示名とカテゴリURLを設定フォームから最大10件入力し、現在開いているカテゴリを自動でハイライト",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/category-side-nav/dist",
+        "entry": "content.html"
+      },
+      "containers": [
+        "Sidebar",
+        "Left container"
+      ],
+      "settings": {
+        "configurable": true
+      },
+      "configuration": {
+        "sections": [
+          {
+            "name": "head",
+            "label": "見出し",
+            "expanded": true
+          },
+          {
+            "name": "item1",
+            "label": "カテゴリ1"
+          },
+          {
+            "name": "item2",
+            "label": "カテゴリ2"
+          },
+          {
+            "name": "item3",
+            "label": "カテゴリ3"
+          },
+          {
+            "name": "item4",
+            "label": "カテゴリ4"
+          },
+          {
+            "name": "item5",
+            "label": "カテゴリ5"
+          },
+          {
+            "name": "item6",
+            "label": "カテゴリ6"
+          },
+          {
+            "name": "item7",
+            "label": "カテゴリ7"
+          },
+          {
+            "name": "item8",
+            "label": "カテゴリ8"
+          },
+          {
+            "name": "item9",
+            "label": "カテゴリ9"
+          },
+          {
+            "name": "item10",
+            "label": "カテゴリ10"
+          }
+        ],
+        "properties": [
+          {
+            "name": "head_text",
+            "type": "text",
+            "label": "見出し",
+            "section": "head",
+            "defaultValue": "カテゴリで絞り込む",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item1_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item1",
+            "defaultValue": "CS活動・運用全般",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item1_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item1",
+            "defaultValue": "https://communities.gainsight.com/cs%E6%B4%BB%E5%8B%95-%E9%81%8B%E7%94%A8%E5%85%A8%E8%88%AC-420"
+          },
+          {
+            "name": "item2_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item2",
+            "defaultValue": "コミュニティ運営関連",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item2_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item2",
+            "defaultValue": "https://communities.gainsight.com/%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E9%81%8B%E5%96%B6%E9%96%A2%E9%80%A3-421"
+          },
+          {
+            "name": "item3_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item3",
+            "defaultValue": "顧客教育・学び関連",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item3_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item3",
+            "defaultValue": "https://communities.gainsight.com/%E9%A1%A7%E5%AE%A2%E6%95%99%E8%82%B2-%E5%AD%A6%E3%81%B3%E9%96%A2%E9%80%A3-422"
+          },
+          {
+            "name": "item4_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item4",
+            "defaultValue": "AI全般",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item4_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item4",
+            "defaultValue": "https://communities.gainsight.com/ai%E5%85%A8%E8%88%AC-423"
+          },
+          {
+            "name": "item5_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item5",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item5_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item5",
+            "defaultValue": ""
+          },
+          {
+            "name": "item6_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item6",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item6_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item6",
+            "defaultValue": ""
+          },
+          {
+            "name": "item7_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item7",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item7_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item7",
+            "defaultValue": ""
+          },
+          {
+            "name": "item8_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item8",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item8_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item8",
+            "defaultValue": ""
+          },
+          {
+            "name": "item9_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item9",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item9_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item9",
+            "defaultValue": ""
+          },
+          {
+            "name": "item10_title",
+            "type": "text",
+            "label": "表示名",
+            "description": "空欄にすると表示されません",
+            "section": "item10",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item10_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "カテゴリページのURL（例: /category/123 や https://...）",
+            "section": "item10",
+            "defaultValue": ""
+          }
+        ]
+      },
+      "defaultConfig": {
+        "head_text": "カテゴリで絞り込む",
+        "item1_title": "CS活動・運用全般",
+        "item1_url": "https://communities.gainsight.com/cs%E6%B4%BB%E5%8B%95-%E9%81%8B%E7%94%A8%E5%85%A8%E8%88%AC-420",
+        "item2_title": "コミュニティ運営関連",
+        "item2_url": "https://communities.gainsight.com/%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E9%81%8B%E5%96%B6%E9%96%A2%E9%80%A3-421",
+        "item3_title": "顧客教育・学び関連",
+        "item3_url": "https://communities.gainsight.com/%E9%A1%A7%E5%AE%A2%E6%95%99%E8%82%B2-%E5%AD%A6%E3%81%B3%E9%96%A2%E9%80%A3-422",
+        "item4_title": "AI全般",
+        "item4_url": "https://communities.gainsight.com/ai%E5%85%A8%E8%88%AC-423",
+        "item5_title": "",
+        "item5_url": "",
+        "item6_title": "",
+        "item6_url": "",
+        "item7_title": "",
+        "item7_url": "",
+        "item8_title": "",
+        "item8_url": "",
+        "item9_title": "",
+        "item9_url": "",
+        "item10_title": "",
+        "item10_url": ""
+      },
+      "type": "category-side-nav"
+    },
+    {
       "title": "CLG2026 パーソナライズ診断",
       "description": "5つの質問に答えると「顧客成長タイプ」とおすすめのCLG2026セッションを診断するウィジェット",
       "category": "Custom",

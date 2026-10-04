@@ -1,0 +1,74 @@
+<style>
+  :host {
+    display: block;
+    font-family: var(--font-family-sans, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif);
+  }
+
+  .csn {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 16px 12px;
+    background: #ffffff;
+    border: 1px solid #E3E6EE;
+    border-radius: 12px;
+    color: #1F2A44;
+  }
+
+  .csn * {
+    box-sizing: border-box;
+  }
+
+  .csn-head {
+    margin: 0 0 10px;
+    padding: 0 8px;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .csn-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .csn-link {
+    display: block;
+    padding: 9px 12px;
+    border-left: 3px solid transparent;
+    border-radius: 6px;
+    color: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .csn-link:hover {
+    background: #F0F4FB;
+  }
+
+  .csn-link.is-active {
+    border-left-color: #2F8CF0;
+    background: #EAF2FE;
+    color: #1B5FB8;
+    font-weight: 700;
+  }
+
+  .csn-head[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .csn-link {
+      transition: none;
+    }
+  }
+</style>
+<nav class="csn" aria-label="カテゴリ">
+  <h2 class="csn-head"></h2>
+  <ul class="csn-list"></ul>
+</nav>
+<script type="module" src="app.js"></script>
