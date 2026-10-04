@@ -53,6 +53,7 @@ const DECOS = {
 }
 
 const TITLE_SIZES = { s: '30px', m: '40px', l: '52px' }
+const SUBTITLE_SIZES = { s: '14px', m: '18px', l: '22px' }
 
 // Only allow http(s)/mailto/tel, site-relative and anchor links; anything
 // else (e.g. javascript:) falls back to "#".
@@ -86,6 +87,7 @@ export async function init(sdk) {
   const root = sdk.$('.stb')
   const line1 = sdk.$('.stb-line1')
   const line2 = sdk.$('.stb-line2')
+  const subtitle = sdk.$('.stb-subtitle')
   const btnWrap = sdk.$('.stb-btn-wrap')
   const btn = sdk.$('.stb-btn')
   const btnIcon = sdk.$('.stb-btn-icon')
@@ -106,12 +108,17 @@ export async function init(sdk) {
     root.style.setProperty('--btn-color', p.button_color || '#2F8CF0')
     root.style.setProperty('--deco-color', p.deco_color || '#3D9BF5')
     root.style.setProperty('--title-size', TITLE_SIZES[p.title_size] || TITLE_SIZES.m)
+    root.style.setProperty('--sub-color', p.subtitle_color || p.title_color || '#1F2A44')
+    root.style.setProperty('--sub-size', SUBTITLE_SIZES[p.subtitle_size] || SUBTITLE_SIZES.m)
     root.style.background = p.background_color || '#FFFFFF'
 
     renderMarkedText(line1, p.title_line1)
     renderMarkedText(line2, p.title_line2)
     line1.hidden = !p.title_line1
     line2.hidden = !p.title_line2
+
+    renderMarkedText(subtitle, p.subtitle_text)
+    subtitle.hidden = p.show_subtitle !== true || !p.subtitle_text
 
     const showButton = p.show_button !== false && !!p.button_text
     btnWrap.hidden = !showButton

@@ -1,6 +1,6 @@
 {
   "title": "Section Title Banner (見出し＋ボタン＋左右の飾り)",
-  "description": "2行の見出し、リンク付きの小さなボタン、左右の飾り模様（複数から選択可）を表示するセクションタイトルバナー",
+  "description": "2行の見出し、サブタイトル(任意)、リンク付きの小さなボタン、左右の飾り模様（複数から選択可）を表示するセクションタイトルバナー",
   "category": "Custom",
   "source": {
     "path": "dist",
@@ -13,6 +13,7 @@
   "configuration": {
     "sections": [
       { "name": "title", "label": "見出し", "expanded": true },
+      { "name": "subtitle", "label": "サブタイトル" },
       { "name": "button", "label": "ボタン" },
       { "name": "deco", "label": "左右の飾り・配色" }
     ],
@@ -26,6 +27,15 @@
         { "value": "m", "label": "中" },
         { "value": "l", "label": "大" }
       ] },
+
+      { "name": "show_subtitle", "type": "boolean", "label": "サブタイトルを表示する", "section": "subtitle", "defaultValue": false },
+      { "name": "subtitle_text", "type": "text", "label": "サブタイトル", "description": "太字ではない小さめの文字で、見出しとボタンの間に表示されます。*と*で囲んだ部分が強調色になります", "section": "subtitle", "defaultValue": "共感した場合は同じ仲間への投稿へ反応しましょう！", "rules": { "maxLength": 120 } },
+      { "name": "subtitle_size", "type": "select", "label": "サブタイトルの大きさ", "section": "subtitle", "defaultValue": "m", "options": [
+        { "value": "s", "label": "小" },
+        { "value": "m", "label": "中" },
+        { "value": "l", "label": "大" }
+      ] },
+      { "name": "subtitle_color", "type": "color", "label": "サブタイトルの文字色", "description": "空欄にすると見出しの文字色と同じになります", "section": "subtitle", "defaultValue": "#1F2A44" },
 
       { "name": "show_button", "type": "boolean", "label": "ボタンを表示する", "section": "button", "defaultValue": true },
       { "name": "button_icon", "type": "text", "label": "ボタンのアイコン(絵文字)", "description": "空欄にするとアイコンなし", "section": "button", "defaultValue": "🔰", "rules": { "maxLength": 4 } },
@@ -53,6 +63,10 @@
     "title_color": "#1F2A44",
     "highlight_color": "#2F8CF0",
     "title_size": "m",
+    "show_subtitle": false,
+    "subtitle_text": "共感した場合は同じ仲間への投稿へ反応しましょう！",
+    "subtitle_size": "m",
+    "subtitle_color": "#1F2A44",
     "show_button": true,
     "button_icon": "🔰",
     "button_text": "はじめての方へ：Gainsightのユーザー分科会とは？",
