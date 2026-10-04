@@ -15,6 +15,8 @@ function safeColor(raw, fallback) {
   return /^#[0-9a-f]{3,8}$/i.test(String(raw || '').trim()) ? raw.trim() : fallback
 }
 
+const IMAGES = ['search', 'about', 'hello']
+
 export async function init(sdk) {
   await sdk.whenReady()
 
@@ -22,6 +24,8 @@ export async function init(sdk) {
   const title = sdk.$('.tpl-title')
   const list = sdk.$('.tpl-list')
   const wrap = sdk.$('.tpl-wrap')
+  // Relative icon paths are resolved by the preload <link> elements.
+  const imgUrl = (name) => sdk.$(`#img-${name}`)?.href || ''
 
   const applyProps = (props = {}) => {
     const p = props || {}
@@ -29,6 +33,7 @@ export async function init(sdk) {
     root.style.setProperty('--card', safeColor(p.card_color, '#ffffff'))
     root.style.setProperty('--title', safeColor(p.title_color, '#14407A'))
     root.dataset.size = ['s', 'm', 'l'].includes(p.title_size) ? p.title_size : 'm'
+    root.dataset.titleAlign = ['center', 'right'].includes(p.title_align) ? p.title_align : 'left'
     root.dataset.align = p.align === 'center' ? 'center' : 'left'
 
     title.textContent = p.title || ''
@@ -50,11 +55,26 @@ export async function init(sdk) {
       }
 
       const icon = p[`item${i}_icon`]
-      if (icon) {
+      const image = IMAGES.includes(p[`item${i}_image`]) ? imgUrl(p[`item${i}_image`]) : ''
+      if (image || icon) {
         const span = document.createElement('span')
         span.className = 'tpl-icon'
         span.setAttribute('aria-hidden', 'true')
-        span.textContent = icon
+        if (image) {
+          span.classList.add('has-img')
+          const img = document.createElement('img')
+          img.setAttribute('src', image)
+          img.setAttribute('alt', '')
+          // Fall back to the emoji (or nothing) if the image fails to load.
+          img.addEventListener('error', () => {
+            span.classList.remove('has-img')
+            img.remove()
+            span.textContent = icon || ''
+          }, { once: true })
+          span.appendChild(img)
+        } else {
+          span.textContent = icon
+        }
         a.appendChild(span)
       } else {
         a.classList.add('no-icon')

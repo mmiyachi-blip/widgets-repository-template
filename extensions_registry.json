@@ -2633,6 +2633,27 @@
             "defaultValue": "m"
           },
           {
+            "name": "title_align",
+            "type": "select",
+            "label": "タイトルの配置",
+            "section": "head",
+            "options": [
+              {
+                "value": "left",
+                "label": "左寄せ"
+              },
+              {
+                "value": "center",
+                "label": "中央"
+              },
+              {
+                "value": "right",
+                "label": "右寄せ"
+              }
+            ],
+            "defaultValue": "left"
+          },
+          {
             "name": "item1_title",
             "type": "text",
             "label": "一言文言",
@@ -2660,6 +2681,32 @@
               "maxLength": 4
             },
             "defaultValue": "🧠"
+          },
+          {
+            "name": "item1_image",
+            "type": "select",
+            "label": "アイコン画像",
+            "description": "選ぶと絵文字より優先されます",
+            "section": "item1",
+            "options": [
+              {
+                "value": "none",
+                "label": "使わない（絵文字を使う）"
+              },
+              {
+                "value": "search",
+                "label": "検索（虫めがね）"
+              },
+              {
+                "value": "about",
+                "label": "ABOUT"
+              },
+              {
+                "value": "hello",
+                "label": "HELLO!"
+              }
+            ],
+            "defaultValue": "search"
           },
           {
             "name": "item1_color",
@@ -2705,6 +2752,32 @@
             "defaultValue": "📊"
           },
           {
+            "name": "item2_image",
+            "type": "select",
+            "label": "アイコン画像",
+            "description": "選ぶと絵文字より優先されます",
+            "section": "item2",
+            "options": [
+              {
+                "value": "none",
+                "label": "使わない（絵文字を使う）"
+              },
+              {
+                "value": "search",
+                "label": "検索（虫めがね）"
+              },
+              {
+                "value": "about",
+                "label": "ABOUT"
+              },
+              {
+                "value": "hello",
+                "label": "HELLO!"
+              }
+            ],
+            "defaultValue": "about"
+          },
+          {
             "name": "item2_color",
             "type": "color",
             "label": "アイコンの色",
@@ -2746,6 +2819,32 @@
               "maxLength": 4
             },
             "defaultValue": "👤"
+          },
+          {
+            "name": "item3_image",
+            "type": "select",
+            "label": "アイコン画像",
+            "description": "選ぶと絵文字より優先されます",
+            "section": "item3",
+            "options": [
+              {
+                "value": "none",
+                "label": "使わない（絵文字を使う）"
+              },
+              {
+                "value": "search",
+                "label": "検索（虫めがね）"
+              },
+              {
+                "value": "about",
+                "label": "ABOUT"
+              },
+              {
+                "value": "hello",
+                "label": "HELLO!"
+              }
+            ],
+            "defaultValue": "hello"
           },
           {
             "name": "item3_color",
@@ -2791,6 +2890,32 @@
             "defaultValue": "👥"
           },
           {
+            "name": "item4_image",
+            "type": "select",
+            "label": "アイコン画像",
+            "description": "選ぶと絵文字より優先されます",
+            "section": "item4",
+            "options": [
+              {
+                "value": "none",
+                "label": "使わない（絵文字を使う）"
+              },
+              {
+                "value": "search",
+                "label": "検索（虫めがね）"
+              },
+              {
+                "value": "about",
+                "label": "ABOUT"
+              },
+              {
+                "value": "hello",
+                "label": "HELLO!"
+              }
+            ],
+            "defaultValue": "none"
+          },
+          {
             "name": "item4_color",
             "type": "color",
             "label": "アイコンの色",
@@ -2834,6 +2959,32 @@
             "defaultValue": ""
           },
           {
+            "name": "item5_image",
+            "type": "select",
+            "label": "アイコン画像",
+            "description": "選ぶと絵文字より優先されます",
+            "section": "item5",
+            "options": [
+              {
+                "value": "none",
+                "label": "使わない（絵文字を使う）"
+              },
+              {
+                "value": "search",
+                "label": "検索（虫めがね）"
+              },
+              {
+                "value": "about",
+                "label": "ABOUT"
+              },
+              {
+                "value": "hello",
+                "label": "HELLO!"
+              }
+            ],
+            "defaultValue": "none"
+          },
+          {
             "name": "item5_color",
             "type": "color",
             "label": "アイコンの色",
@@ -2875,6 +3026,32 @@
               "maxLength": 4
             },
             "defaultValue": ""
+          },
+          {
+            "name": "item6_image",
+            "type": "select",
+            "label": "アイコン画像",
+            "description": "選ぶと絵文字より優先されます",
+            "section": "item6",
+            "options": [
+              {
+                "value": "none",
+                "label": "使わない（絵文字を使う）"
+              },
+              {
+                "value": "search",
+                "label": "検索（虫めがね）"
+              },
+              {
+                "value": "about",
+                "label": "ABOUT"
+              },
+              {
+                "value": "hello",
+                "label": "HELLO!"
+              }
+            ],
+            "defaultValue": "none"
           },
           {
             "name": "item6_color",
@@ -2927,34 +3104,41 @@
         "title": "Gainsightのコミュニティ - まずはここから！",
         "title_color": "#14407A",
         "title_size": "m",
+        "title_align": "left",
         "item1_title": "AI分科会",
         "item1_url": "#",
         "item1_icon": "🧠",
+        "item1_image": "search",
         "item1_color": "#E8557A",
         "item1_new_tab": false,
         "item2_title": "デジタルタッチ分科会",
         "item2_url": "#",
         "item2_icon": "📊",
+        "item2_image": "about",
         "item2_color": "#2F8CF0",
         "item2_new_tab": false,
         "item3_title": "Ops文化会",
         "item3_url": "#",
         "item3_icon": "👤",
+        "item3_image": "hello",
         "item3_color": "#4A7BE0",
         "item3_new_tab": false,
         "item4_title": "コミュニティ分科会",
         "item4_url": "#",
         "item4_icon": "👥",
+        "item4_image": "none",
         "item4_color": "#34A56F",
         "item4_new_tab": false,
         "item5_title": "",
         "item5_url": "",
         "item5_icon": "",
+        "item5_image": "none",
         "item5_color": "#8A5CD6",
         "item5_new_tab": false,
         "item6_title": "",
         "item6_url": "",
         "item6_icon": "",
+        "item6_image": "none",
         "item6_color": "#F28C38",
         "item6_new_tab": false,
         "align": "left",
