@@ -39,8 +39,13 @@ export async function init(sdk) {
     title.textContent = p.title || ''
     title.hidden = !p.title
 
+    // Display order: lower "order" first, ties keep the link-number order.
+    const order = (i) => Number(p[`item${i}_order`]) || i
+    const indexes = Array.from({ length: MAX_ITEMS }, (_, k) => k + 1)
+      .sort((x, y) => order(x) - order(y) || x - y)
+
     list.textContent = ''
-    for (let i = 1; i <= MAX_ITEMS; i++) {
+    for (const i of indexes) {
       const text = (p[`item${i}_title`] || '').trim()
       if (!text) continue
 

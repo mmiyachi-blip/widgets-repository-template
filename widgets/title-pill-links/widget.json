@@ -110,6 +110,40 @@
         "defaultValue": "left"
       },
       {
+        "name": "item1_order",
+        "type": "select",
+        "label": "表示順",
+        "description": "小さい番号ほど左（上）に表示。同じ番号ならリンク番号の順",
+        "section": "item1",
+        "options": [
+          {
+            "value": "1",
+            "label": "1番目"
+          },
+          {
+            "value": "2",
+            "label": "2番目"
+          },
+          {
+            "value": "3",
+            "label": "3番目"
+          },
+          {
+            "value": "4",
+            "label": "4番目"
+          },
+          {
+            "value": "5",
+            "label": "5番目"
+          },
+          {
+            "value": "6",
+            "label": "6番目"
+          }
+        ],
+        "defaultValue": "1"
+      },
+      {
         "name": "item1_title",
         "type": "text",
         "label": "一言文言",
@@ -177,6 +211,40 @@
         "label": "別タブで開く",
         "section": "item1",
         "defaultValue": false
+      },
+      {
+        "name": "item2_order",
+        "type": "select",
+        "label": "表示順",
+        "description": "小さい番号ほど左（上）に表示。同じ番号ならリンク番号の順",
+        "section": "item2",
+        "options": [
+          {
+            "value": "1",
+            "label": "1番目"
+          },
+          {
+            "value": "2",
+            "label": "2番目"
+          },
+          {
+            "value": "3",
+            "label": "3番目"
+          },
+          {
+            "value": "4",
+            "label": "4番目"
+          },
+          {
+            "value": "5",
+            "label": "5番目"
+          },
+          {
+            "value": "6",
+            "label": "6番目"
+          }
+        ],
+        "defaultValue": "2"
       },
       {
         "name": "item2_title",
@@ -248,6 +316,40 @@
         "defaultValue": false
       },
       {
+        "name": "item3_order",
+        "type": "select",
+        "label": "表示順",
+        "description": "小さい番号ほど左（上）に表示。同じ番号ならリンク番号の順",
+        "section": "item3",
+        "options": [
+          {
+            "value": "1",
+            "label": "1番目"
+          },
+          {
+            "value": "2",
+            "label": "2番目"
+          },
+          {
+            "value": "3",
+            "label": "3番目"
+          },
+          {
+            "value": "4",
+            "label": "4番目"
+          },
+          {
+            "value": "5",
+            "label": "5番目"
+          },
+          {
+            "value": "6",
+            "label": "6番目"
+          }
+        ],
+        "defaultValue": "3"
+      },
+      {
         "name": "item3_title",
         "type": "text",
         "label": "一言文言",
@@ -315,6 +417,40 @@
         "label": "別タブで開く",
         "section": "item3",
         "defaultValue": false
+      },
+      {
+        "name": "item4_order",
+        "type": "select",
+        "label": "表示順",
+        "description": "小さい番号ほど左（上）に表示。同じ番号ならリンク番号の順",
+        "section": "item4",
+        "options": [
+          {
+            "value": "1",
+            "label": "1番目"
+          },
+          {
+            "value": "2",
+            "label": "2番目"
+          },
+          {
+            "value": "3",
+            "label": "3番目"
+          },
+          {
+            "value": "4",
+            "label": "4番目"
+          },
+          {
+            "value": "5",
+            "label": "5番目"
+          },
+          {
+            "value": "6",
+            "label": "6番目"
+          }
+        ],
+        "defaultValue": "4"
       },
       {
         "name": "item4_title",
@@ -386,6 +522,40 @@
         "defaultValue": false
       },
       {
+        "name": "item5_order",
+        "type": "select",
+        "label": "表示順",
+        "description": "小さい番号ほど左（上）に表示。同じ番号ならリンク番号の順",
+        "section": "item5",
+        "options": [
+          {
+            "value": "1",
+            "label": "1番目"
+          },
+          {
+            "value": "2",
+            "label": "2番目"
+          },
+          {
+            "value": "3",
+            "label": "3番目"
+          },
+          {
+            "value": "4",
+            "label": "4番目"
+          },
+          {
+            "value": "5",
+            "label": "5番目"
+          },
+          {
+            "value": "6",
+            "label": "6番目"
+          }
+        ],
+        "defaultValue": "5"
+      },
+      {
         "name": "item5_title",
         "type": "text",
         "label": "一言文言",
@@ -453,6 +623,40 @@
         "label": "別タブで開く",
         "section": "item5",
         "defaultValue": false
+      },
+      {
+        "name": "item6_order",
+        "type": "select",
+        "label": "表示順",
+        "description": "小さい番号ほど左（上）に表示。同じ番号ならリンク番号の順",
+        "section": "item6",
+        "options": [
+          {
+            "value": "1",
+            "label": "1番目"
+          },
+          {
+            "value": "2",
+            "label": "2番目"
+          },
+          {
+            "value": "3",
+            "label": "3番目"
+          },
+          {
+            "value": "4",
+            "label": "4番目"
+          },
+          {
+            "value": "5",
+            "label": "5番目"
+          },
+          {
+            "value": "6",
+            "label": "6番目"
+          }
+        ],
+        "defaultValue": "6"
       },
       {
         "name": "item6_title",
@@ -561,36 +765,42 @@
     "title_color": "#14407A",
     "title_size": "m",
     "title_align": "left",
+    "item1_order": "1",
     "item1_title": "AI分科会",
     "item1_url": "#",
     "item1_icon": "🧠",
     "item1_image": "search",
     "item1_color": "#E8557A",
     "item1_new_tab": false,
+    "item2_order": "2",
     "item2_title": "デジタルタッチ分科会",
     "item2_url": "#",
     "item2_icon": "📊",
     "item2_image": "about",
     "item2_color": "#2F8CF0",
     "item2_new_tab": false,
+    "item3_order": "3",
     "item3_title": "Ops文化会",
     "item3_url": "#",
     "item3_icon": "👤",
     "item3_image": "hello",
     "item3_color": "#4A7BE0",
     "item3_new_tab": false,
+    "item4_order": "4",
     "item4_title": "コミュニティ分科会",
     "item4_url": "#",
     "item4_icon": "👥",
     "item4_image": "none",
     "item4_color": "#34A56F",
     "item4_new_tab": false,
+    "item5_order": "5",
     "item5_title": "",
     "item5_url": "",
     "item5_icon": "",
     "item5_image": "none",
     "item5_color": "#8A5CD6",
     "item5_new_tab": false,
+    "item6_order": "6",
     "item6_title": "",
     "item6_url": "",
     "item6_icon": "",
