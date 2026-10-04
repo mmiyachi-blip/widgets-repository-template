@@ -29,8 +29,11 @@
 
   .row-top .card,
   .row-bottom .card {
-    flex: 1 1 300px;
-    max-width: 380px;
+    /* flex-grow: 0 — a fixed card size regardless of how many cards share
+       the row. With flex-grow enabled, a 2-card row has more leftover
+       space per card than a 3-card row, so cards grow to different sizes
+       depending on sibling count even with the same max-width cap. */
+    flex: 0 0 300px;
   }
 
   .card {
