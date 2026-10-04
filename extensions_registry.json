@@ -604,6 +604,405 @@
       "type": "clg2026-topic-cards"
     },
     {
+      "title": "Featured Links Bar (注目リンクのピル一覧)",
+      "description": "左の見出し＋アイコン付きピル型リンク（最大6個）＋右端の「すべて見る」リンクを1行で表示するバー。タイトルとリンク先を設定フォームから入力",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/featured-links-bar/dist",
+        "entry": "content.html"
+      },
+      "containers": [
+        "Full width",
+        "Left container"
+      ],
+      "settings": {
+        "configurable": true
+      },
+      "configuration": {
+        "sections": [
+          {
+            "name": "head",
+            "label": "左の見出し",
+            "expanded": true
+          },
+          {
+            "name": "item1",
+            "label": "リンク1"
+          },
+          {
+            "name": "item2",
+            "label": "リンク2"
+          },
+          {
+            "name": "item3",
+            "label": "リンク3"
+          },
+          {
+            "name": "item4",
+            "label": "リンク4"
+          },
+          {
+            "name": "item5",
+            "label": "リンク5"
+          },
+          {
+            "name": "item6",
+            "label": "リンク6"
+          },
+          {
+            "name": "more",
+            "label": "右端の「すべて見る」リンク"
+          }
+        ],
+        "properties": [
+          {
+            "name": "head_text",
+            "type": "text",
+            "label": "見出しの文言",
+            "section": "head",
+            "defaultValue": "注目の分科会",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "head_icon",
+            "type": "text",
+            "label": "見出しのアイコン(絵文字)",
+            "description": "空欄にするとアイコンなし",
+            "section": "head",
+            "defaultValue": "✦",
+            "rules": {
+              "maxLength": 4
+            }
+          },
+          {
+            "name": "head_color",
+            "type": "color",
+            "label": "見出しアイコンの色",
+            "section": "head",
+            "defaultValue": "#2F8CF0"
+          },
+          {
+            "name": "item1_title",
+            "type": "text",
+            "label": "タイトル",
+            "description": "空欄にすると表示されません",
+            "section": "item1",
+            "defaultValue": "AI分科会",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item1_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item1",
+            "defaultValue": "#"
+          },
+          {
+            "name": "item1_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "section": "item1",
+            "defaultValue": "🧠",
+            "rules": {
+              "maxLength": 4
+            }
+          },
+          {
+            "name": "item1_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item1",
+            "defaultValue": "#E8557A"
+          },
+          {
+            "name": "item1_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item1",
+            "defaultValue": false
+          },
+          {
+            "name": "item2_title",
+            "type": "text",
+            "label": "タイトル",
+            "description": "空欄にするとこのリンクは表示されません",
+            "section": "item2",
+            "defaultValue": "デジタルタッチ分科会",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item2_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item2",
+            "defaultValue": "#"
+          },
+          {
+            "name": "item2_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "section": "item2",
+            "defaultValue": "📊",
+            "rules": {
+              "maxLength": 4
+            }
+          },
+          {
+            "name": "item2_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item2",
+            "defaultValue": "#2F8CF0"
+          },
+          {
+            "name": "item2_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item2",
+            "defaultValue": false
+          },
+          {
+            "name": "item3_title",
+            "type": "text",
+            "label": "タイトル",
+            "description": "空欄にするとこのリンクは表示されません",
+            "section": "item3",
+            "defaultValue": "Ops文化会",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item3_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item3",
+            "defaultValue": "#"
+          },
+          {
+            "name": "item3_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "section": "item3",
+            "defaultValue": "👤",
+            "rules": {
+              "maxLength": 4
+            }
+          },
+          {
+            "name": "item3_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item3",
+            "defaultValue": "#4A7BE0"
+          },
+          {
+            "name": "item3_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item3",
+            "defaultValue": false
+          },
+          {
+            "name": "item4_title",
+            "type": "text",
+            "label": "タイトル",
+            "description": "空欄にするとこのリンクは表示されません",
+            "section": "item4",
+            "defaultValue": "コミュニティ分科会",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item4_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item4",
+            "defaultValue": "#"
+          },
+          {
+            "name": "item4_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "section": "item4",
+            "defaultValue": "👥",
+            "rules": {
+              "maxLength": 4
+            }
+          },
+          {
+            "name": "item4_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item4",
+            "defaultValue": "#34A56F"
+          },
+          {
+            "name": "item4_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item4",
+            "defaultValue": false
+          },
+          {
+            "name": "item5_title",
+            "type": "text",
+            "label": "タイトル",
+            "description": "空欄にするとこのリンクは表示されません",
+            "section": "item5",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item5_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item5",
+            "defaultValue": ""
+          },
+          {
+            "name": "item5_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "section": "item5",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 4
+            }
+          },
+          {
+            "name": "item5_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item5",
+            "defaultValue": "#8A5CD6"
+          },
+          {
+            "name": "item5_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item5",
+            "defaultValue": false
+          },
+          {
+            "name": "item6_title",
+            "type": "text",
+            "label": "タイトル",
+            "description": "空欄にするとこのリンクは表示されません",
+            "section": "item6",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "item6_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "item6",
+            "defaultValue": ""
+          },
+          {
+            "name": "item6_icon",
+            "type": "text",
+            "label": "アイコン(絵文字)",
+            "section": "item6",
+            "defaultValue": "",
+            "rules": {
+              "maxLength": 4
+            }
+          },
+          {
+            "name": "item6_color",
+            "type": "color",
+            "label": "アイコンの色",
+            "section": "item6",
+            "defaultValue": "#F28C38"
+          },
+          {
+            "name": "item6_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "item6",
+            "defaultValue": false
+          },
+          {
+            "name": "more_text",
+            "type": "text",
+            "label": "文言",
+            "description": "空欄にすると表示されません",
+            "section": "more",
+            "defaultValue": "すべての分科会を見る",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "more_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "section": "more",
+            "defaultValue": "#"
+          },
+          {
+            "name": "more_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "more",
+            "defaultValue": false
+          }
+        ]
+      },
+      "defaultConfig": {
+        "head_text": "注目の分科会",
+        "head_icon": "✦",
+        "head_color": "#2F8CF0",
+        "item1_title": "AI分科会",
+        "item1_url": "#",
+        "item1_icon": "🧠",
+        "item1_color": "#E8557A",
+        "item1_new_tab": false,
+        "item2_title": "デジタルタッチ分科会",
+        "item2_url": "#",
+        "item2_icon": "📊",
+        "item2_color": "#2F8CF0",
+        "item2_new_tab": false,
+        "item3_title": "Ops文化会",
+        "item3_url": "#",
+        "item3_icon": "👤",
+        "item3_color": "#4A7BE0",
+        "item3_new_tab": false,
+        "item4_title": "コミュニティ分科会",
+        "item4_url": "#",
+        "item4_icon": "👥",
+        "item4_color": "#34A56F",
+        "item4_new_tab": false,
+        "item5_title": "",
+        "item5_url": "",
+        "item5_icon": "",
+        "item5_color": "#8A5CD6",
+        "item5_new_tab": false,
+        "item6_title": "",
+        "item6_url": "",
+        "item6_icon": "",
+        "item6_color": "#F28C38",
+        "item6_new_tab": false,
+        "more_text": "すべての分科会を見る",
+        "more_url": "#",
+        "more_new_tab": false
+      },
+      "type": "featured-links-bar"
+    },
+    {
       "title": "コミュニティカレンダー(イラスト調)",
       "description": "Googleカレンダー(サービスアカウント連携)を、カテゴリ色分け・アイコン付きのカード/バッジ表示で見せる月間カレンダー",
       "category": "Custom",
