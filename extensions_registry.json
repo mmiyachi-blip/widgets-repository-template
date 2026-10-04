@@ -3198,6 +3198,13 @@
             "defaultValue": "詳細をお待ちください"
           },
           {
+            "name": "community_base_url",
+            "type": "text",
+            "label": "コミュニティのURL(投稿リンクの生成用)",
+            "section": "display",
+            "defaultValue": "https://communities.gainsight.com"
+          },
+          {
             "name": "category_url",
             "type": "text",
             "label": "分科会ページURL(任意)",
@@ -3246,6 +3253,7 @@
         "location_label": "オンライン開催",
         "link_label": "詳細はこちら",
         "pending_label": "詳細をお待ちください",
+        "community_base_url": "https://communities.gainsight.com",
         "category_url": "",
         "empty_message": "現在、次回開催予定を調整中です。",
         "empty_submessage": "もう少々お待ちください。",

@@ -37,6 +37,7 @@
       { "name": "location_label", "type": "text", "label": "開催形式", "section": "display", "defaultValue": "オンライン開催" },
       { "name": "link_label", "type": "text", "label": "ボタンの文言(投稿あり)", "section": "display", "defaultValue": "詳細はこちら" },
       { "name": "pending_label", "type": "text", "label": "ボタンの文言(投稿まだ無し)", "description": "カレンダーに予定はあるが告知投稿がまだ無いときの、押せないボタンの文言", "section": "display", "defaultValue": "詳細をお待ちください" },
+      { "name": "community_base_url", "type": "text", "label": "コミュニティのURL(投稿リンクの生成用)", "section": "display", "defaultValue": "https://communities.gainsight.com" },
       { "name": "category_url", "type": "text", "label": "分科会ページURL(任意)", "description": "次回未定時のボタンのリンク先として使います", "section": "display", "defaultValue": "" },
 
       { "name": "empty_message", "type": "text", "label": "次回未定時の見出し", "section": "empty_state", "defaultValue": "現在、次回開催予定を調整中です。" },
@@ -56,6 +57,7 @@
     "location_label": "オンライン開催",
     "link_label": "詳細はこちら",
     "pending_label": "詳細をお待ちください",
+    "community_base_url": "https://communities.gainsight.com",
     "category_url": "",
     "empty_message": "現在、次回開催予定を調整中です。",
     "empty_submessage": "もう少々お待ちください。",

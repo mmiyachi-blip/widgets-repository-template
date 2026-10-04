@@ -108,8 +108,16 @@ function pickNextCalendarEvent(events, filters, today) {
   };
 }
 
-function resolveTopicUrl(topic) {
-  return (topic && (topic.seoCommunityUrl || topic.url || topic.permalink)) || '';
+// The topics API doesn't return a URL, so build one from the public id; the
+// community redirects topic/show?tid&fid to the post's canonical address.
+function resolveTopicUrl(topic, baseUrl, fallbackCategoryId) {
+  if (!topic) return '';
+  const given = topic.seoCommunityUrl || topic.url || topic.permalink;
+  if (given) return given;
+  if (!topic.publicId) return '';
+  const base = String(baseUrl || 'https://communities.gainsight.com').replace(/\/+$/, '');
+  const fid = encodeURIComponent(topic.categoryId || fallbackCategoryId || '');
+  return `${base}/topic/show?tid=${encodeURIComponent(topic.publicId)}&fid=${fid}`;
 }
 
 function extractTopics(data) {
@@ -196,7 +204,7 @@ export async function init(sdk) {
 
     // 日程はカレンダーで先に決まり、告知投稿は後から出る。投稿があればそのURL、
     // なければ押せない「詳細をお待ちください」を出す。
-    const url = resolveTopicUrl(topic);
+    const url = resolveTopicUrl(topic, props.community_base_url, String(props.category_id || '').trim());
     if (url) {
       setLink(url);
     } else {
