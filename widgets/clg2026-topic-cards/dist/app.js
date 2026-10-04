@@ -44,8 +44,8 @@ export async function init(sdk) {
   const rowBottom = sdk.$('.row-bottom')
 
   function render(props) {
-    rowTop.innerHTML = [1, 2].map((i) => cardHtml(i, props, iconUrls[i])).join('')
-    rowBottom.innerHTML = [3, 4, 5].map((i) => cardHtml(i, props, iconUrls[i])).join('')
+    rowTop.innerHTML = [3, 4, 5].map((i) => cardHtml(i, props, iconUrls[i])).join('')
+    rowBottom.innerHTML = [1, 2].map((i) => cardHtml(i, props, iconUrls[i])).join('')
   }
 
   render(sdk.getProps())
