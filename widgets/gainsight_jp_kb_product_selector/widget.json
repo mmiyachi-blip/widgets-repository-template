@@ -1,6 +1,6 @@
 {
   "title": "KB 製品選択（フェーズ・目的の入口）",
-  "description": "製品タブを選ぶと、その製品のフェーズ別の学習ガイドと、目的別ページへの入口を表示するナレッジベース Top 用ウィジェット。タイトル・説明・リンク先は No-Code Builder の設定欄で編集する。",
+  "description": "製品タブを選ぶと、その製品のフェーズ別タブに、対応するナレッジベース記事を自動で一覧表示し、目的別ページへの入口も表示するナレッジベース Top 用ウィジェット。タイトル・説明・カテゴリID・リンク先は No-Code Builder の設定欄で編集する。",
   "category": "Custom",
   "source": {
     "entry": "index.html"
@@ -39,10 +39,6 @@
         "label": "製品5: AI 機能（横断）"
       },
       {
-        "name": "phases",
-        "label": "フェーズの表示文言（全製品共通）"
-      },
-      {
         "name": "goals",
         "label": "目的（全製品共通）"
       }
@@ -58,7 +54,7 @@
       {
         "name": "phases_heading",
         "type": "text",
-        "label": "フェーズ欄の見出し",
+        "label": "タブ欄の見出し",
         "section": "common",
         "defaultValue": "今のフェーズから探す",
         "rules": {
@@ -73,6 +69,18 @@
         "defaultValue": "達成したい目的から探す",
         "rules": {
           "maxLength": 40
+        }
+      },
+      {
+        "name": "articles_per_tab",
+        "type": "number",
+        "label": "タブごとの記事の表示件数",
+        "description": "1〜20",
+        "section": "common",
+        "defaultValue": 8,
+        "rules": {
+          "min": 1,
+          "max": 20
         }
       },
       {
@@ -121,34 +129,150 @@
         "defaultValue": "#"
       },
       {
-        "name": "p1_phase1_link",
+        "name": "p1_t1_title",
         "type": "text",
-        "label": "フェーズ1（導入準備）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ1 タイトル",
+        "description": "",
+        "section": "p1",
+        "defaultValue": "導入準備",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p1_t1_desc",
+        "type": "text",
+        "label": "タブ1 説明",
+        "section": "p1",
+        "defaultValue": "初期設定・基盤づくり",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p1_t1_cats",
+        "type": "text",
+        "label": "タブ1 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p1",
+        "defaultValue": "388"
+      },
+      {
+        "name": "p1_t1_guide",
+        "type": "text",
+        "label": "タブ1 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p1",
         "defaultValue": "#"
       },
       {
-        "name": "p1_phase2_link",
+        "name": "p1_t2_title",
         "type": "text",
-        "label": "フェーズ2（運用開始）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ2 タイトル",
+        "description": "",
+        "section": "p1",
+        "defaultValue": "運用開始",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p1_t2_desc",
+        "type": "text",
+        "label": "タブ2 説明",
+        "section": "p1",
+        "defaultValue": "日々の運用・基本操作",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p1_t2_cats",
+        "type": "text",
+        "label": "タブ2 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p1",
+        "defaultValue": "395,397"
+      },
+      {
+        "name": "p1_t2_guide",
+        "type": "text",
+        "label": "タブ2 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p1",
         "defaultValue": "#"
       },
       {
-        "name": "p1_phase3_link",
+        "name": "p1_t3_title",
         "type": "text",
-        "label": "フェーズ3（活用拡大）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ3 タイトル",
+        "description": "",
+        "section": "p1",
+        "defaultValue": "活用拡大",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p1_t3_desc",
+        "type": "text",
+        "label": "タブ3 説明",
+        "section": "p1",
+        "defaultValue": "機能を広げ成果につなげる",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p1_t3_cats",
+        "type": "text",
+        "label": "タブ3 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p1",
+        "defaultValue": "396,409,410,411,412,413,415"
+      },
+      {
+        "name": "p1_t3_guide",
+        "type": "text",
+        "label": "タブ3 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p1",
         "defaultValue": "#"
       },
       {
-        "name": "p1_phase4_link",
+        "name": "p1_t4_title",
         "type": "text",
-        "label": "フェーズ4（高度活用）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ4 タイトル",
+        "description": "空にするとこのタブは表示しない",
+        "section": "p1",
+        "defaultValue": "高度活用",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p1_t4_desc",
+        "type": "text",
+        "label": "タブ4 説明",
+        "section": "p1",
+        "defaultValue": "カスタマイズ・自動化・AI活用",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p1_t4_cats",
+        "type": "text",
+        "label": "タブ4 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p1",
+        "defaultValue": "414"
+      },
+      {
+        "name": "p1_t4_guide",
+        "type": "text",
+        "label": "タブ4 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p1",
         "defaultValue": "#"
       },
@@ -191,34 +315,150 @@
         "defaultValue": "#"
       },
       {
-        "name": "p2_phase1_link",
+        "name": "p2_t1_title",
         "type": "text",
-        "label": "フェーズ1（導入準備）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ1 タイトル",
+        "description": "",
+        "section": "p2",
+        "defaultValue": "導入準備",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p2_t1_desc",
+        "type": "text",
+        "label": "タブ1 説明",
+        "section": "p2",
+        "defaultValue": "初期設定・基盤づくり",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p2_t1_cats",
+        "type": "text",
+        "label": "タブ1 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p2",
+        "defaultValue": "400,406,405"
+      },
+      {
+        "name": "p2_t1_guide",
+        "type": "text",
+        "label": "タブ1 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p2",
         "defaultValue": "#"
       },
       {
-        "name": "p2_phase2_link",
+        "name": "p2_t2_title",
         "type": "text",
-        "label": "フェーズ2（運用開始）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ2 タイトル",
+        "description": "",
+        "section": "p2",
+        "defaultValue": "運用開始",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p2_t2_desc",
+        "type": "text",
+        "label": "タブ2 説明",
+        "section": "p2",
+        "defaultValue": "日々の運用・基本操作",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p2_t2_cats",
+        "type": "text",
+        "label": "タブ2 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p2",
+        "defaultValue": "403,404"
+      },
+      {
+        "name": "p2_t2_guide",
+        "type": "text",
+        "label": "タブ2 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p2",
         "defaultValue": "#"
       },
       {
-        "name": "p2_phase3_link",
+        "name": "p2_t3_title",
         "type": "text",
-        "label": "フェーズ3（活用拡大）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ3 タイトル",
+        "description": "",
+        "section": "p2",
+        "defaultValue": "活用拡大",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p2_t3_desc",
+        "type": "text",
+        "label": "タブ3 説明",
+        "section": "p2",
+        "defaultValue": "機能を広げ成果につなげる",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p2_t3_cats",
+        "type": "text",
+        "label": "タブ3 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p2",
+        "defaultValue": "389,402"
+      },
+      {
+        "name": "p2_t3_guide",
+        "type": "text",
+        "label": "タブ3 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p2",
         "defaultValue": "#"
       },
       {
-        "name": "p2_phase4_link",
+        "name": "p2_t4_title",
         "type": "text",
-        "label": "フェーズ4（高度活用）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ4 タイトル",
+        "description": "空にするとこのタブは表示しない",
+        "section": "p2",
+        "defaultValue": "高度活用",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p2_t4_desc",
+        "type": "text",
+        "label": "タブ4 説明",
+        "section": "p2",
+        "defaultValue": "カスタマイズ・自動化・AI活用",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p2_t4_cats",
+        "type": "text",
+        "label": "タブ4 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p2",
+        "defaultValue": "401"
+      },
+      {
+        "name": "p2_t4_guide",
+        "type": "text",
+        "label": "タブ4 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p2",
         "defaultValue": "#"
       },
@@ -261,34 +501,150 @@
         "defaultValue": "#"
       },
       {
-        "name": "p3_phase1_link",
+        "name": "p3_t1_title",
         "type": "text",
-        "label": "フェーズ1（導入準備）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ1 タイトル",
+        "description": "",
+        "section": "p3",
+        "defaultValue": "導入準備",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p3_t1_desc",
+        "type": "text",
+        "label": "タブ1 説明",
+        "section": "p3",
+        "defaultValue": "初期設定・基盤づくり",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p3_t1_cats",
+        "type": "text",
+        "label": "タブ1 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p3",
+        "defaultValue": "390"
+      },
+      {
+        "name": "p3_t1_guide",
+        "type": "text",
+        "label": "タブ1 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p3",
         "defaultValue": "#"
       },
       {
-        "name": "p3_phase2_link",
+        "name": "p3_t2_title",
         "type": "text",
-        "label": "フェーズ2（運用開始）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ2 タイトル",
+        "description": "",
+        "section": "p3",
+        "defaultValue": "運用開始",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p3_t2_desc",
+        "type": "text",
+        "label": "タブ2 説明",
+        "section": "p3",
+        "defaultValue": "日々の運用・基本操作",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p3_t2_cats",
+        "type": "text",
+        "label": "タブ2 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p3",
+        "defaultValue": ""
+      },
+      {
+        "name": "p3_t2_guide",
+        "type": "text",
+        "label": "タブ2 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p3",
         "defaultValue": "#"
       },
       {
-        "name": "p3_phase3_link",
+        "name": "p3_t3_title",
         "type": "text",
-        "label": "フェーズ3（活用拡大）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ3 タイトル",
+        "description": "",
+        "section": "p3",
+        "defaultValue": "活用拡大",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p3_t3_desc",
+        "type": "text",
+        "label": "タブ3 説明",
+        "section": "p3",
+        "defaultValue": "機能を広げ成果につなげる",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p3_t3_cats",
+        "type": "text",
+        "label": "タブ3 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p3",
+        "defaultValue": ""
+      },
+      {
+        "name": "p3_t3_guide",
+        "type": "text",
+        "label": "タブ3 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p3",
         "defaultValue": "#"
       },
       {
-        "name": "p3_phase4_link",
+        "name": "p3_t4_title",
         "type": "text",
-        "label": "フェーズ4（高度活用）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ4 タイトル",
+        "description": "空にするとこのタブは表示しない",
+        "section": "p3",
+        "defaultValue": "高度活用",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p3_t4_desc",
+        "type": "text",
+        "label": "タブ4 説明",
+        "section": "p3",
+        "defaultValue": "カスタマイズ・自動化・AI活用",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p3_t4_cats",
+        "type": "text",
+        "label": "タブ4 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p3",
+        "defaultValue": ""
+      },
+      {
+        "name": "p3_t4_guide",
+        "type": "text",
+        "label": "タブ4 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p3",
         "defaultValue": "#"
       },
@@ -331,34 +687,150 @@
         "defaultValue": "#"
       },
       {
-        "name": "p4_phase1_link",
+        "name": "p4_t1_title",
         "type": "text",
-        "label": "フェーズ1（導入準備）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ1 タイトル",
+        "description": "",
+        "section": "p4",
+        "defaultValue": "導入準備",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p4_t1_desc",
+        "type": "text",
+        "label": "タブ1 説明",
+        "section": "p4",
+        "defaultValue": "初期設定・基盤づくり",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p4_t1_cats",
+        "type": "text",
+        "label": "タブ1 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p4",
+        "defaultValue": "391"
+      },
+      {
+        "name": "p4_t1_guide",
+        "type": "text",
+        "label": "タブ1 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p4",
         "defaultValue": "#"
       },
       {
-        "name": "p4_phase2_link",
+        "name": "p4_t2_title",
         "type": "text",
-        "label": "フェーズ2（運用開始）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ2 タイトル",
+        "description": "",
+        "section": "p4",
+        "defaultValue": "運用開始",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p4_t2_desc",
+        "type": "text",
+        "label": "タブ2 説明",
+        "section": "p4",
+        "defaultValue": "日々の運用・基本操作",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p4_t2_cats",
+        "type": "text",
+        "label": "タブ2 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p4",
+        "defaultValue": ""
+      },
+      {
+        "name": "p4_t2_guide",
+        "type": "text",
+        "label": "タブ2 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p4",
         "defaultValue": "#"
       },
       {
-        "name": "p4_phase3_link",
+        "name": "p4_t3_title",
         "type": "text",
-        "label": "フェーズ3（活用拡大）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ3 タイトル",
+        "description": "",
+        "section": "p4",
+        "defaultValue": "活用拡大",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p4_t3_desc",
+        "type": "text",
+        "label": "タブ3 説明",
+        "section": "p4",
+        "defaultValue": "機能を広げ成果につなげる",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p4_t3_cats",
+        "type": "text",
+        "label": "タブ3 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p4",
+        "defaultValue": ""
+      },
+      {
+        "name": "p4_t3_guide",
+        "type": "text",
+        "label": "タブ3 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p4",
         "defaultValue": "#"
       },
       {
-        "name": "p4_phase4_link",
+        "name": "p4_t4_title",
         "type": "text",
-        "label": "フェーズ4（高度活用）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ4 タイトル",
+        "description": "空にするとこのタブは表示しない",
+        "section": "p4",
+        "defaultValue": "高度活用",
+        "rules": {
+          "maxLength": 30
+        }
+      },
+      {
+        "name": "p4_t4_desc",
+        "type": "text",
+        "label": "タブ4 説明",
+        "section": "p4",
+        "defaultValue": "カスタマイズ・自動化・AI活用",
+        "rules": {
+          "maxLength": 40
+        }
+      },
+      {
+        "name": "p4_t4_cats",
+        "type": "text",
+        "label": "タブ4 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p4",
+        "defaultValue": ""
+      },
+      {
+        "name": "p4_t4_guide",
+        "type": "text",
+        "label": "タブ4 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
         "section": "p4",
         "defaultValue": "#"
       },
@@ -401,120 +873,152 @@
         "defaultValue": "#"
       },
       {
-        "name": "p5_phase1_link",
+        "name": "p5_t1_title",
         "type": "text",
-        "label": "フェーズ1（導入準備）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
+        "label": "タブ1 タイトル",
+        "description": "",
         "section": "p5",
-        "defaultValue": "#"
-      },
-      {
-        "name": "p5_phase2_link",
-        "type": "text",
-        "label": "フェーズ2（運用開始）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
-        "section": "p5",
-        "defaultValue": "#"
-      },
-      {
-        "name": "p5_phase3_link",
-        "type": "text",
-        "label": "フェーズ3（活用拡大）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
-        "section": "p5",
-        "defaultValue": "#"
-      },
-      {
-        "name": "p5_phase4_link",
-        "type": "text",
-        "label": "フェーズ4（高度活用）のリンク先URL",
-        "description": "この製品の学習ガイド記事の該当フェーズ",
-        "section": "p5",
-        "defaultValue": "#"
-      },
-      {
-        "name": "phase1_title",
-        "type": "text",
-        "label": "フェーズ1 タイトル",
-        "section": "phases",
-        "defaultValue": "導入準備",
+        "defaultValue": "Copilot",
         "rules": {
-          "required": true,
           "maxLength": 30
         }
       },
       {
-        "name": "phase1_desc",
+        "name": "p5_t1_desc",
         "type": "text",
-        "label": "フェーズ1 説明",
-        "section": "phases",
-        "defaultValue": "初期設定・基盤づくり",
+        "label": "タブ1 説明",
+        "section": "p5",
+        "defaultValue": "Gainsight Copilot の使い方・活用",
         "rules": {
           "maxLength": 40
         }
       },
       {
-        "name": "phase2_title",
+        "name": "p5_t1_cats",
         "type": "text",
-        "label": "フェーズ2 タイトル",
-        "section": "phases",
-        "defaultValue": "運用開始",
+        "label": "タブ1 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p5",
+        "defaultValue": ""
+      },
+      {
+        "name": "p5_t1_guide",
+        "type": "text",
+        "label": "タブ1 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
+        "section": "p5",
+        "defaultValue": "#"
+      },
+      {
+        "name": "p5_t2_title",
+        "type": "text",
+        "label": "タブ2 タイトル",
+        "description": "",
+        "section": "p5",
+        "defaultValue": "MCP",
         "rules": {
-          "required": true,
           "maxLength": 30
         }
       },
       {
-        "name": "phase2_desc",
+        "name": "p5_t2_desc",
         "type": "text",
-        "label": "フェーズ2 説明",
-        "section": "phases",
-        "defaultValue": "日々の運用・基本操作",
+        "label": "タブ2 説明",
+        "section": "p5",
+        "defaultValue": "AIエージェントとGainsightをつなぐ",
         "rules": {
           "maxLength": 40
         }
       },
       {
-        "name": "phase3_title",
+        "name": "p5_t2_cats",
         "type": "text",
-        "label": "フェーズ3 タイトル",
-        "section": "phases",
-        "defaultValue": "活用拡大",
+        "label": "タブ2 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p5",
+        "defaultValue": ""
+      },
+      {
+        "name": "p5_t2_guide",
+        "type": "text",
+        "label": "タブ2 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
+        "section": "p5",
+        "defaultValue": "#"
+      },
+      {
+        "name": "p5_t3_title",
+        "type": "text",
+        "label": "タブ3 タイトル",
+        "description": "",
+        "section": "p5",
+        "defaultValue": "活用ユースケース・プロンプト集",
         "rules": {
-          "required": true,
           "maxLength": 30
         }
       },
       {
-        "name": "phase3_desc",
+        "name": "p5_t3_desc",
         "type": "text",
-        "label": "フェーズ3 説明",
-        "section": "phases",
-        "defaultValue": "機能を広げ成果につなげる",
+        "label": "タブ3 説明",
+        "section": "p5",
+        "defaultValue": "実践例とすぐ使えるプロンプト",
         "rules": {
           "maxLength": 40
         }
       },
       {
-        "name": "phase4_title",
+        "name": "p5_t3_cats",
         "type": "text",
-        "label": "フェーズ4 タイトル",
-        "section": "phases",
-        "defaultValue": "高度活用",
+        "label": "タブ3 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p5",
+        "defaultValue": ""
+      },
+      {
+        "name": "p5_t3_guide",
+        "type": "text",
+        "label": "タブ3 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
+        "section": "p5",
+        "defaultValue": "#"
+      },
+      {
+        "name": "p5_t4_title",
+        "type": "text",
+        "label": "タブ4 タイトル",
+        "description": "空にするとこのタブは表示しない",
+        "section": "p5",
+        "defaultValue": "",
         "rules": {
-          "required": true,
           "maxLength": 30
         }
       },
       {
-        "name": "phase4_desc",
+        "name": "p5_t4_desc",
         "type": "text",
-        "label": "フェーズ4 説明",
-        "section": "phases",
-        "defaultValue": "カスタマイズ・自動化・AI活用",
+        "label": "タブ4 説明",
+        "section": "p5",
+        "defaultValue": "",
         "rules": {
           "maxLength": 40
         }
+      },
+      {
+        "name": "p5_t4_cats",
+        "type": "text",
+        "label": "タブ4 カテゴリID",
+        "description": "ナレッジベースのカテゴリID。複数はカンマ区切り。空なら「準備中」表示",
+        "section": "p5",
+        "defaultValue": ""
+      },
+      {
+        "name": "p5_t4_guide",
+        "type": "text",
+        "label": "タブ4 学習ガイドのリンク先URL",
+        "description": "教材（外部リンク含む）をまとめたガイド記事",
+        "section": "p5",
+        "defaultValue": "#"
       },
       {
         "name": "goal1_title",
@@ -754,55 +1258,108 @@
     "accent_color": "#1565b8",
     "phases_heading": "今のフェーズから探す",
     "goals_heading": "達成したい目的から探す",
+    "articles_per_tab": 8,
     "open_in_new_tab": false,
     "p1_name": "Customer Success",
     "p1_sub": "CS製品",
     "p1_desc": "顧客の成功を支えるためのGainsight CSの活用方法や運用ノウハウをご案内します。",
     "p1_cat_link": "#",
-    "p1_phase1_link": "#",
-    "p1_phase2_link": "#",
-    "p1_phase3_link": "#",
-    "p1_phase4_link": "#",
+    "p1_t1_title": "導入準備",
+    "p1_t1_desc": "初期設定・基盤づくり",
+    "p1_t1_cats": "388",
+    "p1_t1_guide": "#",
+    "p1_t2_title": "運用開始",
+    "p1_t2_desc": "日々の運用・基本操作",
+    "p1_t2_cats": "395,397",
+    "p1_t2_guide": "#",
+    "p1_t3_title": "活用拡大",
+    "p1_t3_desc": "機能を広げ成果につなげる",
+    "p1_t3_cats": "396,409,410,411,412,413,415",
+    "p1_t3_guide": "#",
+    "p1_t4_title": "高度活用",
+    "p1_t4_desc": "カスタマイズ・自動化・AI活用",
+    "p1_t4_cats": "414",
+    "p1_t4_guide": "#",
     "p2_name": "Customer Communities",
     "p2_sub": "コミュニティ製品",
     "p2_desc": "顧客同士・社内外をつなぐ、Gainsight Customer Communitiesの活用方法をご案内します。",
     "p2_cat_link": "#",
-    "p2_phase1_link": "#",
-    "p2_phase2_link": "#",
-    "p2_phase3_link": "#",
-    "p2_phase4_link": "#",
+    "p2_t1_title": "導入準備",
+    "p2_t1_desc": "初期設定・基盤づくり",
+    "p2_t1_cats": "400,406,405",
+    "p2_t1_guide": "#",
+    "p2_t2_title": "運用開始",
+    "p2_t2_desc": "日々の運用・基本操作",
+    "p2_t2_cats": "403,404",
+    "p2_t2_guide": "#",
+    "p2_t3_title": "活用拡大",
+    "p2_t3_desc": "機能を広げ成果につなげる",
+    "p2_t3_cats": "389,402",
+    "p2_t3_guide": "#",
+    "p2_t4_title": "高度活用",
+    "p2_t4_desc": "カスタマイズ・自動化・AI活用",
+    "p2_t4_cats": "401",
+    "p2_t4_guide": "#",
     "p3_name": "Skilljar",
     "p3_sub": "教育・ラーニング製品",
     "p3_desc": "顧客・パートナー向けの学習体験をつくる、Skilljarの活用方法をご案内します。",
     "p3_cat_link": "#",
-    "p3_phase1_link": "#",
-    "p3_phase2_link": "#",
-    "p3_phase3_link": "#",
-    "p3_phase4_link": "#",
+    "p3_t1_title": "導入準備",
+    "p3_t1_desc": "初期設定・基盤づくり",
+    "p3_t1_cats": "390",
+    "p3_t1_guide": "#",
+    "p3_t2_title": "運用開始",
+    "p3_t2_desc": "日々の運用・基本操作",
+    "p3_t2_cats": "",
+    "p3_t2_guide": "#",
+    "p3_t3_title": "活用拡大",
+    "p3_t3_desc": "機能を広げ成果につなげる",
+    "p3_t3_cats": "",
+    "p3_t3_guide": "#",
+    "p3_t4_title": "高度活用",
+    "p3_t4_desc": "カスタマイズ・自動化・AI活用",
+    "p3_t4_cats": "",
+    "p3_t4_guide": "#",
     "p4_name": "Staircase AI",
     "p4_sub": "Staircase AI",
     "p4_desc": "顧客とのやり取りから変化を捉える、Staircase AIの活用方法をご案内します。",
     "p4_cat_link": "#",
-    "p4_phase1_link": "#",
-    "p4_phase2_link": "#",
-    "p4_phase3_link": "#",
-    "p4_phase4_link": "#",
+    "p4_t1_title": "導入準備",
+    "p4_t1_desc": "初期設定・基盤づくり",
+    "p4_t1_cats": "391",
+    "p4_t1_guide": "#",
+    "p4_t2_title": "運用開始",
+    "p4_t2_desc": "日々の運用・基本操作",
+    "p4_t2_cats": "",
+    "p4_t2_guide": "#",
+    "p4_t3_title": "活用拡大",
+    "p4_t3_desc": "機能を広げ成果につなげる",
+    "p4_t3_cats": "",
+    "p4_t3_guide": "#",
+    "p4_t4_title": "高度活用",
+    "p4_t4_desc": "カスタマイズ・自動化・AI活用",
+    "p4_t4_cats": "",
+    "p4_t4_guide": "#",
     "p5_name": "AI 機能（横断）",
     "p5_sub": "AI機能・共通機能",
     "p5_desc": "Gainsight全体で使えるAI機能・MCPの活用方法をご案内します。",
     "p5_cat_link": "#",
-    "p5_phase1_link": "#",
-    "p5_phase2_link": "#",
-    "p5_phase3_link": "#",
-    "p5_phase4_link": "#",
-    "phase1_title": "導入準備",
-    "phase1_desc": "初期設定・基盤づくり",
-    "phase2_title": "運用開始",
-    "phase2_desc": "日々の運用・基本操作",
-    "phase3_title": "活用拡大",
-    "phase3_desc": "機能を広げ成果につなげる",
-    "phase4_title": "高度活用",
-    "phase4_desc": "カスタマイズ・自動化・AI活用",
+    "p5_t1_title": "Copilot",
+    "p5_t1_desc": "Gainsight Copilot の使い方・活用",
+    "p5_t1_cats": "",
+    "p5_t1_guide": "#",
+    "p5_t2_title": "MCP",
+    "p5_t2_desc": "AIエージェントとGainsightをつなぐ",
+    "p5_t2_cats": "",
+    "p5_t2_guide": "#",
+    "p5_t3_title": "活用ユースケース・プロンプト集",
+    "p5_t3_desc": "実践例とすぐ使えるプロンプト",
+    "p5_t3_cats": "",
+    "p5_t3_guide": "#",
+    "p5_t4_title": "",
+    "p5_t4_desc": "",
+    "p5_t4_cats": "",
+    "p5_t4_guide": "#",
     "goal1_title": "解約リスクを減らす",
     "goal1_desc": "ヘルススコアやリスク検知を学ぶ",
     "goal1_link": "#",
