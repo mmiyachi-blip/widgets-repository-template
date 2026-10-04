@@ -1,0 +1,126 @@
+<style>
+  :host {
+    display: block;
+    font-family: var(--font-family-sans, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif);
+    color: var(--color-content-default, #163e5e);
+  }
+  .wrap, .wrap * { box-sizing: border-box; }
+  .wrap { max-width: 1200px; margin: 0 auto; --accent: #1565b8; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0; }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--color-focus-ring, #388bff);
+    outline-offset: 3px;
+  }
+
+  /* 製品タブ */
+  .tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+  .tab {
+    position: relative; display: flex; align-items: center; gap: 12px; text-align: left;
+    background: var(--color-surface-default, #fff); border: 1px solid var(--color-line-default, #e1e6ee);
+    border-radius: 14px; padding: 12px 14px; box-shadow: 0 2px 6px #1f3a5a0d; min-width: 0;
+  }
+  .tab:hover { border-color: #8db8e6; }
+  .tab .txt { min-width: 0; }
+  .tab b { display: block; font-size: 13px; line-height: 1.4; }
+  .tab small { display: block; font-size: 11px; color: #68778a; }
+  .tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .tab[aria-selected="true"] small { color: #fff; }
+  .tab[aria-selected="true"]::after {
+    content: ""; position: absolute; left: 50%; bottom: -8px; margin-left: -8px;
+    border: 8px solid transparent; border-bottom: 0; border-top-color: var(--accent);
+  }
+
+  .pic {
+    flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
+    background: #e8f2fb; color: #1677ab; font-weight: 700; font-size: 13px; overflow: hidden;
+  }
+  .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tab[aria-selected="true"] .pic { background: #fff; }
+
+  /* パネル */
+  .panel {
+    background: var(--color-surface-default, #fff); border: 1px solid #dfe6ee; border-radius: 18px;
+    overflow: hidden; box-shadow: 0 2px 6px #1f3a5a0d;
+  }
+  .phead {
+    display: flex; align-items: center; gap: 22px; padding: 24px 28px;
+    background: linear-gradient(90deg, #e6f1fb, #eef6fd 60%, #e3effa);
+  }
+  .phead .pic { width: 64px; height: 64px; font-size: 18px; }
+  .ptext { flex: 1; min-width: 0; }
+  .ptext h3 { margin: 0 0 6px; font-size: 28px; font-weight: 650; line-height: 1.35; }
+  .ptext p { margin: 0 0 8px; color: #4a5b6e; font-size: 14px; line-height: 1.7; }
+  .catlink { font-size: 13px; font-weight: 650; color: var(--color-action-primary-default, #167daa); }
+  .catlink:hover { text-decoration: underline; }
+  .part { width: 220px; height: 90px; flex: none; text-align: right; }
+  .part img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .pbody { padding: 6px 28px 28px; }
+  .pbody h4 { margin: 22px 0 12px; font-size: 17px; }
+
+  .grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .card {
+    display: flex; align-items: center; gap: 14px; border-radius: 12px; padding: 16px; min-width: 0;
+  }
+  .card:hover { box-shadow: 0 4px 10px #1f3a5a1a; }
+  .card .t { flex: 1; min-width: 0; }
+  .card b { display: block; font-size: 15px; line-height: 1.45; }
+  .card small { display: block; font-size: 12px; color: #68778a; margin-top: 3px; line-height: 1.5; }
+  .card .arw { color: #7992a5; flex: none; }
+  .phase { background: var(--tint); }
+  .phase .pic { background: #fff; color: var(--c); }
+  .goal { background: var(--color-surface-default, #fff); border: 1px solid #dfe6ee; padding: 14px; }
+  .goal .pic { width: 38px; height: 38px; font-size: 12px; background: #f0f4f8; color: #163e5e; }
+  .goal b { font-size: 13px; }
+  .goal small { font-size: 11px; margin-top: 2px; }
+
+  /* 画像・リンクの事前読み込み用。表示はしない（下の注記を参照） */
+  link[rel="preload"] { display: none; }
+
+  @media (max-width: 1000px) {
+    .tabs { grid-template-columns: repeat(5, minmax(150px, 1fr)); overflow-x: auto; padding-bottom: 10px; }
+    .grid4 { grid-template-columns: 1fr 1fr; }
+    .part { display: none; }
+  }
+  @media (max-width: 760px) {
+    .phead { padding: 18px; }
+    .ptext h3 { font-size: 22px; }
+    .pbody { padding: 4px 18px 22px; }
+    .grid4 { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .card { transition: box-shadow 0.15s; }
+  }
+</style>
+
+<!-- アイコン画像。公開時にプラットフォームが静的HTML内のパスだけをホスティングURLへ書き換えるため、
+     ここに宣言し、app.js が解決後の href を読み取る。画像は icons/ に同名で置き換えれば差し替わる。 -->
+<link rel="preload" as="image" href="icons/product-cs.png" id="img-product-1">
+<link rel="preload" as="image" href="icons/product-cc.png" id="img-product-2">
+<link rel="preload" as="image" href="icons/product-ce.png" id="img-product-3">
+<link rel="preload" as="image" href="icons/product-st.png" id="img-product-4">
+<link rel="preload" as="image" href="icons/product-ai.png" id="img-product-5">
+<link rel="preload" as="image" href="icons/hero-cs.png" id="img-hero-1">
+<link rel="preload" as="image" href="icons/hero-cc.png" id="img-hero-2">
+<link rel="preload" as="image" href="icons/hero-ce.png" id="img-hero-3">
+<link rel="preload" as="image" href="icons/hero-st.png" id="img-hero-4">
+<link rel="preload" as="image" href="icons/hero-ai.png" id="img-hero-5">
+<link rel="preload" as="image" href="icons/phase-1.png" id="img-phase-1">
+<link rel="preload" as="image" href="icons/phase-2.png" id="img-phase-2">
+<link rel="preload" as="image" href="icons/phase-3.png" id="img-phase-3">
+<link rel="preload" as="image" href="icons/phase-4.png" id="img-phase-4">
+<link rel="preload" as="image" href="icons/goal-1.png" id="img-goal-1">
+<link rel="preload" as="image" href="icons/goal-2.png" id="img-goal-2">
+<link rel="preload" as="image" href="icons/goal-3.png" id="img-goal-3">
+<link rel="preload" as="image" href="icons/goal-4.png" id="img-goal-4">
+<link rel="preload" as="image" href="icons/goal-5.png" id="img-goal-5">
+<link rel="preload" as="image" href="icons/goal-6.png" id="img-goal-6">
+<link rel="preload" as="image" href="icons/goal-7.png" id="img-goal-7">
+<link rel="preload" as="image" href="icons/goal-8.png" id="img-goal-8">
+
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="製品"></div>
+  <div class="panel" role="tabpanel"></div>
+</div>
+
+<script type="module" src="app.js"></script>

@@ -970,6 +970,839 @@
       "type": "gainsight_jp_community_subcommittees"
     },
     {
+      "title": "KB 製品選択（フェーズ・目的の入口）",
+      "description": "製品タブを選ぶと、その製品のフェーズ別の学習ガイドと、目的別ページへの入口を表示するナレッジベース Top 用ウィジェット。タイトル・説明・リンク先は No-Code Builder の設定欄で編集する。",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/gainsight_jp_kb_product_selector",
+        "entry": "index.html"
+      },
+      "containers": [
+        "Full width"
+      ],
+      "settings": {
+        "configurable": true
+      },
+      "configuration": {
+        "sections": [
+          {
+            "name": "common",
+            "label": "共通設定",
+            "expanded": true
+          },
+          {
+            "name": "p1",
+            "label": "製品1: Customer Success"
+          },
+          {
+            "name": "p2",
+            "label": "製品2: Customer Communities"
+          },
+          {
+            "name": "p3",
+            "label": "製品3: Customer Education / Skilljar"
+          },
+          {
+            "name": "p4",
+            "label": "製品4: Staircase AI"
+          },
+          {
+            "name": "p5",
+            "label": "製品5: AI 機能（横断）"
+          },
+          {
+            "name": "phases",
+            "label": "フェーズの表示文言（全製品共通）"
+          },
+          {
+            "name": "goals",
+            "label": "目的（全製品共通）"
+          }
+        ],
+        "properties": [
+          {
+            "name": "accent_color",
+            "type": "color",
+            "label": "選択中タブの色",
+            "section": "common",
+            "defaultValue": "#1565b8"
+          },
+          {
+            "name": "phases_heading",
+            "type": "text",
+            "label": "フェーズ欄の見出し",
+            "section": "common",
+            "defaultValue": "今のフェーズから探す",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goals_heading",
+            "type": "text",
+            "label": "目的欄の見出し",
+            "section": "common",
+            "defaultValue": "達成したい目的から探す",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "open_in_new_tab",
+            "type": "boolean",
+            "label": "リンクを新しいタブで開く",
+            "section": "common",
+            "defaultValue": false
+          },
+          {
+            "name": "p1_name",
+            "type": "text",
+            "label": "製品名",
+            "section": "p1",
+            "defaultValue": "Customer Success",
+            "rules": {
+              "required": true,
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "p1_sub",
+            "type": "text",
+            "label": "タブの補足文",
+            "section": "p1",
+            "defaultValue": "CS製品",
+            "rules": {
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "p1_desc",
+            "type": "text",
+            "label": "説明文",
+            "section": "p1",
+            "defaultValue": "顧客の成功を支えるためのGainsight CSの活用方法や運用ノウハウをご案内します。",
+            "rules": {
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "p1_cat_link",
+            "type": "text",
+            "label": "Tips・カテゴリ一覧のリンク先URL",
+            "section": "p1",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p1_phase1_link",
+            "type": "text",
+            "label": "フェーズ1（導入準備）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p1",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p1_phase2_link",
+            "type": "text",
+            "label": "フェーズ2（運用開始）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p1",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p1_phase3_link",
+            "type": "text",
+            "label": "フェーズ3（活用拡大）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p1",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p1_phase4_link",
+            "type": "text",
+            "label": "フェーズ4（高度活用）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p1",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p2_name",
+            "type": "text",
+            "label": "製品名",
+            "section": "p2",
+            "defaultValue": "Customer Communities",
+            "rules": {
+              "required": true,
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "p2_sub",
+            "type": "text",
+            "label": "タブの補足文",
+            "section": "p2",
+            "defaultValue": "コミュニティ製品",
+            "rules": {
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "p2_desc",
+            "type": "text",
+            "label": "説明文",
+            "section": "p2",
+            "defaultValue": "顧客同士・社内外をつなぐ、Gainsight Customer Communitiesの活用方法をご案内します。",
+            "rules": {
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "p2_cat_link",
+            "type": "text",
+            "label": "Tips・カテゴリ一覧のリンク先URL",
+            "section": "p2",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p2_phase1_link",
+            "type": "text",
+            "label": "フェーズ1（導入準備）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p2",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p2_phase2_link",
+            "type": "text",
+            "label": "フェーズ2（運用開始）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p2",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p2_phase3_link",
+            "type": "text",
+            "label": "フェーズ3（活用拡大）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p2",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p2_phase4_link",
+            "type": "text",
+            "label": "フェーズ4（高度活用）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p2",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p3_name",
+            "type": "text",
+            "label": "製品名",
+            "section": "p3",
+            "defaultValue": "Customer Education / Skilljar",
+            "rules": {
+              "required": true,
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "p3_sub",
+            "type": "text",
+            "label": "タブの補足文",
+            "section": "p3",
+            "defaultValue": "教育・ラーニング製品",
+            "rules": {
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "p3_desc",
+            "type": "text",
+            "label": "説明文",
+            "section": "p3",
+            "defaultValue": "顧客・パートナー向けの学習体験をつくる、Customer Education / Skilljarの活用方法をご案内します。",
+            "rules": {
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "p3_cat_link",
+            "type": "text",
+            "label": "Tips・カテゴリ一覧のリンク先URL",
+            "section": "p3",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p3_phase1_link",
+            "type": "text",
+            "label": "フェーズ1（導入準備）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p3",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p3_phase2_link",
+            "type": "text",
+            "label": "フェーズ2（運用開始）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p3",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p3_phase3_link",
+            "type": "text",
+            "label": "フェーズ3（活用拡大）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p3",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p3_phase4_link",
+            "type": "text",
+            "label": "フェーズ4（高度活用）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p3",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p4_name",
+            "type": "text",
+            "label": "製品名",
+            "section": "p4",
+            "defaultValue": "Staircase AI",
+            "rules": {
+              "required": true,
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "p4_sub",
+            "type": "text",
+            "label": "タブの補足文",
+            "section": "p4",
+            "defaultValue": "Staircase AI",
+            "rules": {
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "p4_desc",
+            "type": "text",
+            "label": "説明文",
+            "section": "p4",
+            "defaultValue": "顧客とのやり取りから変化を捉える、Staircase AIの活用方法をご案内します。",
+            "rules": {
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "p4_cat_link",
+            "type": "text",
+            "label": "Tips・カテゴリ一覧のリンク先URL",
+            "section": "p4",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p4_phase1_link",
+            "type": "text",
+            "label": "フェーズ1（導入準備）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p4",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p4_phase2_link",
+            "type": "text",
+            "label": "フェーズ2（運用開始）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p4",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p4_phase3_link",
+            "type": "text",
+            "label": "フェーズ3（活用拡大）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p4",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p4_phase4_link",
+            "type": "text",
+            "label": "フェーズ4（高度活用）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p4",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p5_name",
+            "type": "text",
+            "label": "製品名",
+            "section": "p5",
+            "defaultValue": "AI 機能（横断）",
+            "rules": {
+              "required": true,
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "p5_sub",
+            "type": "text",
+            "label": "タブの補足文",
+            "section": "p5",
+            "defaultValue": "AI機能・共通機能",
+            "rules": {
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "p5_desc",
+            "type": "text",
+            "label": "説明文",
+            "section": "p5",
+            "defaultValue": "Gainsight全体で使えるAI機能・MCPの活用方法をご案内します。",
+            "rules": {
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "p5_cat_link",
+            "type": "text",
+            "label": "Tips・カテゴリ一覧のリンク先URL",
+            "section": "p5",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p5_phase1_link",
+            "type": "text",
+            "label": "フェーズ1（導入準備）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p5",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p5_phase2_link",
+            "type": "text",
+            "label": "フェーズ2（運用開始）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p5",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p5_phase3_link",
+            "type": "text",
+            "label": "フェーズ3（活用拡大）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p5",
+            "defaultValue": "#"
+          },
+          {
+            "name": "p5_phase4_link",
+            "type": "text",
+            "label": "フェーズ4（高度活用）のリンク先URL",
+            "description": "この製品の学習ガイド記事の該当フェーズ",
+            "section": "p5",
+            "defaultValue": "#"
+          },
+          {
+            "name": "phase1_title",
+            "type": "text",
+            "label": "フェーズ1 タイトル",
+            "section": "phases",
+            "defaultValue": "導入準備",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "phase1_desc",
+            "type": "text",
+            "label": "フェーズ1 説明",
+            "section": "phases",
+            "defaultValue": "初期設定・基盤づくり",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "phase2_title",
+            "type": "text",
+            "label": "フェーズ2 タイトル",
+            "section": "phases",
+            "defaultValue": "運用開始",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "phase2_desc",
+            "type": "text",
+            "label": "フェーズ2 説明",
+            "section": "phases",
+            "defaultValue": "日々の運用・基本操作",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "phase3_title",
+            "type": "text",
+            "label": "フェーズ3 タイトル",
+            "section": "phases",
+            "defaultValue": "活用拡大",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "phase3_desc",
+            "type": "text",
+            "label": "フェーズ3 説明",
+            "section": "phases",
+            "defaultValue": "機能を広げ成果につなげる",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "phase4_title",
+            "type": "text",
+            "label": "フェーズ4 タイトル",
+            "section": "phases",
+            "defaultValue": "高度活用",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "phase4_desc",
+            "type": "text",
+            "label": "フェーズ4 説明",
+            "section": "phases",
+            "defaultValue": "カスタマイズ・自動化・AI活用",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goal1_title",
+            "type": "text",
+            "label": "目的1 タイトル",
+            "section": "goals",
+            "defaultValue": "解約リスクを減らす",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "goal1_desc",
+            "type": "text",
+            "label": "目的1 説明",
+            "section": "goals",
+            "defaultValue": "ヘルススコアやリスク検知を学ぶ",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goal1_link",
+            "type": "text",
+            "label": "目的1 リンク先URL",
+            "description": "目的別ページ（目的タグの自動一覧）",
+            "section": "goals",
+            "defaultValue": "#"
+          },
+          {
+            "name": "goal2_title",
+            "type": "text",
+            "label": "目的2 タイトル",
+            "section": "goals",
+            "defaultValue": "チームの業務を効率化",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "goal2_desc",
+            "type": "text",
+            "label": "目的2 説明",
+            "section": "goals",
+            "defaultValue": "日々の活動と情報共有を整える",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goal2_link",
+            "type": "text",
+            "label": "目的2 リンク先URL",
+            "description": "目的別ページ（目的タグの自動一覧）",
+            "section": "goals",
+            "defaultValue": "#"
+          },
+          {
+            "name": "goal3_title",
+            "type": "text",
+            "label": "目的3 タイトル",
+            "section": "goals",
+            "defaultValue": "顧客ジャーニーを自動化",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "goal3_desc",
+            "type": "text",
+            "label": "目的3 説明",
+            "section": "goals",
+            "defaultValue": "適切なタイミングで働きかける",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goal3_link",
+            "type": "text",
+            "label": "目的3 リンク先URL",
+            "description": "目的別ページ（目的タグの自動一覧）",
+            "section": "goals",
+            "defaultValue": "#"
+          },
+          {
+            "name": "goal4_title",
+            "type": "text",
+            "label": "目的4 タイトル",
+            "section": "goals",
+            "defaultValue": "製品の活用を広げる",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "goal4_desc",
+            "type": "text",
+            "label": "目的4 説明",
+            "section": "goals",
+            "defaultValue": "継続的な利用と定着を支える",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goal4_link",
+            "type": "text",
+            "label": "目的4 リンク先URL",
+            "description": "目的別ページ（目的タグの自動一覧）",
+            "section": "goals",
+            "defaultValue": "#"
+          },
+          {
+            "name": "goal5_title",
+            "type": "text",
+            "label": "目的5 タイトル",
+            "section": "goals",
+            "defaultValue": "推奨・紹介を増やす",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "goal5_desc",
+            "type": "text",
+            "label": "目的5 説明",
+            "section": "goals",
+            "defaultValue": "顧客とのつながりを育てる",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goal5_link",
+            "type": "text",
+            "label": "目的5 リンク先URL",
+            "description": "目的別ページ（目的タグの自動一覧）",
+            "section": "goals",
+            "defaultValue": "#"
+          },
+          {
+            "name": "goal6_title",
+            "type": "text",
+            "label": "目的6 タイトル",
+            "section": "goals",
+            "defaultValue": "成果・ROIを可視化",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "goal6_desc",
+            "type": "text",
+            "label": "目的6 説明",
+            "section": "goals",
+            "defaultValue": "成果をレポートで共有する",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goal6_link",
+            "type": "text",
+            "label": "目的6 リンク先URL",
+            "description": "目的別ページ（目的タグの自動一覧）",
+            "section": "goals",
+            "defaultValue": "#"
+          },
+          {
+            "name": "goal7_title",
+            "type": "text",
+            "label": "目的7 タイトル",
+            "section": "goals",
+            "defaultValue": "顧客の声を集める",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "goal7_desc",
+            "type": "text",
+            "label": "目的7 説明",
+            "section": "goals",
+            "defaultValue": "対話を改善につなげる",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goal7_link",
+            "type": "text",
+            "label": "目的7 リンク先URL",
+            "description": "目的別ページ（目的タグの自動一覧）",
+            "section": "goals",
+            "defaultValue": "#"
+          },
+          {
+            "name": "goal8_title",
+            "type": "text",
+            "label": "目的8 タイトル",
+            "section": "goals",
+            "defaultValue": "拡張機会を見つける",
+            "rules": {
+              "required": true,
+              "maxLength": 30
+            }
+          },
+          {
+            "name": "goal8_desc",
+            "type": "text",
+            "label": "目的8 説明",
+            "section": "goals",
+            "defaultValue": "顧客理解から次の提案へ",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "goal8_link",
+            "type": "text",
+            "label": "目的8 リンク先URL",
+            "description": "目的別ページ（目的タグの自動一覧）",
+            "section": "goals",
+            "defaultValue": "#"
+          }
+        ]
+      },
+      "defaultConfig": {
+        "accent_color": "#1565b8",
+        "phases_heading": "今のフェーズから探す",
+        "goals_heading": "達成したい目的から探す",
+        "open_in_new_tab": false,
+        "p1_name": "Customer Success",
+        "p1_sub": "CS製品",
+        "p1_desc": "顧客の成功を支えるためのGainsight CSの活用方法や運用ノウハウをご案内します。",
+        "p1_cat_link": "#",
+        "p1_phase1_link": "#",
+        "p1_phase2_link": "#",
+        "p1_phase3_link": "#",
+        "p1_phase4_link": "#",
+        "p2_name": "Customer Communities",
+        "p2_sub": "コミュニティ製品",
+        "p2_desc": "顧客同士・社内外をつなぐ、Gainsight Customer Communitiesの活用方法をご案内します。",
+        "p2_cat_link": "#",
+        "p2_phase1_link": "#",
+        "p2_phase2_link": "#",
+        "p2_phase3_link": "#",
+        "p2_phase4_link": "#",
+        "p3_name": "Customer Education / Skilljar",
+        "p3_sub": "教育・ラーニング製品",
+        "p3_desc": "顧客・パートナー向けの学習体験をつくる、Customer Education / Skilljarの活用方法をご案内します。",
+        "p3_cat_link": "#",
+        "p3_phase1_link": "#",
+        "p3_phase2_link": "#",
+        "p3_phase3_link": "#",
+        "p3_phase4_link": "#",
+        "p4_name": "Staircase AI",
+        "p4_sub": "Staircase AI",
+        "p4_desc": "顧客とのやり取りから変化を捉える、Staircase AIの活用方法をご案内します。",
+        "p4_cat_link": "#",
+        "p4_phase1_link": "#",
+        "p4_phase2_link": "#",
+        "p4_phase3_link": "#",
+        "p4_phase4_link": "#",
+        "p5_name": "AI 機能（横断）",
+        "p5_sub": "AI機能・共通機能",
+        "p5_desc": "Gainsight全体で使えるAI機能・MCPの活用方法をご案内します。",
+        "p5_cat_link": "#",
+        "p5_phase1_link": "#",
+        "p5_phase2_link": "#",
+        "p5_phase3_link": "#",
+        "p5_phase4_link": "#",
+        "phase1_title": "導入準備",
+        "phase1_desc": "初期設定・基盤づくり",
+        "phase2_title": "運用開始",
+        "phase2_desc": "日々の運用・基本操作",
+        "phase3_title": "活用拡大",
+        "phase3_desc": "機能を広げ成果につなげる",
+        "phase4_title": "高度活用",
+        "phase4_desc": "カスタマイズ・自動化・AI活用",
+        "goal1_title": "解約リスクを減らす",
+        "goal1_desc": "ヘルススコアやリスク検知を学ぶ",
+        "goal1_link": "#",
+        "goal2_title": "チームの業務を効率化",
+        "goal2_desc": "日々の活動と情報共有を整える",
+        "goal2_link": "#",
+        "goal3_title": "顧客ジャーニーを自動化",
+        "goal3_desc": "適切なタイミングで働きかける",
+        "goal3_link": "#",
+        "goal4_title": "製品の活用を広げる",
+        "goal4_desc": "継続的な利用と定着を支える",
+        "goal4_link": "#",
+        "goal5_title": "推奨・紹介を増やす",
+        "goal5_desc": "顧客とのつながりを育てる",
+        "goal5_link": "#",
+        "goal6_title": "成果・ROIを可視化",
+        "goal6_desc": "成果をレポートで共有する",
+        "goal6_link": "#",
+        "goal7_title": "顧客の声を集める",
+        "goal7_desc": "対話を改善につなげる",
+        "goal7_link": "#",
+        "goal8_title": "拡張機会を見つける",
+        "goal8_desc": "顧客理解から次の提案へ",
+        "goal8_link": "#"
+      },
+      "type": "gainsight_jp_kb_product_selector"
+    },
+    {
       "title": "次回の分科会開催予定",
       "description": "Googleカレンダーの予定のうち、タイトルに指定キーワードを含み本日以降でいちばん近い1件を「次回開催予定」として表示するマスコット付きカード。ボタンは、同じ日付(タイトルを「【M/D(曜) 開始-終了】タイトル」の形式にする)の「次回開催」タグ付き投稿がカテゴリにあればその投稿へのリンク、まだ無ければ「詳細をお待ちください」になります。分科会ごとに対象カテゴリIDとテーマを変えて、各分科会ページに設置してください。",
       "category": "Custom",
