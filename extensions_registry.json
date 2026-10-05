@@ -3784,6 +3784,62 @@
       "type": "section-title-banner"
     },
     {
+      "title": "Spacer (余白)",
+      "description": "ウィジェット同士の間に指定した高さの余白を入れるスペーサー。PC用・スマホ用の高さを別々に設定できます",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/spacer/dist",
+        "entry": "content.html"
+      },
+      "containers": [
+        "Full width",
+        "Left container",
+        "Right container"
+      ],
+      "settings": {
+        "configurable": true
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "height_desktop",
+            "type": "number",
+            "label": "余白の高さ：PC (px)",
+            "description": "画面幅768px以上での高さ",
+            "defaultValue": 40,
+            "rules": {
+              "minimum": 0,
+              "maximum": 400
+            }
+          },
+          {
+            "name": "height_mobile",
+            "type": "number",
+            "label": "余白の高さ：スマホ (px)",
+            "description": "画面幅767px以下での高さ",
+            "defaultValue": 24,
+            "rules": {
+              "minimum": 0,
+              "maximum": 400
+            }
+          },
+          {
+            "name": "background_color",
+            "type": "color",
+            "label": "背景色",
+            "description": "空欄なら透明（ページの背景がそのまま見えます）",
+            "defaultValue": ""
+          }
+        ]
+      },
+      "defaultConfig": {
+        "height_desktop": 40,
+        "height_mobile": 24,
+        "background_color": ""
+      },
+      "type": "spacer"
+    },
+    {
       "title": "Title Pill Links (タイトル＋アイコン付きボタン一覧)",
       "description": "タイトルの下に、アイコン＋一言文言のピル型リンクボタン（最大6個）を並べるバナー。文言・アイコン・色・リンク先を設定フォームから入力",
       "category": "Custom",
