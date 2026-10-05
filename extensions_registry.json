@@ -1741,8 +1741,8 @@
             "section": "common",
             "defaultValue": 8,
             "rules": {
-              "min": 1,
-              "max": 20
+              "minimum": 1,
+              "maximum": 20
             }
           },
           {
