@@ -3794,7 +3794,7 @@
       "containers": [
         "Full width",
         "Left container",
-        "Right container"
+        "Sidebar"
       ],
       "settings": {
         "configurable": true
@@ -3827,15 +3827,13 @@
             "name": "background_color",
             "type": "color",
             "label": "背景色",
-            "description": "空欄なら透明（ページの背景がそのまま見えます）",
-            "defaultValue": ""
+            "description": "空欄なら透明（ページの背景がそのまま見えます）"
           }
         ]
       },
       "defaultConfig": {
         "height_desktop": 40,
-        "height_mobile": 24,
-        "background_color": ""
+        "height_mobile": 24
       },
       "type": "spacer"
     },
