@@ -1,0 +1,143 @@
+<style>
+  :host {
+    display: block;
+    font-family: var(--font-family-sans, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif);
+  }
+
+  .ln, .ln * { box-sizing: border-box; }
+
+  .ln {
+    position: relative;
+    overflow: hidden;
+    padding: 28px 40px 12px;
+    background: linear-gradient(135deg, #ffffff 55%, #EAF3FE 100%);
+    border: 1px solid #ECEDF0;
+    border-radius: 28px;
+    box-shadow: 0 4px 24px rgba(31, 42, 68, 0.06);
+    color: #1F2A44;
+  }
+
+  .ln-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #ECEDF0;
+  }
+
+  .ln-title-wrap { display: flex; align-items: center; gap: 16px; min-width: 0; }
+  .ln-icon { flex: none; width: 56px; height: 56px; }
+  .ln-heading { margin: 0; font-size: 28px; font-weight: 800; line-height: 1.25; color: #14213D; }
+  .ln-sub { margin: 4px 0 0; font-size: 13px; color: #6B7280; line-height: 1.5; }
+
+  .ln-more {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #2563EB;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .ln-more:hover { text-decoration: underline; }
+
+  .ln-status { padding: 32px 0; text-align: center; font-size: 14px; color: #6B7280; }
+
+  .ln-list { list-style: none; margin: 0; padding: 0; }
+  .ln-item + .ln-item { border-top: 1px solid #ECEDF0; }
+
+  .ln-row {
+    display: grid;
+    grid-template-columns: auto 148px 1fr auto auto;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 4px;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: background-color 0.15s;
+  }
+  .ln-row:hover { background: rgba(37, 99, 235, 0.05); }
+  .ln-row:focus-visible { outline: 2px solid #2563EB; outline-offset: 2px; }
+
+  .ln-no-avatar .ln-row { grid-template-columns: 148px 1fr auto auto; }
+
+  .ln-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #DCE6F7;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1px #DCE6F7;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: #4B5EAA; font-size: 18px;
+  }
+
+  .ln-badge-cell { min-width: 0; }
+  .ln-badge {
+    display: inline-block;
+    max-width: 100%;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  .ln-item-title { font-size: 17px; font-weight: 700; line-height: 1.5; color: #1F2A44; min-width: 0; }
+  .ln-date { font-size: 14px; color: #6B7280; white-space: nowrap; }
+  .ln-chevron { width: 18px; height: 18px; color: #6B7280; }
+
+  @media (max-width: 720px) {
+    .ln { padding: 20px 16px 8px; border-radius: 20px; }
+    .ln-heading { font-size: 21px; }
+    .ln-icon { width: 40px; height: 40px; }
+    .ln-header { flex-wrap: wrap; }
+    .ln-row,
+    .ln-no-avatar .ln-row {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: "avatar badge chev" "avatar title title" "avatar date date";
+      gap: 6px 12px;
+    }
+    .ln-no-avatar .ln-row { grid-template-areas: "badge chev" "title title" "date date"; grid-template-columns: 1fr auto; }
+    .ln-avatar { grid-area: avatar; align-self: start; }
+    .ln-badge-cell { grid-area: badge; }
+    .ln-item-title { grid-area: title; font-size: 15px; }
+    .ln-date { grid-area: date; font-size: 12px; }
+    .ln-chevron { grid-area: chev; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { .ln-row { transition: none; } }
+</style>
+
+<section class="ln">
+  <div class="ln-header">
+    <div class="ln-title-wrap">
+      <svg class="ln-icon" viewBox="0 0 64 64" fill="none" stroke="#2F6FED" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M10 28l30-14v36L10 36z" fill="#EAF3FE"/>
+        <path d="M16 38l4 14h7l-3-12"/>
+        <path d="M48 20l6-4M50 32h7M48 44l6 4" stroke="#F5B731"/>
+      </svg>
+      <div>
+        <h2 class="ln-heading"></h2>
+        <p class="ln-sub"></p>
+      </div>
+    </div>
+    <a class="ln-more" href="#">
+      <span class="ln-more-text"></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+  <div class="ln-status" role="status" aria-live="polite">読み込み中...</div>
+  <ul class="ln-list"></ul>
+</section>
+
+<script type="module" src="app.js"></script>

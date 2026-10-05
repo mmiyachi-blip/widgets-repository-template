@@ -1,0 +1,30 @@
+{
+  "connectors": [
+    {
+      "name": "CC Latest Topics by Category",
+      "permalink": "cc-latest-topics",
+      "url": "https://api2-us-west-2.insided.com/v2/topics",
+      "method": "GET",
+      "headers": [
+        { "key": "Accept", "value": "application/json", "overridable": false }
+      ],
+      "query_parameters": [
+        { "key": "categoryId", "value": "", "overridable": true },
+        { "key": "tags", "value": "", "overridable": true },
+        { "key": "sort", "value": "createdAt", "overridable": false },
+        { "key": "pageSize", "value": "5", "overridable": true },
+        { "key": "page", "value": "1", "overridable": false }
+      ],
+      "authentication": {
+        "type": "oauth_client_credentials",
+        "config": {
+          "client_id": "{{ get_secret('cc_api_client_id') }}",
+          "client_secret": "{{ get_secret('cc_api_client_secret') }}",
+          "token_url": "https://api2-us-west-2.insided.com/oauth2/token",
+          "scope": "read"
+        }
+      },
+      "response_content_type": "application/json"
+    }
+  ]
+}

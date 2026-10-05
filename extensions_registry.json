@@ -3050,6 +3050,187 @@
       "type": "gainsight_jp_kb_product_selector"
     },
     {
+      "title": "Gainsightからの最新情報(お知らせ一覧)",
+      "description": "コミュニティの指定カテゴリ(任意でタグ絞り込み)に投稿された最新記事を、投稿者アイコン・バッジ・タイトル・日付付きで最大5件表示し、右上に「すべて見る」リンクを置くカードです。表示件数・見出し・リンク先は設定フォームで変更できます。",
+      "category": "Custom",
+      "source": {
+        "path": "widgets/gainsight_jp_latest_news/dist",
+        "entry": "content.html"
+      },
+      "containers": [
+        "Full width",
+        "Left container"
+      ],
+      "settings": {
+        "configurable": true
+      },
+      "configuration": {
+        "sections": [
+          {
+            "name": "source",
+            "label": "表示する記事",
+            "expanded": true
+          },
+          {
+            "name": "header",
+            "label": "見出し"
+          },
+          {
+            "name": "more",
+            "label": "「すべて見る」リンク"
+          },
+          {
+            "name": "display",
+            "label": "表示設定"
+          }
+        ],
+        "properties": [
+          {
+            "name": "category_id",
+            "type": "text",
+            "label": "対象カテゴリID",
+            "description": "記事を取得するカテゴリ(セクション)のID(数値)",
+            "section": "source",
+            "defaultValue": "",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "tag",
+            "type": "text",
+            "label": "絞り込みタグ(任意)",
+            "description": "指定すると、このタグが付いた記事だけを表示します(カンマ区切りで複数指定可)",
+            "section": "source",
+            "defaultValue": ""
+          },
+          {
+            "name": "item_count",
+            "type": "number",
+            "label": "表示件数",
+            "section": "source",
+            "defaultValue": 5,
+            "rules": {
+              "minimum": 1,
+              "maximum": 10
+            }
+          },
+          {
+            "name": "community_base_url",
+            "type": "text",
+            "label": "コミュニティのURL(記事リンクの生成用)",
+            "section": "source",
+            "defaultValue": "https://communities.gainsight.com"
+          },
+          {
+            "name": "heading",
+            "type": "text",
+            "label": "見出し",
+            "section": "header",
+            "defaultValue": "Gainsightからの最新情報",
+            "rules": {
+              "maxLength": 40
+            }
+          },
+          {
+            "name": "subheading",
+            "type": "text",
+            "label": "説明文",
+            "description": "空欄にすると表示されません",
+            "section": "header",
+            "defaultValue": "製品アップデート、イベント情報、活用のヒントなど、Gainsightに関する最新情報をお届けします。",
+            "rules": {
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "more_text",
+            "type": "text",
+            "label": "文言",
+            "description": "空欄にすると表示されません",
+            "section": "more",
+            "defaultValue": "すべて見る",
+            "rules": {
+              "maxLength": 20
+            }
+          },
+          {
+            "name": "more_url",
+            "type": "text",
+            "label": "リンク先URL",
+            "description": "対象カテゴリの一覧ページなど",
+            "section": "more",
+            "defaultValue": ""
+          },
+          {
+            "name": "more_new_tab",
+            "type": "boolean",
+            "label": "別タブで開く",
+            "section": "more",
+            "defaultValue": false
+          },
+          {
+            "name": "badge_mode",
+            "type": "select",
+            "label": "バッジに表示するもの",
+            "section": "display",
+            "defaultValue": "first_tag",
+            "options": [
+              {
+                "value": "first_tag",
+                "label": "記事の最初のタグ(絞り込みタグは除く)"
+              },
+              {
+                "value": "category_name",
+                "label": "カテゴリ名"
+              },
+              {
+                "value": "none",
+                "label": "表示しない"
+              }
+            ]
+          },
+          {
+            "name": "show_avatar",
+            "type": "boolean",
+            "label": "投稿者アイコンを表示",
+            "section": "display",
+            "defaultValue": true
+          },
+          {
+            "name": "open_new_tab",
+            "type": "boolean",
+            "label": "記事を別タブで開く",
+            "section": "display",
+            "defaultValue": false
+          },
+          {
+            "name": "empty_message",
+            "type": "text",
+            "label": "記事が無いときの文言",
+            "section": "display",
+            "defaultValue": "現在お知らせはありません。"
+          }
+        ]
+      },
+      "defaultConfig": {
+        "category_id": "",
+        "tag": "",
+        "item_count": 5,
+        "community_base_url": "https://communities.gainsight.com",
+        "heading": "Gainsightからの最新情報",
+        "subheading": "製品アップデート、イベント情報、活用のヒントなど、Gainsightに関する最新情報をお届けします。",
+        "more_text": "すべて見る",
+        "more_url": "",
+        "more_new_tab": false,
+        "badge_mode": "first_tag",
+        "show_avatar": true,
+        "open_new_tab": false,
+        "empty_message": "現在お知らせはありません。"
+      },
+      "type": "gainsight_jp_latest_news"
+    },
+    {
       "title": "次回の分科会開催予定",
       "description": "Googleカレンダーの予定のうち、タイトルに指定キーワードを含み本日以降でいちばん近い1件を「次回開催予定」として表示するマスコット付きカード。ボタンは、同じ日付(タイトルを「【M/D(曜) 開始-終了】タイトル」の形式にする)の「次回開催」タグ付き投稿がカテゴリにあればその投稿へのリンク、まだ無ければ「詳細をお待ちください」になります。分科会ごとに対象カテゴリIDとテーマを変えて、各分科会ページに設置してください。",
       "category": "Custom",
