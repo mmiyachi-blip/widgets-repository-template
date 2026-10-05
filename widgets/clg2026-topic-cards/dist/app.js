@@ -40,10 +40,14 @@ export async function init(sdk) {
     5: sdk.$('#icon-src-5')?.href || '',
   }
 
+  const nav = sdk.$('.topic-nav')
   const rowTop = sdk.$('.row-top')
   const rowBottom = sdk.$('.row-bottom')
 
   function render(props) {
+    const clampPx = (v) => Math.min(200, Math.max(0, Number(v) || 0))
+    nav.style.paddingTop = `${clampPx(props.padding_top)}px`
+    nav.style.paddingBottom = `${clampPx(props.padding_bottom)}px`
     rowTop.innerHTML = [3, 4, 5].map((i) => cardHtml(i, props, iconUrls[i])).join('')
     rowBottom.innerHTML = [1, 2].map((i) => cardHtml(i, props, iconUrls[i])).join('')
   }

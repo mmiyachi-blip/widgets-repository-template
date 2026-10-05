@@ -11,6 +11,7 @@
   },
   "configuration": {
     "sections": [
+      { "name": "layout", "label": "余白", "expanded": true },
       { "name": "card1", "label": "カード1: 製品を学びたい", "expanded": true },
       { "name": "card2", "label": "カード2: 運用のベスプラ・Tips" },
       { "name": "card3", "label": "カード3: コミュニティで相談" },
@@ -18,6 +19,9 @@
       { "name": "card5", "label": "カード5: イベント・ウェビナー" }
     ],
     "properties": [
+      { "name": "padding_top", "type": "number", "label": "上の余白(px)", "section": "layout", "defaultValue": 0, "rules": { "minimum": 0, "maximum": 200 } },
+      { "name": "padding_bottom", "type": "number", "label": "下の余白(px)", "section": "layout", "defaultValue": 0, "rules": { "minimum": 0, "maximum": 200 } },
+
       { "name": "card_1_title", "type": "text", "label": "タイトル", "section": "card1", "defaultValue": "製品を学びたい", "rules": { "required": true, "maxLength": 60 } },
       { "name": "card_1_subtitle", "type": "text", "label": "サブタイトル", "description": "任意。タイトルの下に灰色で表示されます", "section": "card1", "defaultValue": "", "rules": { "maxLength": 80 } },
       { "name": "card_1_link", "type": "text", "label": "リンク先URL", "description": "カードをクリックした際の遷移先URL", "section": "card1", "defaultValue": "#" },
@@ -50,6 +54,9 @@
     ]
   },
   "defaultConfig": {
+    "padding_top": 0,
+    "padding_bottom": 0,
+
     "card_1_title": "製品を学びたい",
     "card_1_subtitle": "",
     "card_1_link": "#",
