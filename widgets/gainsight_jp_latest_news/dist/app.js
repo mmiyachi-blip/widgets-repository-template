@@ -178,7 +178,9 @@ export async function init(sdk) {
     renderHeader()
     root.classList.toggle('ln-no-avatar', props.show_avatar === false)
 
-    const categoryId = String(props.category_id || '').trim()
+    const categoryIds = String(props.category_id || '')
+      .split(/[,、，\s]+/).map((v) => v.trim()).filter(Boolean)
+    const categoryId = categoryIds[0] || ''
     if (!categoryId) {
       showStatus('ウィジェット設定で「対象カテゴリID」を指定してください。')
       return
@@ -191,14 +193,22 @@ export async function init(sdk) {
     showStatus('読み込み中...')
     try {
       const wsdk = new window.WidgetServiceSDK()
-      const queryParams = { categoryId, pageSize: String(count) }
-      if (tag) queryParams.tags = tag
-      const data = await wsdk.connectors.execute({
-        permalink: 'cc-latest-topics',
-        method: 'GET',
-        queryParams,
-      })
-      const topics = extractTopics(data).slice(0, count)
+      // The topics API's categoryId takes a single id, so query each id
+      // separately and merge, newest first.
+      const results = await Promise.allSettled(categoryIds.map((id) => {
+        const queryParams = { categoryId: id, pageSize: String(count) }
+        if (tag) queryParams.tags = tag
+        return wsdk.connectors.execute({ permalink: 'cc-latest-topics', method: 'GET', queryParams })
+      }))
+      const failed = results.filter((r) => r.status === 'rejected')
+      failed.forEach((r) => console.error('[latest-news] connector error', r.reason))
+      if (failed.length === results.length) throw failed[0].reason
+      const seen = new Set()
+      const topics = results
+        .flatMap((r) => (r.status === 'fulfilled' ? extractTopics(r.value) : []))
+        .filter((t) => !seen.has(t.id || t.publicId) && seen.add(t.id || t.publicId))
+        .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+        .slice(0, count)
       if (topics.length === 0) {
         showStatus(props.empty_message || '現在お知らせはありません。')
         return

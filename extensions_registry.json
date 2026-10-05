@@ -325,6 +325,11 @@
       "configuration": {
         "sections": [
           {
+            "name": "layout",
+            "label": "余白",
+            "expanded": true
+          },
+          {
             "name": "card1",
             "label": "カード1: 製品を学びたい",
             "expanded": true
@@ -347,6 +352,28 @@
           }
         ],
         "properties": [
+          {
+            "name": "padding_top",
+            "type": "number",
+            "label": "上の余白(px)",
+            "section": "layout",
+            "defaultValue": 0,
+            "rules": {
+              "minimum": 0,
+              "maximum": 200
+            }
+          },
+          {
+            "name": "padding_bottom",
+            "type": "number",
+            "label": "下の余白(px)",
+            "section": "layout",
+            "defaultValue": 0,
+            "rules": {
+              "minimum": 0,
+              "maximum": 200
+            }
+          },
           {
             "name": "card_1_title",
             "type": "text",
@@ -575,6 +602,8 @@
         ]
       },
       "defaultConfig": {
+        "padding_top": 0,
+        "padding_bottom": 0,
         "card_1_title": "製品を学びたい",
         "card_1_subtitle": "",
         "card_1_link": "#",
@@ -3089,7 +3118,7 @@
             "name": "category_id",
             "type": "text",
             "label": "対象カテゴリID",
-            "description": "記事を取得するカテゴリ(セクション)のID(数値)",
+            "description": "記事を取得するカテゴリ(セクション)のID(数値)。カンマ区切りで複数指定できます(例: 432,471)",
             "section": "source",
             "defaultValue": "",
             "rules": {

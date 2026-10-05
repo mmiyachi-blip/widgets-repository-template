@@ -18,7 +18,7 @@
       { "name": "display", "label": "表示設定" }
     ],
     "properties": [
-      { "name": "category_id", "type": "text", "label": "対象カテゴリID", "description": "記事を取得するカテゴリ(セクション)のID(数値)", "section": "source", "defaultValue": "", "rules": { "required": true } },
+      { "name": "category_id", "type": "text", "label": "対象カテゴリID", "description": "記事を取得するカテゴリ(セクション)のID(数値)。カンマ区切りで複数指定できます(例: 432,471)", "section": "source", "defaultValue": "", "rules": { "required": true } },
       { "name": "tag", "type": "text", "label": "絞り込みタグ(任意)", "description": "指定すると、このタグが付いた記事だけを表示します(カンマ区切りで複数指定可)", "section": "source", "defaultValue": "" },
       { "name": "item_count", "type": "number", "label": "表示件数", "section": "source", "defaultValue": 5, "rules": { "minimum": 1, "maximum": 10 } },
       { "name": "community_base_url", "type": "text", "label": "コミュニティのURL(記事リンクの生成用)", "section": "source", "defaultValue": "https://communities.gainsight.com" },
