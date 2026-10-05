@@ -88,6 +88,8 @@ export async function init(sdk) {
   const line1 = sdk.$('.stb-line1')
   const line2 = sdk.$('.stb-line2')
   const subtitle = sdk.$('.stb-subtitle')
+  const subLine1 = sdk.$('.stb-sub-line1')
+  const subLine2 = sdk.$('.stb-sub-line2')
   const btnWrap = sdk.$('.stb-btn-wrap')
   const btn = sdk.$('.stb-btn')
   const btnIcon = sdk.$('.stb-btn-icon')
@@ -117,8 +119,11 @@ export async function init(sdk) {
     line1.hidden = !p.title_line1
     line2.hidden = !p.title_line2
 
-    renderMarkedText(subtitle, p.subtitle_text)
-    subtitle.hidden = p.show_subtitle !== true || !p.subtitle_text
+    renderMarkedText(subLine1, p.subtitle_text)
+    renderMarkedText(subLine2, p.subtitle_text_2)
+    subLine1.hidden = !p.subtitle_text
+    subLine2.hidden = !p.subtitle_text_2
+    subtitle.hidden = p.show_subtitle !== true || (!p.subtitle_text && !p.subtitle_text_2)
 
     const showButton = p.show_button !== false && !!p.button_text
     btnWrap.hidden = !showButton

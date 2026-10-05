@@ -3395,10 +3395,21 @@
           {
             "name": "subtitle_text",
             "type": "text",
-            "label": "サブタイトル",
+            "label": "サブタイトル 1行目",
             "description": "太字ではない小さめの文字で、見出しとボタンの間に表示されます。*と*で囲んだ部分が強調色になります",
             "section": "subtitle",
             "defaultValue": "共感した場合は同じ仲間への投稿へ反応しましょう！",
+            "rules": {
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "subtitle_text_2",
+            "type": "text",
+            "label": "サブタイトル 2行目",
+            "description": "空欄なら1行だけ表示されます。長い文章は2行に分けると読みやすくなります",
+            "section": "subtitle",
+            "defaultValue": "",
             "rules": {
               "maxLength": 120
             }
@@ -3546,6 +3557,7 @@
         "title_size": "m",
         "show_subtitle": false,
         "subtitle_text": "共感した場合は同じ仲間への投稿へ反応しましょう！",
+        "subtitle_text_2": "",
         "subtitle_size": "m",
         "subtitle_color": "#1F2A44",
         "show_button": true,
