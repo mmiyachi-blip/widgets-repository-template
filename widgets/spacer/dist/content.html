@@ -1,0 +1,22 @@
+<style>
+  :host {
+    display: block;
+  }
+
+  .sp {
+    --h-desktop: 40px;
+    --h-mobile: 24px;
+    width: 100%;
+    height: var(--h-desktop);
+  }
+
+  @media (max-width: 767px) {
+    .sp {
+      height: var(--h-mobile);
+    }
+  }
+</style>
+
+<div class="sp" aria-hidden="true"></div>
+
+<script type="module" src="app.js"></script>
