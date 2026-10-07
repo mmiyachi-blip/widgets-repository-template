@@ -89,6 +89,26 @@ function pickFace() {
   return FACES[Math.floor(Math.random() * FACES.length)]
 }
 
+// Resolves to the signed-in member's username, or null for guests, a missing
+// SDK, a failed lookup, or a timeout — the greeting then just omits the name.
+function getViewerName(timeoutMs = 1500) {
+  const web = window.ChWebSdk
+  if (!web?.Context?.User || typeof web.onReady !== 'function') return Promise.resolve(null)
+
+  const lookup = new Promise((resolve) => {
+    web.onReady(async () => {
+      try {
+        const me = await web.Context.User()
+        resolve(me && me.userId !== null && me.username ? me.username : null)
+      } catch {
+        resolve(null)
+      }
+    })
+  })
+  const timeout = new Promise((resolve) => setTimeout(() => resolve(null), timeoutMs))
+  return Promise.race([lookup, timeout])
+}
+
 export async function init(sdk) {
   await sdk.whenReady()
 
@@ -96,8 +116,12 @@ export async function init(sdk) {
   const bubbleText = sdk.$('.bubble-text')
   const faceParts = sdk.$('.mascot-face-parts')
 
-  bubbleText.textContent = pickMessage()
+  const message = pickMessage()
   faceParts.innerHTML = pickFace()
+
+  const name = await getViewerName()
+  bubbleText.textContent = name ? `${name}さん、${message}` : message
+  banner.classList.add('is-ready')
 
   function applyProps(props) {
     const accent = props.accent_color || '#7B3BC4'
