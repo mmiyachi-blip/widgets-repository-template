@@ -119,9 +119,15 @@ export async function init(sdk) {
   const message = pickMessage()
   faceParts.innerHTML = pickFace()
 
-  const name = await getViewerName()
-  bubbleText.textContent = name ? `${name}さん、${message}` : message
-  banner.classList.add('is-ready')
+  // Unset (widgets saved before this option existed) counts as on.
+  const wantsName = (props) => props.show_user_name !== false
+
+  let name = null
+  let nameLookedUp = false
+
+  function renderText(props) {
+    bubbleText.textContent = wantsName(props) && name ? `${name}さん、${message}` : message
+  }
 
   function applyProps(props) {
     const accent = props.accent_color || '#7B3BC4'
@@ -132,9 +138,22 @@ export async function init(sdk) {
     )
   }
 
-  applyProps(sdk.getProps())
+  const props = sdk.getProps()
+  applyProps(props)
 
-  sdk.on('propsChanged', (newProps) => {
+  if (wantsName(props)) {
+    name = await getViewerName()
+    nameLookedUp = true
+  }
+  renderText(props)
+  banner.classList.add('is-ready')
+
+  sdk.on('propsChanged', async (newProps) => {
     applyProps(newProps)
+    if (wantsName(newProps) && !nameLookedUp) {
+      name = await getViewerName()
+      nameLookedUp = true
+    }
+    renderText(newProps)
   })
 }

@@ -17,10 +17,18 @@
         "type": "color",
         "label": "アクセントカラー(マスコット・吹き出し枠)",
         "defaultValue": "#7B3BC4"
+      },
+      {
+        "name": "show_user_name",
+        "type": "boolean",
+        "label": "ログイン中のユーザー名を表示する",
+        "description": "オンにすると、メッセージの前に「○○さん、」とコミュニティの表示名が付きます。ゲストの場合は表示されません。",
+        "defaultValue": true
       }
     ]
   },
   "defaultConfig": {
-    "accent_color": "#7B3BC4"
+    "accent_color": "#7B3BC4",
+    "show_user_name": true
   }
 }
