@@ -245,7 +245,7 @@ export async function init(sdk) {
 
   // Subcommittee "次回開催" posts are titled "【M/D(曜) HH:MM-HH:MM】…". The
   // post whose M/D equals the calendar event's date is that event's detail page.
-  const POST_TITLE_DATE = /^【\s*(\d{1,2})\/(\d{1,2})\(/;
+  const POST_TITLE_DATE = /^\s*【?\s*(\d{1,2})\/(\d{1,2})\s*[(（]/;
   let detailTopicsPromise = null;
 
   function loadDetailTopics() {

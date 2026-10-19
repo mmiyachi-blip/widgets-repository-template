@@ -1,9 +1,10 @@
 const WEEKDAY_LABELS = ['日', '月', '火', '水', '木', '金', '土'];
 
-// Matches "【10/16(水) 14:00-15:00】タイトル本文" — the agreed posting convention
-// for a "次回開催" announcement. Anything that doesn't match this shape is
-// skipped: without a parsed date we can't tell whether it's still upcoming.
-const TITLE_PATTERN = /^【\s*(\d{1,2})\/(\d{1,2})\([^)]*\)\s*(\d{1,2}):(\d{2})\s*[-〜~]\s*(\d{1,2}):(\d{2})\s*】\s*(.*)$/;
+// A "次回開催" announcement title must start with 月/日(曜), e.g.
+// "【10/16(水) 14:00-15:00】タイトル" or just "10/16(水) タイトル". The 【】 and
+// the time range are optional; only the month/day is used to pair the post with
+// the calendar event. Titles without 月/日(曜) are skipped.
+const TITLE_PATTERN = /^\s*【?\s*(\d{1,2})\/(\d{1,2})\s*[(（][^)）]*[)）]\s*(?:(\d{1,2}):(\d{2})\s*[-〜~]\s*(\d{1,2}):(\d{2}))?\s*】?\s*(.*)$/;
 
 // Matches the palette already used for these 5 categories in the
 // subcommittee navigation widget, so colors stay consistent across pages.
@@ -46,8 +47,8 @@ function parseMeetingFromTitle(title, today) {
     year,
     month,
     day,
-    startTime: `${m[3].padStart(2, '0')}:${m[4]}`,
-    endTime: `${m[5].padStart(2, '0')}:${m[6]}`,
+    startTime: m[3] ? `${m[3].padStart(2, '0')}:${m[4]}` : '',
+    endTime: m[5] ? `${m[5].padStart(2, '0')}:${m[6]}` : '',
     title: m[7].trim(),
   };
 }
