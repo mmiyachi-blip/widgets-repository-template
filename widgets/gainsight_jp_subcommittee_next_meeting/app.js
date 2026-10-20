@@ -1,10 +1,11 @@
 const WEEKDAY_LABELS = ['日', '月', '火', '水', '木', '金', '土'];
 
-// A "次回開催" announcement title must start with 月/日(曜), e.g.
-// "【10/16(水) 14:00-15:00】タイトル" or just "10/16(水) タイトル". The 【】 and
-// the time range are optional; only the month/day is used to pair the post with
-// the calendar event. Titles without 月/日(曜) are skipped.
-const TITLE_PATTERN = /^\s*【?\s*(\d{1,2})\/(\d{1,2})\s*[(（][^)）]*[)）]\s*(?:(\d{1,2}):(\d{2})\s*[-〜~]\s*(\d{1,2}):(\d{2}))?\s*】?\s*(.*)$/;
+// A "次回開催" announcement title must start with 月/日(曜), optionally wrapped
+// in a bracket or quote: "【10/16(水) 14:00-15:00】…", "「11/10（火）：…」" or
+// "10/16(水) …". The time range is optional; full-width slash/parentheses and
+// a trailing "：" are accepted. Only month/day pairs the post with the calendar
+// event. Titles without 月/日(曜) are skipped.
+const TITLE_PATTERN = /^\s*[【「『\[［〔(（\"“]?\s*(\d{1,2})[/／](\d{1,2})\s*[(（][^)）]*[)）]\s*(?:(\d{1,2}):(\d{2})\s*[-〜~]\s*(\d{1,2}):(\d{2}))?\s*[】」』\]］〕)）\"”]?\s*[:：]?\s*(.*)$/;
 
 // Matches the palette already used for these 5 categories in the
 // subcommittee navigation widget, so colors stay consistent across pages.
