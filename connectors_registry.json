@@ -149,6 +149,47 @@
         }
       },
       "response_content_type": "application/json"
+    },
+    {
+      "name": "CC Recent Topics (all categories)",
+      "permalink": "cc-recent-topics",
+      "url": "https://api2-us-west-2.insided.com/v2/topics",
+      "method": "GET",
+      "headers": [
+        {
+          "key": "Accept",
+          "value": "application/json",
+          "overridable": false
+        }
+      ],
+      "query_parameters": [
+        {
+          "key": "sort",
+          "value": "createdAt",
+          "overridable": false
+        },
+        {
+          "key": "pageSize",
+          "value": "100",
+          "overridable": false
+        },
+        {
+          "key": "page",
+          "value": "1",
+          "overridable": false
+        }
+      ],
+      "authentication": {
+        "type": "oauth_client_credentials",
+        "config": {
+          "client_id": "{{ get_secret('cc_api_client_id') }}",
+          "client_secret": "{{ get_secret('cc_api_client_secret') }}",
+          "token_url": "https://api2-us-west-2.insided.com/oauth2/token",
+          "scope": "read"
+        }
+      },
+      "response_body": "{% if response.status_code >= 400 %}\n{{ response.body }}\n{% else %}\n{% set data = response.body | from_json %}\n{% set ns = namespace(out=[]) %}\n{% for t in data['result'] %}\n{% set ns.out = ns.out + [{\"id\": t['id'], \"publicId\": t['publicId'], \"title\": t['title'], \"categoryId\": t['categoryId'] | default(''), \"categoryName\": t['categoryName'] | default(''), \"tags\": t['tags'] | default([]), \"createdAt\": t['createdAt'], \"status\": t['status'] | default(''), \"trashed\": t['trashed'] | default(false)}] %}\n{% endfor %}\n{{ ns.out | json_encode }}\n{% endif %}",
+      "response_content_type": "application/json"
     }
   ]
 }

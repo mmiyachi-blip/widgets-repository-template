@@ -157,33 +157,78 @@ function shortenTitle(title) {
 const newsSettingsKey = (props) =>
   JSON.stringify([props.news_category_id, props.news_tag, props.news_days, props.news_chance, props.community_base_url])
 
-// Resolves to { title, href } for a random post from the last `news_days` days,
-// or null (feature off, nothing recent, connector error, or timeout).
-function fetchRecentPost(props, timeoutMs = 2500) {
-  const ids = String(props.news_category_id || '')
-    .split(/[,、，\s]+/).map((v) => v.trim()).filter(Boolean)
-  if (!ids.length) return Promise.resolve(null)
+// The API exposes no per-category language, so "Japanese categories" is a
+// snapshot (2026-10-20) of each Japanese top-level section followed by all of
+// its descendants: community 416/419/424/432/470, knowledge base 247/380/383-387.
+// Categories created later are still caught by the Japanese-name check in
+// isJapaneseTopic; update this list if one has an English name.
+const JAPANESE_SECTIONS = [
+  ['416', '417', '418'],
+  ['419', '420', '421', '422', '423'],
+  ['424', '425', '427', '428', '429', '430', '457'],
+  ['432', '433', '434'],
+  ['470', '471'],
+  ['247', '269', '271', '270', '272', '273', '274', '301', '303', '306', '335', '275', '355', '356', '357', '307', '314', '319', '315', '318', '316', '317', '308', '329', '330', '340', '341'],
+  ['380', '382'],
+  ['383', '388', '395', '408', '396', '409', '410', '411', '412', '413', '414', '415', '397'],
+  ['384', '399', '400', '401', '402', '403', '404', '405', '406', '389'],
+  ['385', '390'],
+  ['386', '391'],
+  ['387', '393', '394'],
+]
+const JAPANESE_CATEGORY_IDS = new Set(JAPANESE_SECTIONS.flat())
+const JAPANESE_CHARS = /[぀-ヿ㐀-鿿]/
 
+function splitList(raw) {
+  return String(raw || '').split(/[,、，\s]+/).map((v) => v.trim()).filter(Boolean)
+}
+
+// Optional narrowing from settings: a section id stands for the whole section.
+function narrowedCategoryIds(raw) {
+  const ids = splitList(raw)
+  if (!ids.length) return null
+  const out = new Set()
+  for (const id of ids) {
+    const section = JAPANESE_SECTIONS.find((s) => s[0] === id)
+    ;(section || [id]).forEach((x) => out.add(x))
+  }
+  return out
+}
+
+function isJapaneseTopic(topic, narrowed) {
+  const id = String(topic.categoryId ?? '')
+  if (!id) return false
+  if (narrowed) return narrowed.has(id)
+  return JAPANESE_CATEGORY_IDS.has(id) || JAPANESE_CHARS.test(topic.categoryName || '')
+}
+
+// Resolves to { title, href } for a random post from the last `news_days` days
+// in the Japanese categories (or the narrowed set), or null (nothing recent,
+// connector error, or timeout).
+function fetchRecentPost(props, timeoutMs = 2500) {
   const days = Math.min(Math.max(parseInt(props.news_days, 10) || 7, 1), 60)
   const cutoff = Date.now() - days * 24 * 60 * 60 * 1000
-  const tag = String(props.news_tag || '').trim()
+  const narrowed = narrowedCategoryIds(props.news_category_id)
+  const tags = splitList(props.news_tag).map((t) => t.toLowerCase())
 
   const lookup = (async () => {
     try {
       const wsdk = new window.WidgetServiceSDK()
-      const results = await Promise.allSettled(ids.map((id) => {
-        const queryParams = { categoryId: id, pageSize: '10' }
-        if (tag) queryParams.tags = tag
-        return wsdk.connectors.execute({ permalink: 'cc-latest-topics', method: 'GET', queryParams })
-      }))
-      const recent = results
-        .flatMap((r) => (r.status === 'fulfilled' ? extractTopics(r.value) : []))
-        .filter((t) => t && t.title && new Date(t.createdAt || 0).getTime() >= cutoff)
+      const data = await wsdk.connectors.execute({ permalink: 'cc-recent-topics', method: 'GET' })
+      const recent = extractTopics(data).filter((t) => {
+        if (!t || !t.title || t.trashed) return false
+        if (t.status && t.status !== 'published') return false
+        if (new Date(t.createdAt || 0).getTime() < cutoff) return false
+        if (!isJapaneseTopic(t, narrowed)) return false
+        if (!tags.length) return true
+        const own = (Array.isArray(t.tags) ? t.tags : []).map((x) => String(x).toLowerCase())
+        return tags.some((tag) => own.includes(tag))
+      })
       if (!recent.length) return null
       const topic = pickRandom(recent)
       return {
         title: shortenTitle(topic.title),
-        href: topicUrl(topic, props.community_base_url, topic.categoryId || ids[0]),
+        href: topicUrl(topic, props.community_base_url, topic.categoryId),
       }
     } catch (err) {
       console.error('[greeting-banner] recent post lookup failed', err)
