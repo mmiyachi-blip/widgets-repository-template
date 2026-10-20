@@ -109,6 +109,105 @@ function getViewerName(timeoutMs = 1500) {
   return Promise.race([lookup, timeout])
 }
 
+// Conversational lines that quote a recent community post; "{title}" becomes a link.
+const NEWS_TEMPLATES = [
+  '今週「{title}」の投稿があったの見た！？チェックしてね！',
+  '今週は「{title}」を要チェックだよ！もう見た？',
+  '「{title}」、もうチェックした？今週のおすすめだよ！',
+  'ねえねえ、今週「{title}」の投稿が出てるよ！見にいこう！',
+  '今週の注目は「{title}」！ちょっとのぞいてみない？',
+]
+
+const MAX_TITLE_CHARS = 40
+
+function pickRandom(list) {
+  return list[Math.floor(Math.random() * list.length)]
+}
+
+// Only allow http(s), site-relative and anchor links; javascript: etc. are dropped.
+function safeHref(raw) {
+  const url = String(raw || '').trim()
+  if (!url) return ''
+  if (/^(https?:|\/|#)/i.test(url)) return url
+  return /^[a-z][a-z0-9+.-]*:/i.test(url) ? '' : url
+}
+
+function extractTopics(data) {
+  if (Array.isArray(data)) return data
+  if (data && Array.isArray(data.result)) return data.result
+  return []
+}
+
+// The topics API doesn't return a URL, so build one from the public id; the
+// community redirects topic/show?tid&fid to the post's canonical address.
+function topicUrl(topic, baseUrl, fallbackCategoryId) {
+  const given = topic.seoCommunityUrl || topic.url || topic.permalink
+  if (given) return safeHref(given)
+  if (!topic.publicId) return ''
+  const base = String(baseUrl || 'https://communities.gainsight.com').replace(/\/+$/, '')
+  const fid = encodeURIComponent(topic.categoryId || fallbackCategoryId || '')
+  return `${base}/topic/show?tid=${encodeURIComponent(topic.publicId)}&fid=${fid}`
+}
+
+function shortenTitle(title) {
+  const chars = Array.from(String(title).trim())
+  return chars.length > MAX_TITLE_CHARS ? `${chars.slice(0, MAX_TITLE_CHARS).join('')}…` : chars.join('')
+}
+
+const newsSettingsKey = (props) =>
+  JSON.stringify([props.news_category_id, props.news_tag, props.news_days, props.news_chance, props.community_base_url])
+
+// Resolves to { title, href } for a random post from the last `news_days` days,
+// or null (feature off, nothing recent, connector error, or timeout).
+function fetchRecentPost(props, timeoutMs = 2500) {
+  const ids = String(props.news_category_id || '')
+    .split(/[,、，\s]+/).map((v) => v.trim()).filter(Boolean)
+  if (!ids.length) return Promise.resolve(null)
+
+  const days = Math.min(Math.max(parseInt(props.news_days, 10) || 7, 1), 60)
+  const cutoff = Date.now() - days * 24 * 60 * 60 * 1000
+  const tag = String(props.news_tag || '').trim()
+
+  const lookup = (async () => {
+    try {
+      const wsdk = new window.WidgetServiceSDK()
+      const results = await Promise.allSettled(ids.map((id) => {
+        const queryParams = { categoryId: id, pageSize: '10' }
+        if (tag) queryParams.tags = tag
+        return wsdk.connectors.execute({ permalink: 'cc-latest-topics', method: 'GET', queryParams })
+      }))
+      const recent = results
+        .flatMap((r) => (r.status === 'fulfilled' ? extractTopics(r.value) : []))
+        .filter((t) => t && t.title && new Date(t.createdAt || 0).getTime() >= cutoff)
+      if (!recent.length) return null
+      const topic = pickRandom(recent)
+      return {
+        title: shortenTitle(topic.title),
+        href: topicUrl(topic, props.community_base_url, topic.categoryId || ids[0]),
+      }
+    } catch (err) {
+      console.error('[greeting-banner] recent post lookup failed', err)
+      return null
+    }
+  })()
+  const timeout = new Promise((resolve) => setTimeout(() => resolve(null), timeoutMs))
+  return Promise.race([lookup, timeout])
+}
+
+// Rolls whether this visit quotes a post (news_chance %) and, if so, fetches one.
+// Falls back to a plain time-of-day message in every other case.
+async function chooseContent(props) {
+  const chance = Math.min(Math.max(Number(props.news_chance) || 0, 0), 100)
+  if (Math.random() * 100 < chance) {
+    const post = await fetchRecentPost(props)
+    if (post) {
+      const [before, after] = pickRandom(NEWS_TEMPLATES).split('{title}')
+      return { before, after, post }
+    }
+  }
+  return { before: pickMessage(), after: '', post: null }
+}
+
 export async function init(sdk) {
   await sdk.whenReady()
 
@@ -116,17 +215,28 @@ export async function init(sdk) {
   const bubbleText = sdk.$('.bubble-text')
   const faceParts = sdk.$('.mascot-face-parts')
 
-  const message = pickMessage()
   faceParts.innerHTML = pickFace()
 
   // Unset (widgets saved before this option existed) counts as on.
   const wantsName = (props) => props.show_user_name !== false
 
+  let content = null
   let name = null
   let nameLookedUp = false
 
   function renderText(props) {
-    bubbleText.textContent = wantsName(props) && name ? `${name}さん、${message}` : message
+    const nodes = []
+    const prefix = wantsName(props) && name ? `${name}さん、` : ''
+    nodes.push(document.createTextNode(prefix + content.before))
+    if (content.post) {
+      const link = document.createElement('a')
+      link.className = 'post-link'
+      link.textContent = content.post.title
+      const href = safeHref(content.post.href)
+      if (href) link.setAttribute('href', href)
+      nodes.push(link, document.createTextNode(content.after))
+    }
+    bubbleText.replaceChildren(...nodes)
   }
 
   function applyProps(props) {
@@ -141,18 +251,28 @@ export async function init(sdk) {
   const props = sdk.getProps()
   applyProps(props)
 
-  if (wantsName(props)) {
-    name = await getViewerName()
-    nameLookedUp = true
-  }
+  const [chosen, viewerName] = await Promise.all([
+    chooseContent(props),
+    wantsName(props) ? getViewerName() : Promise.resolve(null),
+  ])
+  content = chosen
+  name = viewerName
+  nameLookedUp = wantsName(props)
   renderText(props)
   banner.classList.add('is-ready')
+
+  let lastNewsKey = newsSettingsKey(props)
 
   sdk.on('propsChanged', async (newProps) => {
     applyProps(newProps)
     if (wantsName(newProps) && !nameLookedUp) {
       name = await getViewerName()
       nameLookedUp = true
+    }
+    const key = newsSettingsKey(newProps)
+    if (key !== lastNewsKey) {
+      lastNewsKey = key
+      content = await chooseContent(newProps)
     }
     renderText(newProps)
   })

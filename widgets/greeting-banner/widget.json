@@ -6,7 +6,10 @@
     "path": "dist",
     "entry": "content.html"
   },
-  "containers": ["Full width", "Left container"],
+  "containers": [
+    "Full width",
+    "Left container"
+  ],
   "settings": {
     "configurable": true
   },
@@ -24,11 +27,70 @@
         "label": "ログイン中のユーザー名を表示する",
         "description": "オンにすると、メッセージの前に「○○さん、」とコミュニティの表示名が付きます。ゲストの場合は表示されません。",
         "defaultValue": true
+      },
+      {
+        "name": "news_category_id",
+        "type": "text",
+        "label": "紹介する投稿のカテゴリID",
+        "description": "数値のカテゴリID。カンマ区切りで複数指定できます(例: 432,471)。空欄のままだと投稿の紹介は行いません。",
+        "section": "news",
+        "defaultValue": ""
+      },
+      {
+        "name": "news_tag",
+        "type": "text",
+        "label": "絞り込みタグ(任意)",
+        "description": "指定すると、このタグが付いた投稿だけを紹介します(カンマ区切りで複数指定可)",
+        "section": "news",
+        "defaultValue": ""
+      },
+      {
+        "name": "news_days",
+        "type": "number",
+        "label": "対象にする期間(日)",
+        "description": "この日数以内に投稿された記事だけを紹介します。該当がなければ通常のメッセージになります。",
+        "section": "news",
+        "defaultValue": 7,
+        "rules": {
+          "minimum": 1,
+          "maximum": 60
+        }
+      },
+      {
+        "name": "news_chance",
+        "type": "number",
+        "label": "投稿を紹介する確率(%)",
+        "description": "表示のたびにこの確率で投稿を紹介します。0で紹介なし、100で毎回(動作確認用)。",
+        "section": "news",
+        "defaultValue": 40,
+        "rules": {
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      {
+        "name": "community_base_url",
+        "type": "text",
+        "label": "コミュニティのURL(投稿リンクの生成用)",
+        "section": "news",
+        "defaultValue": "https://communities.gainsight.com"
+      }
+    ],
+    "sections": [
+      {
+        "name": "news",
+        "label": "今週の投稿の紹介",
+        "description": "ロボットが最近の投稿を会話調で紹介します。カテゴリIDを指定すると有効になり、紹介しない回は通常のメッセージが表示されます。"
       }
     ]
   },
   "defaultConfig": {
     "accent_color": "#7B3BC4",
-    "show_user_name": true
+    "show_user_name": true,
+    "news_category_id": "",
+    "news_tag": "",
+    "news_days": 7,
+    "news_chance": 40,
+    "community_base_url": "https://communities.gainsight.com"
   }
 }
