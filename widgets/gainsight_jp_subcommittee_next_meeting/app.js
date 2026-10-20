@@ -56,6 +56,18 @@ function parseMeetingFromTitle(title, today) {
 
 // 「次回開催」投稿のうち、タイトルの日付がカレンダー予定の日付と一致するものを探す。
 // 投稿はカレンダーより後に作られるので、見つからなければ null(=詳細待ち)。
+// Title shown on the card: the post title without its leading 月/日(曜)/time
+// prefix (and any leftover closing quote), e.g.
+// 「11/10（火）：コミュニティ運営分科会 #2」開催のご案内！ -> コミュニティ運営分科会 #2開催のご案内！
+function displayTitle(rawTitle) {
+  const raw = String(rawTitle || '').trim();
+  const m = TITLE_PATTERN.exec(raw);
+  let t = (m ? m[7] : raw).trim();
+  if (t.includes('」') && !t.includes('「')) t = t.replace(/」/g, '');
+  if (t.includes('』') && !t.includes('『')) t = t.replace(/』/g, '');
+  return t.trim();
+}
+
 function findTopicForDate(topics, eventDate, today) {
   const target = startOfDay(eventDate).getTime();
   const matches = [];
@@ -158,6 +170,7 @@ export async function init(sdk) {
     weekday: sdk.$('.nm-weekday'),
     timeText: sdk.$('.nm-time-text'),
     locationText: sdk.$('.nm-location-text'),
+    eventTitle: sdk.$('.nm-event-title'),
     emptyHeadline: sdk.$('.nm-empty-headline'),
     emptySubmessage: sdk.$('.nm-empty-submessage'),
     subscribeNotice: sdk.$('.nm-subscribe-notice'),
@@ -203,6 +216,8 @@ export async function init(sdk) {
       ? '終日'
       : `${parsed.startTime} - ${parsed.endTime}`;
     els.locationText.textContent = props.location_label || 'オンライン開催';
+    // 投稿があればその題名、まだなければカレンダー予定の題名。
+    els.eventTitle.textContent = displayTitle(topic ? topic.title : parsed.title);
 
     // 日程はカレンダーで先に決まり、告知投稿は後から出る。投稿があればそのURL、
     // なければ押せない「詳細をお待ちください」を出す。

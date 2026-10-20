@@ -117,6 +117,19 @@
     padding: 4px 12px;
   }
 
+  .nm-event-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: #1F2A44;
+    overflow-wrap: anywhere;
+  }
+
+  .nm-event-title:empty {
+    display: none;
+  }
+
   .nm-time-row {
     display: flex;
     align-items: center;
@@ -275,6 +288,7 @@
       </div>
       <div class="nm-meta">
         <span class="nm-badge nm-location-text"></span>
+        <p class="nm-event-title"></p>
         <div class="nm-time-row">
           <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="9"></circle>
