@@ -66,6 +66,8 @@ const TAG_TOOLS = Object.fromEntries(Object.entries(TOOL_TAGS).map(([k, v]) => [
 function parseArticle(a) {
   const tags = a.tags || []
   const doc = new DOMParser().parseFromString(a.body || '', 'text/html')
+  // CCは本文の改行を <br> に変換して保存するため、テキスト化の前に改行へ戻す
+  doc.querySelectorAll('br').forEach((br) => br.replaceWith('\n'))
   const code = doc.querySelector('pre')
   const desc = doc.querySelector('p')?.textContent.trim() || ''
   const body = code ? code.textContent : doc.body.textContent.trim()
