@@ -1,0 +1,101 @@
+{
+  "connectors": [
+    {
+      "name": "Hackathon Articles List",
+      "permalink": "hk-articles-list",
+      "url": "https://api2-us-west-2.insided.com/v2/categories/{{ get_variable('hk_category_id') }}/articles",
+      "method": "GET",
+      "headers": [
+        { "key": "Accept", "value": "application/json", "overridable": false }
+      ],
+      "query_parameters": [
+        { "key": "pageSize", "value": "100", "overridable": false },
+        { "key": "page", "value": "1", "overridable": true }
+      ],
+      "authentication": {
+        "type": "oauth_client_credentials",
+        "config": {
+          "client_id": "{{ get_secret('cc_api_client_id') }}",
+          "client_secret": "{{ get_secret('cc_api_client_secret') }}",
+          "token_url": "https://api2-us-west-2.insided.com/oauth2/token",
+          "scope": "read"
+        }
+      },
+      "response_body": "{% if response.status_code >= 400 %}\n{{ response.body }}\n{% else %}\n{% set data = response.body | from_json %}\n{% set me = (user.id | default('')) | string %}\n{% set ns = namespace(out=[]) %}\n{% for a in data['result'] %}\n{% if ('hackathon' in (a['tags'] | default([]))) and not (a['trashed'] | default(false)) %}\n{% set likers = (a['likedBy'] | default(a['likeSet'] | default([]))) | map('string') | list %}\n{% set ns.out = ns.out + [{\"id\": a['id'], \"title\": a['title'], \"body\": a['body'] | default(''), \"tags\": a['tags'], \"author\": (a['author']['username'] | default('')), \"publishedAt\": a['publishedAt'] | default(a['createdAt']), \"url\": a['seoCommunityUrl'] | default(''), \"likes\": likers | length, \"liked\": (me != '' and me in likers), \"replies\": a['replyCount'] | default(0)}] %}\n{% endif %}\n{% endfor %}\n{{ ns.out | json_encode }}\n{% endif %}",
+      "response_content_type": "application/json"
+    },
+    {
+      "name": "Hackathon Article Create",
+      "permalink": "hk-article-create",
+      "url": "https://api2-us-west-2.insided.com/v2/articles/create",
+      "method": "POST",
+      "headers": [
+        { "key": "Accept", "value": "application/json", "overridable": false },
+        { "key": "Content-Type", "value": "application/json", "overridable": false }
+      ],
+      "query_parameters": [
+        { "key": "authorId", "value": "{{ user.id }}", "overridable": false },
+        { "key": "moderatorId", "value": "{{ get_variable('hk_moderator_id') }}", "overridable": false }
+      ],
+      "authentication": {
+        "type": "oauth_client_credentials",
+        "config": {
+          "client_id": "{{ get_secret('cc_api_client_id') }}",
+          "client_secret": "{{ get_secret('cc_api_client_secret') }}",
+          "token_url": "https://api2-us-west-2.insided.com/oauth2/token",
+          "scope": "read write"
+        }
+      },
+      "request_body": "{% set p = body_text | from_json %}\n{\n  \"title\": {{ p.title | tojson }},\n  \"content\": {{ p.content | tojson }},\n  \"categoryId\": 427,\n  \"tags\": {{ (['hackathon'] + (p.tags | default([]))) | tojson }}\n}",
+      "response_content_type": "application/json"
+    },
+    {
+      "name": "Hackathon Article Like",
+      "permalink": "hk-article-like",
+      "url": "https://api2-us-west-2.insided.com/v2/articles/{{ pathParams.id }}/like",
+      "method": "POST",
+      "headers": [
+        { "key": "Accept", "value": "application/json", "overridable": false }
+      ],
+      "query_parameters": [
+        { "key": "likedBy", "value": "{{ user.id }}", "overridable": false }
+      ],
+      "path_parameters": [
+        { "key": "id" }
+      ],
+      "authentication": {
+        "type": "oauth_client_credentials",
+        "config": {
+          "client_id": "{{ get_secret('cc_api_client_id') }}",
+          "client_secret": "{{ get_secret('cc_api_client_secret') }}",
+          "token_url": "https://api2-us-west-2.insided.com/oauth2/token",
+          "scope": "read write"
+        }
+      }
+    },
+    {
+      "name": "Hackathon Article Unlike",
+      "permalink": "hk-article-unlike",
+      "url": "https://api2-us-west-2.insided.com/v2/articles/{{ pathParams.id }}/unlike",
+      "method": "POST",
+      "headers": [
+        { "key": "Accept", "value": "application/json", "overridable": false }
+      ],
+      "query_parameters": [
+        { "key": "unlikedBy", "value": "{{ user.id }}", "overridable": false }
+      ],
+      "path_parameters": [
+        { "key": "id" }
+      ],
+      "authentication": {
+        "type": "oauth_client_credentials",
+        "config": {
+          "client_id": "{{ get_secret('cc_api_client_id') }}",
+          "client_secret": "{{ get_secret('cc_api_client_secret') }}",
+          "token_url": "https://api2-us-west-2.insided.com/oauth2/token",
+          "scope": "read write"
+        }
+      }
+    }
+  ]
+}

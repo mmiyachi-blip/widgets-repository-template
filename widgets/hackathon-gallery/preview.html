@@ -1,0 +1,17 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Hackathon Gallery preview</title>
+<body style="margin:0;padding:32px;background:#fff">
+<div id="host"></div>
+<script type="module">
+  // ローカル確認用: content.html を Shadow DOM に流し込み、SDK をスタブして init を呼ぶ
+  const html = await (await fetch('./dist/content.html')).text()
+  const root = document.getElementById('host').attachShadow({ mode: 'open' })
+  root.innerHTML = html.replace(/<script[\s\S]*?<\/script>/, '')
+  const sdk = {
+    whenReady: async () => {}, getContainer: () => root, getProps: () => ({ data_source: 'mock' }),
+    on: () => () => {}, $: (s) => root.querySelector(s), $$: (s) => root.querySelectorAll(s),
+  }
+  const { init } = await import('./dist/app.js')
+  await init(sdk)
+</script>

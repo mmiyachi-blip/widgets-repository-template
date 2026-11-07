@@ -1,0 +1,54 @@
+{
+  "title": "Hackathon Gallery (Skill・プロンプト投稿ギャラリー)",
+  "description": "Gainsight MCP活用ハッカソン用。コミュニティ参加者が投稿したSkill・プロンプトをカード一覧で表示し、いいね・コピー・ダウンロードができる(保存先はCCの記事)",
+  "category": "Custom",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  },
+  "settings": {
+    "configurable": true
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "data_source",
+        "type": "select",
+        "label": "データの保存先",
+        "description": "通常は「コミュニティ(記事)」。動作確認用にモックデータへ切り替えられます",
+        "defaultValue": "community",
+        "options": [
+          {
+            "value": "community",
+            "label": "コミュニティ(記事)"
+          },
+          {
+            "value": "mock",
+            "label": "モックデータ(確認用)"
+          }
+        ]
+      },
+      {
+        "name": "accent_color",
+        "type": "color",
+        "label": "ボタン・強調色",
+        "defaultValue": "#559CF9"
+      },
+      {
+        "name": "item_label",
+        "type": "text",
+        "label": "件数の単位ラベル",
+        "description": "「N 件のプロンプト」の「プロンプト」部分",
+        "defaultValue": "プロンプト",
+        "rules": {
+          "maxLength": 20
+        }
+      }
+    ]
+  },
+  "defaultConfig": {
+    "accent_color": "#559CF9",
+    "item_label": "プロンプト",
+    "data_source": "community"
+  }
+}
