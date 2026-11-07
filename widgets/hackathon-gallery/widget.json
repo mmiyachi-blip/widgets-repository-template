@@ -1,6 +1,7 @@
 {
   "title": "Hackathon Gallery (Skill・プロンプト投稿ギャラリー)",
   "description": "Gainsight MCP活用ハッカソン用。コミュニティ参加者が投稿したSkill・プロンプトをカード一覧で表示し、いいね・コピー・ダウンロードができる(保存先はCCの記事)",
+  "version": "1.0.1",
   "category": "Custom",
   "source": {
     "path": "dist",
