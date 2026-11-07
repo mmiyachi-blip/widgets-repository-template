@@ -136,10 +136,10 @@ export async function init(sdk) {
   }
 
   function toast(msg) {
-    const t = $('.toast')
+    const t = $('.hk-toast')
     t.textContent = msg
-    t.classList.add('show')
-    setTimeout(() => t.classList.remove('show'), 1800)
+    t.classList.add('hk-show')
+    setTimeout(() => t.classList.remove('hk-show'), 1800)
   }
 
   function visible() {
@@ -154,59 +154,59 @@ export async function init(sdk) {
 
   function render() {
     const list = visible()
-    $('.count').innerHTML = `<b>${list.length}</b> 件の${escapeHtml(props.item_label || 'プロンプト')}`
+    $('.hk-count').innerHTML = `<b>${list.length}</b> 件の${escapeHtml(props.item_label || 'プロンプト')}`
 
     const tags = [...new Set(items.flatMap((i) => i.tags))]
-    const tab = (label, type, tag, on) => `<button class="tab ${on ? 'on' : ''}" data-type="${type}" data-tag="${escapeHtml(tag)}">${escapeHtml(label)}</button>`
-    $('.tabs').innerHTML =
+    const tab = (label, type, tag, on) => `<button class="hk-tab ${on ? 'hk-on' : ''}" data-type="${type}" data-tag="${escapeHtml(tag)}">${escapeHtml(label)}</button>`
+    $('.hk-tabs').innerHTML =
       tab('すべて', 'all', 'all', f.type === 'all' && f.tag === 'all') +
       tab('Skill', 'skill', 'all', f.type === 'skill') +
       tab('プロンプト', 'prompt', 'all', f.type === 'prompt') +
       tags.map((t) => tab('# ' + t, 'all', t, f.tag === t)).join('')
 
-    $('.grid').innerHTML = list.length ? list.map((i) => `
-      <div class="card" data-id="${i.id}">
-        <h3 class="title">
-          ${i.pending ? '<span class="badge" style="background:#999">承認待ち</span>' : isNew(i) ? '<span class="badge">NEW</span>' : ''}${i.type === 'skill' ? '<span class="badge skill">SKILL</span>' : ''}${escapeHtml(i.title)}
+    $('.hk-grid').innerHTML = list.length ? list.map((i) => `
+      <div class="hk-card" data-id="${i.id}">
+        <h3 class="hk-title">
+          ${i.pending ? '<span class="hk-badge" style="background:#999">承認待ち</span>' : isNew(i) ? '<span class="hk-badge">NEW</span>' : ''}${i.type === 'skill' ? '<span class="hk-badge hk-skill">SKILL</span>' : ''}${escapeHtml(i.title)}
         </h3>
-        <p class="desc">${escapeHtml(i.desc)}</p>
-        <div><span class="chip"><span class="dot"></span>${escapeHtml(i.tool)}</span></div>
-        <div>${i.tags.map((t) => `<span class="chip tag">${escapeHtml(t)}</span>`).join('')}</div>
-        <div class="meta">
+        <p class="hk-desc">${escapeHtml(i.desc)}</p>
+        <div><span class="hk-chip"><span class="hk-dot"></span>${escapeHtml(i.tool)}</span></div>
+        <div>${i.tags.map((t) => `<span class="hk-chip hk-tag">${escapeHtml(t)}</span>`).join('')}</div>
+        <div class="hk-meta">
           <span>${escapeHtml(i.author)}</span>
-          <button class="like ${i.liked ? 'on' : ''}" data-act="like" data-id="${i.id}">${i.liked ? '♥' : '♡'} ${i.likes}</button>
+          <button class="hk-like ${i.liked ? 'hk-on' : ''}" data-act="like" data-id="${i.id}">${i.liked ? '♥' : '♡'} ${i.likes}</button>
           ${i.downloads !== undefined ? `<span>⬇ ${i.downloads}</span>` : ''}
         </div>
-        <div class="actions">
-          <button class="btn" data-act="copy" data-id="${i.id}">${i.type === 'skill' ? 'Skillをコピー' : 'プロンプトをコピー'}</button>
-          <button class="btn ghost" data-act="download" data-id="${i.id}">ダウンロード</button>
+        <div class="hk-actions">
+          <button class="hk-btn" data-act="copy" data-id="${i.id}">${i.type === 'skill' ? 'Skillをコピー' : 'プロンプトをコピー'}</button>
+          <button class="hk-btn hk-ghost" data-act="download" data-id="${i.id}">ダウンロード</button>
         </div>
-      </div>`).join('') : '<div class="empty">該当する投稿がありません</div>'
+      </div>`).join('') : '<div class="hk-empty">該当する投稿がありません</div>'
   }
 
   async function reload() {
     try { items = await store.list(); render() }
     catch (e) {
       console.error('[hackathon-gallery] list failed', e)
-      $('.grid').innerHTML = '<div class="empty">一覧を読み込めませんでした。時間をおいて再度お試しください。</div>'
+      $('.hk-grid').innerHTML = '<div class="hk-empty">一覧を読み込めませんでした。時間をおいて再度お試しください。</div>'
     }
   }
 
   const needLogin = (e) => { console.error('[hackathon-gallery]', e); toast('操作できませんでした。ログインしているか確認してください') }
 
-  function openOverlay(name) { $(`[data-ov="${name}"]`).classList.add('open') }
-  function closeOverlays() { sdk.$$('.overlay').forEach((o) => o.classList.remove('open')) }
+  function openOverlay(name) { $(`[data-ov="${name}"]`).classList.add('hk-open') }
+  function closeOverlays() { sdk.$$('.hk-overlay').forEach((o) => o.classList.remove('hk-open')) }
 
   function openDetail(id) {
     const it = items.find((i) => i.id === id)
-    $('.detail').innerHTML = `
+    $('.hk-detail').innerHTML = `
       <h2>${escapeHtml(it.title)}</h2>
       <p style="color:var(--muted);font-size:14px;line-height:1.8">${escapeHtml(it.desc)}</p>
-      <div><span class="chip"><span class="dot"></span>${escapeHtml(it.tool)}</span>${it.tags.map((t) => `<span class="chip tag">${escapeHtml(t)}</span>`).join('')}</div>
-      <pre class="body">${escapeHtml(it.body)}</pre>
-      <div class="actions" style="margin-top:14px">
-        <button class="btn" data-act="copy" data-id="${it.id}">コピー</button>
-        <button class="btn ghost" data-act="download" data-id="${it.id}">ダウンロード (${escapeHtml(fileName(it))})</button>
+      <div><span class="hk-chip"><span class="hk-dot"></span>${escapeHtml(it.tool)}</span>${it.tags.map((t) => `<span class="hk-chip hk-tag">${escapeHtml(t)}</span>`).join('')}</div>
+      <pre class="hk-body">${escapeHtml(it.body)}</pre>
+      <div class="hk-actions" style="margin-top:14px">
+        <button class="hk-btn" data-act="copy" data-id="${it.id}">コピー</button>
+        <button class="hk-btn hk-ghost" data-act="download" data-id="${it.id}">ダウンロード (${escapeHtml(fileName(it))})</button>
       </div>`
     openOverlay('detail')
   }
@@ -237,7 +237,7 @@ export async function init(sdk) {
       tags: v('tags').split(/[,、]/).map((s) => s.trim()).filter(Boolean).slice(0, 3),
     }
     const err = !draft.title ? 'タイトルを入力してください' : !draft.desc ? '概要を入力してください' : !draft.body ? '本文を入力してください' : ''
-    $('.err').textContent = err
+    $('.hk-err').textContent = err
     if (err) return
     try { await store.create(draft) } catch (err) { return needLogin(err) }
     closeOverlays()
@@ -248,7 +248,7 @@ export async function init(sdk) {
 
   const root = sdk.getContainer()
   root.addEventListener('click', async (e) => {
-    const tabEl = e.target.closest('.tab')
+    const tabEl = e.target.closest('.hk-tab')
     if (tabEl) { f.type = tabEl.dataset.type; f.tag = tabEl.dataset.tag; return render() }
     const actEl = e.target.closest('[data-act]')
     if (actEl) {
@@ -261,12 +261,12 @@ export async function init(sdk) {
       if (act === 'submit-post') return submitPost()
       if (act === 'close') return closeOverlays()
     }
-    if (e.target.classList.contains('overlay')) return closeOverlays()
-    const card = e.target.closest('.card')
+    if (e.target.classList.contains('hk-overlay')) return closeOverlays()
+    const card = e.target.closest('.hk-card')
     if (card) openDetail(card.dataset.id)
   })
-  $('.search').addEventListener('input', (e) => { f.q = e.target.value; render() })
-  $('.sort').addEventListener('change', (e) => { f.sort = e.target.value; render() })
+  $('.hk-search').addEventListener('input', (e) => { f.q = e.target.value; render() })
+  $('.hk-sort').addEventListener('change', (e) => { f.sort = e.target.value; render() })
 
   applyProps()
   sdk.on('propsChanged', (p) => { props = p || {}; applyProps(); render() })
